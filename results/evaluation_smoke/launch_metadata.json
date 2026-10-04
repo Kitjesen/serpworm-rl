@@ -1,0 +1,8 @@
+{
+  "scope": "interface smoke only, not a tracking benchmark",
+  "seconds_per_case": 0.2,
+  "cases": 4,
+  "controllers_per_case": 3,
+  "checkpoint_sha256": "46b6b1aa893cbc171bdd2fde7f7db58b263081564318db12dcfc20b2e8b2e87a",
+  "completed": true
+}

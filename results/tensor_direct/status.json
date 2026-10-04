@@ -1,4 +1,18 @@
 {
-  "status": "initializing",
-  "kind": "direct"
+  "status": "training",
+  "kind": "direct",
+  "rollouts": 2,
+  "samples": 256,
+  "optimizer_steps": 16,
+  "epochs": 8,
+  "rollout_wall_s": 141.67802481912076,
+  "samples_per_wall_s": 0.9034569769264966,
+  "optimizer_wall_s": 0.05145582556724548,
+  "mean_reward": 0.048823170363903046,
+  "completed_episodes": 0,
+  "successes": 0,
+  "physical_guard_failures": 0,
+  "mean_slip_m_s": 0.0024710667690149317,
+  "mean_goal_distance_m": 0.06986508946255551,
+  "elapsed_s": 414.7309366799891
 }

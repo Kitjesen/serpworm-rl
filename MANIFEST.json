@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-04T19:16:19.390390+00:00",
+  "generated_at_utc": "2026-10-04T19:20:39.013238+00:00",
   "origin": "https://github.com/Kitjesen/worm-sim",
   "origin_base_commit": "04c8177",
   "source_note": "Curated working-tree snapshot, including previously uncommitted experiments; not an unchanged copy of the origin commit.",
   "scope": "Current standalone GPU core/training, selected relevant evidence and demos; not the complete historical project archive.",
-  "file_count": 116,
-  "total_bytes": 42517603,
+  "file_count": 124,
+  "total_bytes": 45723651,
   "files": [
     {
       "path": ".gitattributes",
@@ -34,8 +34,8 @@
     },
     {
       "path": "evaluate_gpu.py",
-      "bytes": 4569,
-      "sha256": "5ecad89ca9737c24b3b8bd0c76d45c673a17f8a26bb490073bc315da413db12a"
+      "bytes": 4793,
+      "sha256": "6f93a5bf78c11b6fd0a924d8a5ebf485bd6d0c006774dc6db2fb5c7f95fbcb18"
     },
     {
       "path": "gpu_core.py",
@@ -263,9 +263,39 @@
       "sha256": "324390f60348d7e722111122988ac2efad0aa60558842ce6b01d6beaa7707e20"
     },
     {
+      "path": "results/evaluation_smoke/launch_metadata.json",
+      "bytes": 252,
+      "sha256": "37a46746f7398c07b8ca57bcdb994bac8a4b4e26e7e67b2068ee49688cccd122"
+    },
+    {
+      "path": "results/evaluation_smoke/status.json",
+      "bytes": 51,
+      "sha256": "990173c83b2d0f20aa4deec08fe8376bf8df6bd70059d0cced8520542431b6be"
+    },
+    {
+      "path": "results/evaluation_smoke/summary.json",
+      "bytes": 7019,
+      "sha256": "5502cfc59f3021e311b631ca3e7a89fa940a0495c794725c367cbf3dfba8f2f0"
+    },
+    {
+      "path": "results/evaluation_smoke/traces.pt",
+      "bytes": 12141,
+      "sha256": "00aed98498978cb2eb2747d2aeff48f0a7d2bca32d747f274e7c93f71d72492c"
+    },
+    {
+      "path": "results/evaluation_smoke_policy.pt",
+      "bytes": 1591517,
+      "sha256": "46b6b1aa893cbc171bdd2fde7f7db58b263081564318db12dcfc20b2e8b2e87a"
+    },
+    {
       "path": "results/foc_free_response.npz",
       "bytes": 78506,
       "sha256": "dbb932b2cfcb29722522ae3e385fdfd2869dc92d35af9c8bbe26be00a29148c5"
+    },
+    {
+      "path": "results/GPU_RUN.zh-CN.md",
+      "bytes": 1929,
+      "sha256": "e4ac0118e79b30e4688904c5bafb08ea0cdb541e626356b80ed9c49fc89be4e7"
     },
     {
       "path": "results/historical_physics/coupling_intervention.json",
@@ -523,9 +553,19 @@
       "sha256": "9c7c1a70a28701ae0b69166830b6e153c65d25c8adb94135462c7c918f269444"
     },
     {
+      "path": "results/tensor_direct/checkpoint.pt",
+      "bytes": 1591517,
+      "sha256": "46b6b1aa893cbc171bdd2fde7f7db58b263081564318db12dcfc20b2e8b2e87a"
+    },
+    {
       "path": "results/tensor_direct/config.json",
       "bytes": 1385,
       "sha256": "062f989afe7592897171df461a2ef9b6e0fa8d6f4063156e5f13d13ccc65ce86"
+    },
+    {
+      "path": "results/tensor_direct/learning.jsonl",
+      "bytes": 906,
+      "sha256": "18422c837e2b81cd3fb8f2901e75a1878c8d836940e338182e7f34f4fbf18ab8"
     },
     {
       "path": "results/tensor_direct/sources/check_migration.py",
@@ -564,8 +604,8 @@
     },
     {
       "path": "results/tensor_direct/status.json",
-      "bytes": 50,
-      "sha256": "b88a538a114ee74ea7bb76cb976f9270a052ec83d10967979dc0a45ca3b1b2ad"
+      "bytes": 487,
+      "sha256": "d1319c4fc8d521e8096484d03a49bf645e37b3852def4010c29bbc50b6543d00"
     },
     {
       "path": "run_pilots.py",
@@ -579,8 +619,8 @@
     },
     {
       "path": "train_gpu.py",
-      "bytes": 9122,
-      "sha256": "0da5ce3cc11cfd80f822da5a407bc8b47b2194dfedfd02654d50527531b1bb70"
+      "bytes": 9177,
+      "sha256": "801c9740222faa53c91d33ba1010cd2fbaf62bbed4d057387d2926013b116e2d"
     },
     {
       "path": "wheel_stiction.py",

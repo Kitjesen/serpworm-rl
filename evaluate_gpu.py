@@ -3,6 +3,7 @@
 No training, and no implicit claim of hardware or robust tracking performance.
 """
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import math
@@ -24,6 +25,8 @@ if __name__ == '__main__':
     # Only load a checkpoint from this trusted project, never an untrusted pickle.
     data = torch.load(args.checkpoint, map_location='cuda', weights_only=False)
     kind = data['config']['kind']
+    write(out/'config.json', {**vars(args), 'kind': kind, 'seed': 123, 'sensor_noise': False,
+                             'checkpoint_sha256': hashlib.sha256(Path(args.checkpoint).read_bytes()).hexdigest()})
     n = 3 if kind == 'direct' else 2
     env = TensorEnv(kind, n=n, seed=123, noise=False)
     model = ActorCritic(env.obs_size).cuda()

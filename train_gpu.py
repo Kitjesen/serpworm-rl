@@ -68,7 +68,7 @@ def train(args):
               'online_numeric_device': 'cuda', 'physics_dtype': 'float64', 'policy_dtype': 'float32',
               'cpu_scope': 'initialization, Python dispatch, boundary checks, serialization',
               'physics': 'uncalibrated candidate; unchanged split coupling; no full self-contact',
-              'algorithm': 'PPO fixed Kf=1; no option critic', 'dt_s': .00025, 'policy_hz': 10,
+              'algorithm': 'direct PPO without CPG' if args.kind == 'direct' else 'PPO fixed Kf=1; no option critic', 'dt_s': .00025, 'policy_hz': 10,
               'rollout_equivalence': 'same task/reward as prior pilot; torch RNG differs; no identical training trajectory claim'})
         shape = (args.horizon, args.envs)
         def buffer(*tail, dtype=torch.float32):
