@@ -1,0 +1,17 @@
+{
+  "type": "prescribed relative-joint kinematics; no dynamics",
+  "duration_s": 24,
+  "fps": 20,
+  "playback_speed": 1,
+  "amplitude_deg": 15.0,
+  "period_s": 4,
+  "adjacent_phase_lag_deg": 90,
+  "startup_ramp_s": 4,
+  "head_tail": "display convention: segment 0 is head, segment 4 tail; verify hardware mapping before deployment",
+  "body_frame": "plate centroid centered; mean body heading removed; no imposed forward translation",
+  "steel": "rest geometry only; no elastic solve",
+  "wheels": "no contact/rolling dynamics",
+  "minimum_nominal_adjacent_wheel_gap_mm": 18.098684908847822,
+  "checks": "relative joint rotations, amplitude, periodicity, zero sum of relative yaw verified",
+  "limitations": "not a locomotion, force feasibility or whole-body collision validation"
+}

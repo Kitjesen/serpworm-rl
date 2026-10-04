@@ -1,0 +1,38 @@
+{
+  "kind": "liu_foc",
+  "algorithm": "PPO; fixed Kf=1 stage (not full PPOC)",
+  "physics": "GPU corrected strain Jacobian, corotational beam candidate, implicit wheel contact, ideal ratchet; not fully validated",
+  "imu": "plate4 local frame rotated diag(-1,-1,1); no accelerometer or CPG observation in direct actor",
+  "direct_observation": "38 channels x10 frames at10Hz; encoder14,difference14,gyro3,last applied targets4,commands3",
+  "liu_observation": "simulated visual goal distance, velocity projection, motion-goal angle/rate, FOUR INTERSEGMENT EFFECTIVE CURVATURES (not paper soft-segment curvature), previous alpha4,Kf1,termination0",
+  "liu_differences": [
+    "steel robot and servo angle mapping",
+    "fixed-frequency training stage only",
+    "eight base channels use equivalent intersegment curvature",
+    "adapted 80mm goal distance/10mm radius and progress reward",
+    "coupling index convention explicit in matsuoka.py; not checked against author code"
+  ],
+  "task": "single visual goal, not same task as velocity branch",
+  "tendon_targets": "all ten fixed at zero, no active peristalsis",
+  "joint_limit_deg": 20,
+  "policy_hz": 10,
+  "control_hz": 50,
+  "dt": 0.00025,
+  "friction": 0.8,
+  "rolling": 0.06,
+  "batch": 2,
+  "seed": 7,
+  "requested_steps": 2048,
+  "max_training_wall_s": 1800,
+  "source_sha256": {
+    "check_controller.py": "cab6a04e55a520cfcba8f1b54acf85e5e61c16f71a28ea92851044d2ce40eb6a",
+    "matsuoka.py": "1651e311531e7a54026160426e542445f9388dacf2071b777c0fdcf069aff144",
+    "train.py": "f8887f7204294fce462710d02ba94f2b145fd7180d378ba7dedd81c266af6064",
+    "gpu_core.py": "654e156f68f36645593ec908f093a221d4e49e64d52c991e8c94aad93dad4544",
+    "wheel_stiction.py": "e81e1699900ca38fed9833dc147dad393e11970c3148aa0338e3e07fed45f44e",
+    "launch.py": "abb8d82494ccd399a8695349438706c7a122910337606c766effbd4c04b924b7",
+    "check_gpu.py": "71077e5254b639ee229e542a5c3f8107f323fb39306b981fc6a23dd8a214c31d",
+    "plot_controller.py": "d6d5c40ff02ecad0b62cb4975734e027cb3a73717eb4f8bdbe838bb4c312afe5"
+  },
+  "status": "pilot only; no convergence/hardware claim"
+}

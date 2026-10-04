@@ -1,0 +1,591 @@
+{
+  "generated_at_utc": "2026-10-04T19:16:19.390390+00:00",
+  "origin": "https://github.com/Kitjesen/worm-sim",
+  "origin_base_commit": "04c8177",
+  "source_note": "Curated working-tree snapshot, including previously uncommitted experiments; not an unchanged copy of the origin commit.",
+  "scope": "Current standalone GPU core/training, selected relevant evidence and demos; not the complete historical project archive.",
+  "file_count": 116,
+  "total_bytes": 42517603,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 90,
+      "sha256": "4c1b6d639ae5ea9df6b918e71828cb6dd6e70f2be931d07b41ae4846dca3edba"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 84,
+      "sha256": "070a89fa602892774a10daf605009d0d258ad55012880f35f3b982d79eef6421"
+    },
+    {
+      "path": "check_migration.py",
+      "bytes": 4519,
+      "sha256": "32125ba9979975875c7b56824a7411a3a8699497b6ccbe8463642c0f24caf453"
+    },
+    {
+      "path": "docs/ARCHITECTURE.zh-CN.md",
+      "bytes": 8112,
+      "sha256": "68e176d0faf2ea49d3e46b7bc5fcb5f988c01358b9e7d5608c3abb1e7b4d2dd7"
+    },
+    {
+      "path": "docs/GPU_MIGRATION.zh-CN.md",
+      "bytes": 3107,
+      "sha256": "1fe3552fc43d44a4539fa11aa0d5f759954f32ebc5499f6adc6ff42a7366f02c"
+    },
+    {
+      "path": "evaluate_gpu.py",
+      "bytes": 4569,
+      "sha256": "5ecad89ca9737c24b3b8bd0c76d45c673a17f8a26bb490073bc315da413db12a"
+    },
+    {
+      "path": "gpu_core.py",
+      "bytes": 31244,
+      "sha256": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962"
+    },
+    {
+      "path": "inputs/parameters.json",
+      "bytes": 7904,
+      "sha256": "403715adff23b4b5499d33d2ec7024be5f7a8e8766daa66eec3c818c5ef4022e"
+    },
+    {
+      "path": "inputs/topology_1.npz",
+      "bytes": 26594,
+      "sha256": "70d7f155b4d37b46dd3408c29f24f8854b98b53beba8f08a59a39711d1407043"
+    },
+    {
+      "path": "inputs/topology_2.npz",
+      "bytes": 50898,
+      "sha256": "963f0ea618e3c66d07421ad274c2b009c3d9f29b5d8cc7e0f36880899872b43d"
+    },
+    {
+      "path": "inputs/topology_5.npz",
+      "bytes": 123810,
+      "sha256": "33d93c9714184f70190fa278540a0aa694a37ce690df2045f3a45d11b067b241"
+    },
+    {
+      "path": "make_manifest.py",
+      "bytes": 1880,
+      "sha256": "4cde622dc34262b9971b5932dfbb14919a15df41c3345f797eae0532dcf6e023"
+    },
+    {
+      "path": "matsuoka_torch.py",
+      "bytes": 1717,
+      "sha256": "7f2e3f55d81e644bd84f2a71d7c948bdbc6d079597cb309ccc74ba786027365d"
+    },
+    {
+      "path": "media/historical_physics/5_h250_smooth_corrected_recovery2000_rrimplicit_1x.json",
+      "bytes": 414,
+      "sha256": "f3c29667ade64911754e78c203eb661a72a0ad5f658746a3e6c50e63d6a1cc78"
+    },
+    {
+      "path": "media/historical_physics/5_h250_smooth_corrected_recovery2000_rrimplicit_1x.mp4",
+      "bytes": 2065244,
+      "sha256": "eb290a2624281561fcf0e25bbb08c710abff00b5b896077fb607fab498dc13fe"
+    },
+    {
+      "path": "media/historical_physics/5_worm_retrograde_h250_cad_1x.json",
+      "bytes": 637,
+      "sha256": "6676b4dc58f2c25c95d6b226b72f90a4d9bb0916b62d6c2d3e3ebecb98c5ebab"
+    },
+    {
+      "path": "media/historical_physics/5_worm_retrograde_h250_cad_1x.mp4",
+      "bytes": 6252652,
+      "sha256": "5f9e000796618d55006e6d3ff5dca3c19c58b9e509c79bb84e23603a105edc79"
+    },
+    {
+      "path": "media/manual_kinematic/joint_commands.csv",
+      "bytes": 61477,
+      "sha256": "f37d62c9b1500cd6138dbb147aff4971752d90f254f4f29b0ed94e71acde6351"
+    },
+    {
+      "path": "media/manual_kinematic/manifest.json",
+      "bytes": 798,
+      "sha256": "5fbe4490793988fc3c8ae3626442e521b6b74d539de730d3a1e2f5a38d37c040"
+    },
+    {
+      "path": "media/manual_kinematic/manual_snake_oblique_clean.mp4",
+      "bytes": 3544021,
+      "sha256": "af994bd843fe4fc3b86650c14ae240de1aae25d7874f4fe8dd0bfb0df381207d"
+    },
+    {
+      "path": "media/manual_kinematic/manual_snake_top_clean.mp4",
+      "bytes": 2765319,
+      "sha256": "2d24fbf2c5d8b767d65306d0ee6b30dcd48f78726f9d4e1e16d74b3fc0659828"
+    },
+    {
+      "path": "media/manual_kinematic/manual_snake_top_wave.mp4",
+      "bytes": 3280829,
+      "sha256": "0a6813614edfa72419ce634be4d6070bb51a983822ef2870a7d9c92f4bf5fdba"
+    },
+    {
+      "path": "media/manual_kinematic/manual_wave.npz",
+      "bytes": 12016621,
+      "sha256": "e123401521b37a13713d28ca151ae983fd14a6a41f469d131272cf199b133b8d"
+    },
+    {
+      "path": "media/manual_kinematic/README.zh-CN.md",
+      "bytes": 1361,
+      "sha256": "d351d44de8022ffdee69f6074da42f0f31ee1633a51800aa2909424e044d88ea"
+    },
+    {
+      "path": "media/README.md",
+      "bytes": 1090,
+      "sha256": "bb0210079d4fe487cf53ccd52f7de4acc3b6b7d4233861e9d6d166c8ab91183d"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4885,
+      "sha256": "fbdbbffa69e2ce21ba035614c5a41b14224c6b0582a957d1d03247d6ccfb061d"
+    },
+    {
+      "path": "reference/BeamAdapter/AdaptiveBeamForceFieldAndMass.h",
+      "bytes": 9131,
+      "sha256": "7a197eb6256e8ba3208f692444362e2e71c43cadfcbc1703ddc21cd2777d15b5"
+    },
+    {
+      "path": "reference/BeamAdapter/AdaptiveBeamForceFieldAndMass.inl",
+      "bytes": 38233,
+      "sha256": "593876a5addb9149d80d6be5a11082069f88a40267e9fc524c9270b06eba226b"
+    },
+    {
+      "path": "reference/BeamAdapter/Authors.md",
+      "bytes": 505,
+      "sha256": "60f4a72e16d0cbaeb2666643f128c08187eeab067214ac882729fee5998a3e70"
+    },
+    {
+      "path": "reference/BeamAdapter/BeamInterpolation.h",
+      "bytes": 11363,
+      "sha256": "a2e1d39c0b02c77d8eb59bf9e8fcc6a008bd0f0c17de4ffd799d73ef40bbe69e"
+    },
+    {
+      "path": "reference/BeamAdapter/BeamInterpolation.inl",
+      "bytes": 26028,
+      "sha256": "520d3e1bcc4589a74c7c8d54ebb1c34d84e959574e9e27552611085b45ff2b38"
+    },
+    {
+      "path": "reference/BeamAdapter/LICENSE.md",
+      "bytes": 26526,
+      "sha256": "20c17d8b8c48a600800dfd14f95d5cb9ff47066a9641ddeab48dc54aec96e331"
+    },
+    {
+      "path": "reference/historical_docs/ISSUES.zh-CN.md",
+      "bytes": 5062,
+      "sha256": "0de802ab18a2bf7f3f9842d156a94f7ca1a0c9e0fff42ddb0c7f4611e367de6a"
+    },
+    {
+      "path": "reference/historical_docs/MODELS_AND_SCENARIOS.zh-CN.md",
+      "bytes": 60163,
+      "sha256": "b4c35165fa774a8e20fade190da93717b13b3179d954671550209c3cc8797262"
+    },
+    {
+      "path": "reference/historical_docs/README.zh-CN.md",
+      "bytes": 10240,
+      "sha256": "ed1df0b0ccd71df44555a1d941b7801483ea0c6d9598e1ac3f51e0213258b956"
+    },
+    {
+      "path": "reference/pilot_cpu_interface/check_controller.py",
+      "bytes": 2567,
+      "sha256": "cab6a04e55a520cfcba8f1b54acf85e5e61c16f71a28ea92851044d2ce40eb6a"
+    },
+    {
+      "path": "reference/pilot_cpu_interface/check_gpu.py",
+      "bytes": 1614,
+      "sha256": "71077e5254b639ee229e542a5c3f8107f323fb39306b981fc6a23dd8a214c31d"
+    },
+    {
+      "path": "reference/pilot_cpu_interface/evaluate.py",
+      "bytes": 3862,
+      "sha256": "343ef4b93be1376edb371a93c32252a4153d4b62c8c0ce295e28998526d5f5b6"
+    },
+    {
+      "path": "reference/pilot_cpu_interface/experiment.json",
+      "bytes": 4077,
+      "sha256": "3c86f8945b8c4003d9e9579d11a118af61112dc315c8fb2c50cb861a41b30d18"
+    },
+    {
+      "path": "reference/pilot_cpu_interface/matsuoka.py",
+      "bytes": 1735,
+      "sha256": "1651e311531e7a54026160426e542445f9388dacf2071b777c0fdcf069aff144"
+    },
+    {
+      "path": "reference/pilot_cpu_interface/requirements.txt",
+      "bytes": 53,
+      "sha256": "0bce3b08f9e7824ee0ecab7a779e103b28708b84561108f7208c4aafd710f660"
+    },
+    {
+      "path": "reference/pilot_cpu_interface/train.py",
+      "bytes": 16730,
+      "sha256": "f8887f7204294fce462710d02ba94f2b145fd7180d378ba7dedd81c266af6064"
+    },
+    {
+      "path": "reference/sofa_frozen/export_reference.original.py",
+      "bytes": 3420,
+      "sha256": "b9b5d61c42292f24e4cfe089b9d0b3d8b1583b806cb8a7082a44b89ff52b38d5"
+    },
+    {
+      "path": "reference/sofa_frozen/parameters_sofa_candidate.json",
+      "bytes": 7905,
+      "sha256": "28c507f6634c113b7540f09e63200263301f4f5c55dd203b9a7f0b40d01a56ee"
+    },
+    {
+      "path": "reference/sofa_frozen/README.md",
+      "bytes": 616,
+      "sha256": "8ca3687be84e52fb0366e6a2d5c5e19df39558b515caee9973768f9b149285c4"
+    },
+    {
+      "path": "reference/sofa_frozen/sofa_worm_env.py",
+      "bytes": 29023,
+      "sha256": "400cb198980bab98a98f38d2d3cf1be514c17c6482884f15a5576fd5f47d2aa2"
+    },
+    {
+      "path": "reference/sofa_frozen/StripSection.cpp",
+      "bytes": 2280,
+      "sha256": "d89b44049bc1183f43100b59a3ab34366c49689963f0507fac5cc63c7f9fecb5"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 28,
+      "sha256": "6ace8b0a0414d8fca643ba8e112686cd153fff78b2981c53314feb5a105f3d8f"
+    },
+    {
+      "path": "results/controller_checks.json",
+      "bytes": 2148,
+      "sha256": "773148043df7043221194dc78929dd13b4efe816e04a7cb7ac01ef70b2bf2156"
+    },
+    {
+      "path": "results/controller_checks.png",
+      "bytes": 190442,
+      "sha256": "de3042f1e08869e5494fa67058e3f168fa3f825a81499585b5fa4fb3ba754856"
+    },
+    {
+      "path": "results/controller_traces.npz",
+      "bytes": 45648,
+      "sha256": "324390f60348d7e722111122988ac2efad0aa60558842ce6b01d6beaa7707e20"
+    },
+    {
+      "path": "results/foc_free_response.npz",
+      "bytes": 78506,
+      "sha256": "dbb932b2cfcb29722522ae3e385fdfd2869dc92d35af9c8bbe26be00a29148c5"
+    },
+    {
+      "path": "results/historical_physics/coupling_intervention.json",
+      "bytes": 567,
+      "sha256": "e1d493fb165ac3118dc6ba3d0550b5e4f73f57d93ce83d71169d0aa0c0baf4e0"
+    },
+    {
+      "path": "results/historical_physics/cpu_benchmark.json",
+      "bytes": 560,
+      "sha256": "548dd06becb687dbcd1233236dca2cd6f82ae0eb991476ee45416048d2ff8b23"
+    },
+    {
+      "path": "results/historical_physics/gpu_benchmark.json",
+      "bytes": 1755,
+      "sha256": "cdec09bd257aad848fadae1711a6b2e890dc6db25769d2ba2c445085ec63c132"
+    },
+    {
+      "path": "results/historical_physics/kernel_validation.json",
+      "bytes": 1188,
+      "sha256": "5796b7368e6d9fdc2d86349679e45edee37745858af0fd3b5a694ce2dc052b93"
+    },
+    {
+      "path": "results/historical_physics/vibration_comparison.png",
+      "bytes": 289570,
+      "sha256": "aad8ecf760117706e11a47cb95fa5c932a1e49174a64d4034e8baa2a11943bd1"
+    },
+    {
+      "path": "results/historical_physics/wheel_stiction_validation.json",
+      "bytes": 2917,
+      "sha256": "cd21a661a31aa1d4a6eddd1b066bd5dc8d8ced1eb22752b4d360b8744625efba"
+    },
+    {
+      "path": "results/migration_checks.json",
+      "bytes": 971,
+      "sha256": "6d10cafbba97c0b3360156ec416563340c40500b7a21164c27337af59144dfe8"
+    },
+    {
+      "path": "results/migration_cpu_checks.json",
+      "bytes": 375,
+      "sha256": "d940cc39e511278c22f61c4a1958d6e032355351b7c1b7914e4f4d44f9e83e58"
+    },
+    {
+      "path": "results/pilot_cpu_interface/gpu_capture_check.json",
+      "bytes": 801,
+      "sha256": "b01bfe6e3d800ebd067232a07d838a6ad6b7bcfca07d0feb482e81d7e619b327"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_direct/checkpoint.json",
+      "bytes": 54,
+      "sha256": "b84d1e00dd56778b09e59da17e5ebcf66eedef327c98e00ac02dc33f1d41cefb"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_direct/checkpoint.zip",
+      "bytes": 1620735,
+      "sha256": "5d0465c0e15af12cceaeccb6ad0a54a09adf157a2b0acefb9973d57175e55f9f"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_direct/contract.json",
+      "bytes": 1921,
+      "sha256": "4d163a013cceae62301a34055dc27125f0c6f210e21ee6964fdc45040e2efccf"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_direct/evaluation/status.json",
+      "bytes": 83,
+      "sha256": "4cba21875f5b5592a777c6d2acd0a34517f702bd76cdc655ffe886be39cc1a12"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_direct/policy.zip",
+      "bytes": 1620735,
+      "sha256": "bffd898a5682a5e12b1d5ba365129e0ac9d3e83a8f6440952bfa23bef8eaefea"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_direct/status.json",
+      "bytes": 183,
+      "sha256": "e84457700f0040425f3c553d8b63833a437a80c084b5790054624306f562551f"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_direct.log",
+      "bytes": 6521,
+      "sha256": "2968447b337d21cb55799c28639d30945a0d68b9e6f35e7f785d305065717429"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/checkpoint.json",
+      "bytes": 53,
+      "sha256": "6c010566e8ee5f84750127dd2f4b7f5f0a5cdda8e8a8004810f400323e3d35a2"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/checkpoint.zip",
+      "bytes": 479626,
+      "sha256": "1579457bea77a561c2f0eeffa863ffeffd6cf6d5f873007c5415927e4de13574"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/contract.json",
+      "bytes": 2111,
+      "sha256": "b5a1bf0f842fb310044e71301f389595756c56803974aaa129e4097eeedad19f"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/evaluation/learned_poses.npz",
+      "bytes": 2352617,
+      "sha256": "ca38c02b9be060246426d593e4446b39377512031e9aaba65f27d4095a95393f"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/evaluation/records.json",
+      "bytes": 602748,
+      "sha256": "ba27378e279e0ced9bb5a1e50146c5af2cfe780796afe9c5fa9784f9c6fa1621"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/evaluation/status.json",
+      "bytes": 51,
+      "sha256": "dde00c18c643dca89fd47ecc917715da7ce85f3e358de0401e1f745dd250c66e"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/evaluation/summary.json",
+      "bytes": 3010,
+      "sha256": "e4d3d7cf38c507dccf5411a69d410b071d000c2741872271399a32edeccdd2b2"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/policy.zip",
+      "bytes": 479626,
+      "sha256": "96cc455e8df30c2f0c63dec53f11023552e95b7182a7d76bbe9a8b1cd49367fc"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu/status.json",
+      "bytes": 179,
+      "sha256": "3f06f8d6e6dd68e9197a464ea170ba4dbcc08110d1d3dc4c78b7b618ae80e8c9"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu.log",
+      "bytes": 5616,
+      "sha256": "395ee380b1197e74e6ac42cdb4b63ac58215dcc44f27024e39bdf359a1d3c82a"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/checkpoint.json",
+      "bytes": 53,
+      "sha256": "ef9439edc93c11acdf42fbd25f69e19194c22b6244b4d5f38cfab6034ed2e246"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/checkpoint.zip",
+      "bytes": 479626,
+      "sha256": "ba3b2701c304c9264292c882b611e97eec4b8eee9a6c36f83e8ffb68c710dd6f"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/contract.json",
+      "bytes": 2115,
+      "sha256": "998645c0dc92942ba1ab4eb5cca1748cd2c851e2674f50b09aa8378e6a4f65b0"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/evaluation/learned_poses.npz",
+      "bytes": 2354612,
+      "sha256": "58a10b32a1f45b6a667d25642aebb0fe18c941e63bce9dbfe41b58e219122651"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/evaluation/records.json",
+      "bytes": 601139,
+      "sha256": "2d2fc0c959dad94616bfa3ae5c8d4f6e9bfb63476e10886b7692a668251b2501"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/evaluation/status.json",
+      "bytes": 51,
+      "sha256": "dde00c18c643dca89fd47ecc917715da7ce85f3e358de0401e1f745dd250c66e"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/evaluation/summary.json",
+      "bytes": 2996,
+      "sha256": "87f9628b7c79219709855f6dd05bf34ffc899635d7970b932266244710fa39bc"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/policy.zip",
+      "bytes": 479626,
+      "sha256": "505c93b592f7b44b883efe61d7a8c86c96bad13a460d13a21d57a31716872908"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc/status.json",
+      "bytes": 183,
+      "sha256": "9c8c91595a48410dddb2bacd81ddd1c72a7aa82dea9b65aa05811be6aeefbd38"
+    },
+    {
+      "path": "results/pilot_cpu_interface/pilot_liu_foc.log",
+      "bytes": 5638,
+      "sha256": "09527fc40be6b74c96d870bec869170f46bf372a8bfb2bbe4735843326ae7db2"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_direct/contract.json",
+      "bytes": 1836,
+      "sha256": "a7ce1d275ec53180ccdd4b89accd67f47d90e3d4f8d4f7a81d0de48f503e6d09"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_direct/smoke.json",
+      "bytes": 54251,
+      "sha256": "2f2f2fd257b09b40799fc8fc49d031317dc350634b62c0e6ffe97cd260a29e00"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_direct/status.json",
+      "bytes": 797,
+      "sha256": "19f7608c3e8e10ccb654f1bd389d6d2d2ea62fba89951e8bff8dc1ed381f91db"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_direct.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_liu/contract.json",
+      "bytes": 1929,
+      "sha256": "3349a698b1980e218d86d5c2de9f7ef75777878639465e9845e0d2f11662c574"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_liu/smoke.json",
+      "bytes": 59081,
+      "sha256": "e8eb50d9a6ab4500040ee081d01d554a7251333cd0ab7725fca7f8e227f200fa"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_liu/status.json",
+      "bytes": 844,
+      "sha256": "7551dbc5feb17edb295e42c198f732210468ce57ef941674a0e437cbb1986409"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_liu.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_liu_foc/contract.json",
+      "bytes": 1933,
+      "sha256": "e6623763e17da2d0fbcea61da2b5eebc1973b6ae13deb798394f3eff7f562ed3"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_liu_foc/smoke.json",
+      "bytes": 59052,
+      "sha256": "05434a13287d3b907c0d520910f19bcbef929de2096909f3935dfef8b2b145df"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_liu_foc/status.json",
+      "bytes": 849,
+      "sha256": "80a9f7c1508e9e49ec1dc3fb3ce8343025fa75e73ed8f5a92505623e52f87dd2"
+    },
+    {
+      "path": "results/pilot_cpu_interface/smoke_liu_foc.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "results/pilot_cpu_interface/snapshot.json",
+      "bytes": 5676,
+      "sha256": "4fd7e6f403358a9fc34cee5203388534a928a2e797c717808590a1ba7854f511"
+    },
+    {
+      "path": "results/PILOT_FINDINGS.zh-CN.md",
+      "bytes": 1512,
+      "sha256": "65da709d11d100a2d6daa8bfe9387945d4dcf28951aa7a067b529fc7cbc44b89"
+    },
+    {
+      "path": "results/README.md",
+      "bytes": 1379,
+      "sha256": "9c7c1a70a28701ae0b69166830b6e153c65d25c8adb94135462c7c918f269444"
+    },
+    {
+      "path": "results/tensor_direct/config.json",
+      "bytes": 1385,
+      "sha256": "062f989afe7592897171df461a2ef9b6e0fa8d6f4063156e5f13d13ccc65ce86"
+    },
+    {
+      "path": "results/tensor_direct/sources/check_migration.py",
+      "bytes": 4519,
+      "sha256": "32125ba9979975875c7b56824a7411a3a8699497b6ccbe8463642c0f24caf453"
+    },
+    {
+      "path": "results/tensor_direct/sources/gpu_core.py",
+      "bytes": 31244,
+      "sha256": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962"
+    },
+    {
+      "path": "results/tensor_direct/sources/matsuoka_torch.py",
+      "bytes": 1717,
+      "sha256": "7f2e3f55d81e644bd84f2a71d7c948bdbc6d079597cb309ccc74ba786027365d"
+    },
+    {
+      "path": "results/tensor_direct/sources/run_pilots.py",
+      "bytes": 870,
+      "sha256": "f00bf4bdc2546f4eab52c0caf5f15439d682ea4a06a79b0646c3d5a1d271dd9d"
+    },
+    {
+      "path": "results/tensor_direct/sources/tensor_env.py",
+      "bytes": 11888,
+      "sha256": "5348323250a92d44c28a9b97da49cdd425aaeca3a1fe6dba57e8ad733c676df9"
+    },
+    {
+      "path": "results/tensor_direct/sources/train_gpu.py",
+      "bytes": 9016,
+      "sha256": "0d29347afa896d021a12fa9d984755ed81323e40e6ad0a2c42d17468f676b823"
+    },
+    {
+      "path": "results/tensor_direct/sources/wheel_stiction.py",
+      "bytes": 3477,
+      "sha256": "e81e1699900ca38fed9833dc147dad393e11970c3148aa0338e3e07fed45f44e"
+    },
+    {
+      "path": "results/tensor_direct/status.json",
+      "bytes": 50,
+      "sha256": "b88a538a114ee74ea7bb76cb976f9270a052ec83d10967979dc0a45ca3b1b2ad"
+    },
+    {
+      "path": "run_pilots.py",
+      "bytes": 1298,
+      "sha256": "15f23a4df74348349337cbfdc73f6f5ea1cd216cfcbd1fbfa496eab0a6e8605f"
+    },
+    {
+      "path": "tensor_env.py",
+      "bytes": 12008,
+      "sha256": "22bd018c1b567017d357960479b8bbd4547aa8d22564550adaa15c8a7ee563fc"
+    },
+    {
+      "path": "train_gpu.py",
+      "bytes": 9122,
+      "sha256": "0da5ce3cc11cfd80f822da5a407bc8b47b2194dfedfd02654d50527531b1bb70"
+    },
+    {
+      "path": "wheel_stiction.py",
+      "bytes": 3477,
+      "sha256": "e81e1699900ca38fed9833dc147dad393e11970c3148aa0338e3e07fed45f44e"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "video": "D:\\doso\\robot\\worm-sim-ribbon-publish\\single_segment\\physics_core_20261003\\v2_gpu\\5_worm_retrograde_h250_cad_1x.mp4",
+  "frames": 375,
+  "duration_s": 15.0,
+  "source": "GPUCore CUDA states",
+  "playback_speed": 1,
+  "all_acceptance_gates_passed": true,
+  "diagnostic": false,
+  "source_sha256": "2f17b67c4ddee81daf9fa063b256f9a5ce1640e3159003ba417c72c04a2d3057",
+  "connector_axes_visible": false,
+  "physics_rerun": false,
+  "render_sha256": "5b0664c3703a7fbeea2ef19b8459b759bb76066280877374f97881f3ea619aaf",
+  "trajectory_sha256": "2eb5394387d3fb69f335e911e9a5a229c0ee20690e932dbb511e65dbfd9d3a8e"
+}

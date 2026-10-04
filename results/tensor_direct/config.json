@@ -1,0 +1,31 @@
+{
+  "kind": "direct",
+  "out": "/root/steel-snake-gpu/results/tensor_direct",
+  "envs": 2,
+  "horizon": 64,
+  "rollouts": 8,
+  "epochs": 4,
+  "batch_size": 64,
+  "seed": 7,
+  "seconds": 1800.0,
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "source_sha256": {
+    "check_migration.py": "32125ba9979975875c7b56824a7411a3a8699497b6ccbe8463642c0f24caf453",
+    "gpu_core.py": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962",
+    "matsuoka_torch.py": "7f2e3f55d81e644bd84f2a71d7c948bdbc6d079597cb309ccc74ba786027365d",
+    "tensor_env.py": "5348323250a92d44c28a9b97da49cdd425aaeca3a1fe6dba57e8ad733c676df9",
+    "train_gpu.py": "0d29347afa896d021a12fa9d984755ed81323e40e6ad0a2c42d17468f676b823",
+    "wheel_stiction.py": "e81e1699900ca38fed9833dc147dad393e11970c3148aa0338e3e07fed45f44e",
+    "run_pilots.py": "f00bf4bdc2546f4eab52c0caf5f15439d682ea4a06a79b0646c3d5a1d271dd9d"
+  },
+  "online_numeric_device": "cuda",
+  "physics_dtype": "float64",
+  "policy_dtype": "float32",
+  "cpu_scope": "initialization, Python dispatch, boundary checks, serialization",
+  "physics": "uncalibrated candidate; unchanged split coupling; no full self-contact",
+  "algorithm": "PPO fixed Kf=1; no option critic",
+  "dt_s": 0.00025,
+  "policy_hz": 10,
+  "rollout_equivalence": "same task/reward as prior pilot; torch RNG differs; no identical training trajectory claim"
+}

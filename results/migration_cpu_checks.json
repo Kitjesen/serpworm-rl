@@ -1,0 +1,11 @@
+{
+  "device": "cpu",
+  "checks": {
+    "cpg_c0.0_10s_max_abs_error": 1.3183898417423734e-16,
+    "cpg_c0.75_10s_max_abs_error": 4.163336342344337e-16,
+    "timeout_bootstrap_and_no_cross_episode_gae": true
+  },
+  "scope": "Port checks only; not calibrated mechanics, long-horizon stability or policy convergence.",
+  "wall_s": 10.922000000020489,
+  "passed": true
+}

@@ -1,0 +1,102 @@
+{
+  "results": [
+    {
+      "case": "straight",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0030381451909113955,
+        -8.187462754061903e-05,
+        0.00033104490184289253
+      ],
+      "mean_slip_m_s": 0.000580838038885979,
+      "peak_joint_deg": 9.466441366029285,
+      "work_proxy_j": 0.17927557012205503,
+      "final_goal_distance_m": 0.043679143125543954
+    },
+    {
+      "case": "straight",
+      "controller": "constant_tonic",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.002969872468733014,
+        4.846553059774427e-05,
+        0.00038360263509855326
+      ],
+      "mean_slip_m_s": 0.0005447107877682553,
+      "peak_joint_deg": 9.177336737266412,
+      "work_proxy_j": 0.15788976801803312,
+      "final_goal_distance_m": 0.044866298628278456
+    },
+    {
+      "case": "left",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.003037378350603063,
+        -7.948798354279451e-05,
+        0.0002694525656002765
+      ],
+      "mean_slip_m_s": 0.0005866321467314191,
+      "peak_joint_deg": 9.474327249129281,
+      "work_proxy_j": 0.17966166028387012,
+      "final_goal_distance_m": 0.049408087178180946
+    },
+    {
+      "case": "left",
+      "controller": "constant_tonic",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0029698724687167596,
+        4.846553061387071e-05,
+        0.0003836026179920284
+      ],
+      "mean_slip_m_s": 0.0005447107877286629,
+      "peak_joint_deg": 9.177336735706985,
+      "work_proxy_j": 0.1578897680112076,
+      "final_goal_distance_m": 0.050364378858124136
+    },
+    {
+      "case": "right",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.003039904761607543,
+        -8.464730079889105e-05,
+        0.0002597157563614335
+      ],
+      "mean_slip_m_s": 0.0005839735111410612,
+      "peak_joint_deg": 9.45874645939145,
+      "work_proxy_j": 0.17892961204378685,
+      "final_goal_distance_m": 0.05030693260335263
+    },
+    {
+      "case": "right",
+      "controller": "constant_tonic",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.002969872468472918,
+        4.8465530602252224e-05,
+        0.00038360262729505176
+      ],
+      "mean_slip_m_s": 0.00054471078745621,
+      "peak_joint_deg": 9.177336736151435,
+      "work_proxy_j": 0.1578897680070251,
+      "final_goal_distance_m": 0.051075885500252875
+    }
+  ],
+  "scope": "single seed, fixed mu=.8, no observation noise, 12s per case; pilot comparison, not robustness or convergence proof",
+  "cross_branch_comparison": "direct velocity and Liu visual-goal tasks differ; their rewards/success rates must not be ranked against each other"
+}

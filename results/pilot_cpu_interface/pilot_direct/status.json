@@ -1,0 +1,9 @@
+{
+  "status": "pilot_complete",
+  "kind": "direct",
+  "steps": 1090,
+  "optimizer_updates": 32,
+  "elapsed_s": 1800.8777230121195,
+  "converged": false,
+  "evaluation_pending": true
+}

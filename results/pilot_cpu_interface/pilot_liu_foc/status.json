@@ -1,0 +1,9 @@
+{
+  "status": "pilot_complete",
+  "kind": "liu_foc",
+  "steps": 938,
+  "optimizer_updates": 28,
+  "elapsed_s": 1801.9275981411338,
+  "converged": false,
+  "evaluation_pending": true
+}

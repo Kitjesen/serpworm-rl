@@ -1,0 +1,9 @@
+{
+  "status": "pilot_complete",
+  "kind": "liu",
+  "steps": 938,
+  "optimizer_updates": 28,
+  "elapsed_s": 1801.7214283943176,
+  "converged": false,
+  "evaluation_pending": true
+}

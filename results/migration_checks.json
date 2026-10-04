@@ -1,0 +1,29 @@
+{
+  "device": "cuda",
+  "checks": {
+    "cpg_c0.0_10s_max_abs_error": 1.6167622796103842e-15,
+    "cpg_c0.75_10s_max_abs_error": 4.6629367034256575e-15,
+    "timeout_bootstrap_and_no_cross_episode_gae": true,
+    "direct": {
+      "simulated_s": 0.4,
+      "gpu_observation_reward_policy_update": true,
+      "masked_reset_preserves_other_environment": true,
+      "mean_slip_m_s": 0.0015952266619867908
+    },
+    "liu": {
+      "simulated_s": 0.4,
+      "gpu_observation_reward_policy_update": true,
+      "masked_reset_preserves_other_environment": true,
+      "mean_slip_m_s": 0.0005646524174812212
+    },
+    "liu_foc": {
+      "simulated_s": 0.4,
+      "gpu_observation_reward_policy_update": true,
+      "masked_reset_preserves_other_environment": true,
+      "mean_slip_m_s": 0.0011606966939583384
+    }
+  },
+  "scope": "Port checks only; not calibrated mechanics, long-horizon stability or policy convergence.",
+  "wall_s": 188.01020141877234,
+  "passed": true
+}

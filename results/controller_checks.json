@@ -1,0 +1,78 @@
+{
+  "checks": [
+    {
+      "c": 0.0,
+      "input": "symmetric",
+      "rk4_vs_scipy_state_error": 1.4397099221963305e-06,
+      "half_step_output_error": 2.2480536408679697e-05,
+      "output_peak": [
+        0.40256659625624497,
+        0.32813929867159375,
+        0.23592701066286081,
+        0.22435654432706706
+      ],
+      "last_4s_peak_to_peak": [
+        0.5291686284095432,
+        0.39585595912784177,
+        0.45790203463833645,
+        0.43919536062668196
+      ]
+    },
+    {
+      "c": 0.0,
+      "input": "biased",
+      "rk4_vs_scipy_state_error": 1.8501908616297413e-07,
+      "half_step_output_error": 1.9146917149548415e-06,
+      "output_peak": [
+        0.500373396109278,
+        0.45177203602025623,
+        0.4473650851832814,
+        0.469855901548179
+      ],
+      "last_4s_peak_to_peak": [
+        0.47747679488651573,
+        0.19108266023809325,
+        0.025753722336789464,
+        0.01767888412400137
+      ]
+    },
+    {
+      "c": 0.75,
+      "input": "symmetric",
+      "rk4_vs_scipy_state_error": 4.420125127468921e-06,
+      "half_step_output_error": 8.972520450351018e-05,
+      "output_peak": [
+        0.890197666649826,
+        0.7215216210208547,
+        0.579703514503196,
+        0.5631281455075161
+      ],
+      "last_4s_peak_to_peak": [
+        1.3219187443989964,
+        1.0013449739594653,
+        1.1416121048423098,
+        1.100780800375667
+      ]
+    },
+    {
+      "c": 0.75,
+      "input": "biased",
+      "rk4_vs_scipy_state_error": 3.0736078426851776e-07,
+      "half_step_output_error": 7.326741579660734e-06,
+      "output_peak": [
+        1.0192851552223279,
+        0.9150646958110279,
+        0.8576487765936491,
+        0.9133710904603269
+      ],
+      "last_4s_peak_to_peak": [
+        1.3160657965288682,
+        0.9253549958100514,
+        1.19925114411704,
+        1.0944251669353846
+      ]
+    }
+  ],
+  "coordinate": "right handed, forward -worldX, left -worldY, up +worldZ",
+  "scope": "ODE integration verified; author code equivalence, locomotion and physical feasibility not established"
+}

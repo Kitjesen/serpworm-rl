@@ -1,0 +1,10 @@
+{
+  "video": "D:\\doso\\robot\\worm-sim-ribbon-publish\\single_segment\\physics_core_20261003\\v2_gpu\\5_h250_smooth_corrected_recovery2000_rrimplicit_1x.mp4",
+  "frames": 165,
+  "duration_s": 6.6,
+  "source": "GPUCore CUDA states",
+  "playback_speed": 1,
+  "all_acceptance_gates_passed": false,
+  "diagnostic": true,
+  "source_sha256": "2f17b67c4ddee81daf9fa063b256f9a5ce1640e3159003ba417c72c04a2d3057"
+}

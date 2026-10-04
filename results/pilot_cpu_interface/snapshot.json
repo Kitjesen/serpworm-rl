@@ -1,0 +1,203 @@
+{
+  "collected_at_utc": "2026-10-04T19:14:11.444493+00:00",
+  "files": [
+    "gpu_capture_check.json",
+    "smoke_direct/status.json",
+    "smoke_direct/contract.json",
+    "smoke_direct/smoke.json",
+    "smoke_direct.log",
+    "smoke_liu/status.json",
+    "smoke_liu/contract.json",
+    "smoke_liu/smoke.json",
+    "smoke_liu.log",
+    "smoke_liu_foc/status.json",
+    "smoke_liu_foc/contract.json",
+    "smoke_liu_foc/smoke.json",
+    "smoke_liu_foc.log",
+    "pilot_direct/status.json",
+    "pilot_direct/contract.json",
+    "pilot_direct/checkpoint.json",
+    "pilot_direct/checkpoint.zip",
+    "pilot_direct/policy.zip",
+    "pilot_direct.log",
+    "pilot_direct/evaluation/status.json",
+    "pilot_liu/status.json",
+    "pilot_liu/contract.json",
+    "pilot_liu/checkpoint.json",
+    "pilot_liu/checkpoint.zip",
+    "pilot_liu/policy.zip",
+    "pilot_liu.log",
+    "pilot_liu/evaluation/status.json",
+    "pilot_liu/evaluation/summary.json",
+    "pilot_liu/evaluation/records.json",
+    "pilot_liu/evaluation/learned_poses.npz",
+    "pilot_liu_foc/status.json",
+    "pilot_liu_foc/contract.json",
+    "pilot_liu_foc/checkpoint.json",
+    "pilot_liu_foc/checkpoint.zip",
+    "pilot_liu_foc/policy.zip",
+    "pilot_liu_foc.log",
+    "pilot_liu_foc/evaluation/status.json",
+    "pilot_liu_foc/evaluation/summary.json",
+    "pilot_liu_foc/evaluation/records.json",
+    "pilot_liu_foc/evaluation/learned_poses.npz"
+  ],
+  "statuses": {
+    "smoke_direct": {
+      "status": "smoke_passed",
+      "kind": "direct",
+      "elapsed_s": 55.22780529037118,
+      "physics_steps": 16000,
+      "final": {
+        "kind": "direct",
+        "physical_s": 4.0,
+        "command": [
+          0.008,
+          0.0,
+          0.0
+        ],
+        "velocity": [
+          0.003105245129936051,
+          0.0017832022223410917,
+          -0.006796133291821873
+        ],
+        "joint_deg": [
+          -1.3242464146687856,
+          -6.595669193741455,
+          1.6875495063551762,
+          6.71651931319592
+        ],
+        "target_deg": [
+          -1.564344650402311,
+          -9.876883405951377,
+          1.5643446504023097,
+          9.876883405951379
+        ],
+        "wheel_clearance_mm": 26.231577173351027,
+        "slip_m_s": 0.0007213412072691548,
+        "yaw_work_proxy_j": 0.0011574022525202789,
+        "failed": false,
+        "success": false,
+        "cpg_raw_peak": 0.0
+      }
+    },
+    "smoke_liu": {
+      "status": "smoke_passed",
+      "kind": "liu",
+      "elapsed_s": 171.43778018467128,
+      "physics_steps": 16000,
+      "final": {
+        "kind": "liu",
+        "physical_s": 4.0,
+        "command": [
+          0.008,
+          0.0,
+          0.0
+        ],
+        "velocity": [
+          0.0009967942178918392,
+          0.0005083042435650161,
+          -0.006079153400986619
+        ],
+        "joint_deg": [
+          0.07773703771376794,
+          -1.773278347938342,
+          -0.3113419291075115,
+          1.925447968168964
+        ],
+        "target_deg": [
+          -0.14876929307956904,
+          -3.5051991267017955,
+          0.0,
+          3.514953055745694
+        ],
+        "wheel_clearance_mm": 31.768450566861304,
+        "slip_m_s": 0.00011536577360360939,
+        "yaw_work_proxy_j": 9.940749106185506e-05,
+        "failed": false,
+        "success": false,
+        "cpg_raw_peak": 0.24460535674760725,
+        "goal_distance_m": 0.07774931205614101
+      }
+    },
+    "smoke_liu_foc": {
+      "status": "smoke_passed",
+      "kind": "liu_foc",
+      "elapsed_s": 171.30720989964902,
+      "physics_steps": 16000,
+      "final": {
+        "kind": "liu_foc",
+        "physical_s": 4.0,
+        "command": [
+          0.008,
+          0.0,
+          0.0
+        ],
+        "velocity": [
+          0.003269464176343979,
+          0.0015222613365474353,
+          -0.02282975976694725
+        ],
+        "joint_deg": [
+          -0.34589918195613667,
+          -5.313207803231835,
+          -0.49295090649646184,
+          6.079223245504781
+        ],
+        "target_deg": [
+          -0.8521224816587264,
+          -8.547315124877963,
+          0.0,
+          9.130396704702996
+        ],
+        "wheel_clearance_mm": 26.909771007845315,
+        "slip_m_s": 0.0004344872159427835,
+        "yaw_work_proxy_j": 0.00039917495766853385,
+        "failed": false,
+        "success": false,
+        "cpg_raw_peak": 0.6240138058176006,
+        "goal_distance_m": 0.07101460015408903
+      }
+    },
+    "pilot_direct": {
+      "status": "pilot_complete",
+      "kind": "direct",
+      "steps": 1090,
+      "optimizer_updates": 32,
+      "elapsed_s": 1800.8777230121195,
+      "converged": false,
+      "evaluation_pending": true
+    },
+    "pilot_direct/evaluation": {
+      "status": "evaluating",
+      "case": "right",
+      "physical_s": 10.100000000000001
+    },
+    "pilot_liu": {
+      "status": "pilot_complete",
+      "kind": "liu",
+      "steps": 938,
+      "optimizer_updates": 28,
+      "elapsed_s": 1801.7214283943176,
+      "converged": false,
+      "evaluation_pending": true
+    },
+    "pilot_liu/evaluation": {
+      "status": "evaluation_complete",
+      "cases": 3
+    },
+    "pilot_liu_foc": {
+      "status": "pilot_complete",
+      "kind": "liu_foc",
+      "steps": 938,
+      "optimizer_updates": 28,
+      "elapsed_s": 1801.9275981411338,
+      "converged": false,
+      "evaluation_pending": true
+    },
+    "pilot_liu_foc/evaluation": {
+      "status": "evaluation_complete",
+      "cases": 3
+    }
+  }
+}
