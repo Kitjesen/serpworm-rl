@@ -12,6 +12,7 @@ from pathlib import Path
 import signal
 import statistics
 import subprocess
+import sys
 import time
 import torch
 from gpu_core import GPUCore
@@ -23,7 +24,12 @@ def write(path, data):
 
 if __name__ == '__main__':
     p=argparse.ArgumentParser();p.add_argument('--pause-pid',type=int,default=0)
+    p.add_argument('--batches',type=int,nargs='+',default=[8,16,32,64,8])
+    p.add_argument('--steps',type=int,default=128);p.add_argument('--warmup',type=int,default=64)
+    p.add_argument('--rollout-envs',type=int,default=0,help='Also run one independent 64-step PPO rollout with this many environments')
     p.add_argument('--out',default='results/batch_scaling.json');args=p.parse_args()
+    if min(args.batches)<=0 or args.steps<=0 or args.steps%4 or args.warmup<0 or args.warmup%4 or args.rollout_envs<0:
+        p.error('Positive batches and steps required; steps/warmup must be multiples of 4')
     out=Path(args.out);out.parent.mkdir(parents=True,exist_ok=True)
     result={'status':'starting','results':[], 'scope':'Same corrected beam physics, 5 segments, dt=0.25ms; core-only timing, not full PPO throughput or physics validation.'}
     paused=False
@@ -45,10 +51,11 @@ if __name__ == '__main__':
         result['gpu']=torch.cuda.get_device_name()
         result['physics_sha256']=hashlib.sha256(Path(__file__).with_name('gpu_core.py').read_bytes()).hexdigest()
         result['status']='benchmarking';write(out,result)
-        for batch in (8,16,32,64,8):
+        for batch in args.batches:
+            result['current_batch']=batch;write(out,result)
             c=GPUCore(5,batch,dt=.00025,yaw_motor_speed=2.,strain_jacobian=True)
             c.yaw.copy_(c.tensor([.05,-.05,.05,-.05]).expand(batch,-1))
-            c.capture(4);c.advance_steps(64);torch.cuda.synchronize()
+            c.capture(4);c.advance_steps(args.warmup);torch.cuda.synchronize()
             names=('x','v','servo','target','yaw','spin','angle','memory','tension','support','failed')
             state={name:getattr(c,name).clone() for name in names}
             timings=[]
@@ -56,15 +63,26 @@ if __name__ == '__main__':
             for _ in range(3):
                 for name,value in state.items():getattr(c,name).copy_(value)
                 torch.cuda.synchronize();start=time.perf_counter()
-                c.advance_steps(128);torch.cuda.synchronize()
+                c.advance_steps(args.steps);torch.cuda.synchronize()
                 timings.append(time.perf_counter()-start)
                 assert not bool(c.failed) and bool(torch.isfinite(c.x).all())
-            seconds=statistics.median(timings)/128
-            row={'batch':batch,'steps_per_repeat':128,'repeat_wall_s':timings,'median_batch_step_ms':seconds*1000,
+            seconds=statistics.median(timings)/args.steps
+            free,total=torch.cuda.mem_get_info()
+            row={'batch':batch,'steps_per_repeat':args.steps,'warmup_steps':args.warmup,'repeat_wall_s':timings,'median_batch_step_ms':seconds*1000,
                  'core_equivalent_policy_samples_per_s':batch/(400*seconds),
-                 'peak_allocated_mib':torch.cuda.max_memory_allocated()/1024**2}
+                 'peak_allocated_mib':torch.cuda.max_memory_allocated()/1024**2,
+                 'reserved_mib':torch.cuda.memory_reserved()/1024**2,'device_used_mib':(total-free)/1024**2}
             result['results'].append(row);write(out,result);print(json.dumps(row),flush=True)
             del c,state;gc.collect();torch.cuda.empty_cache()
+        if args.rollout_envs:
+            rollout_out=out.parent/(out.stem+'_rollout')
+            result['status']='full_rollout';result['rollout_out']=str(rollout_out);write(out,result)
+            with rollout_out.with_suffix('.log').open('w') as log:
+                subprocess.run([sys.executable,str(Path(__file__).with_name('train_gpu.py')),
+                    '--kind','direct','--reward','tracking_v2','--envs',str(args.rollout_envs),
+                    '--horizon','64','--rollouts','1','--seconds','0','--seed','7','--out',str(rollout_out)],
+                    stdout=log,stderr=subprocess.STDOUT,check=True,timeout=1800)
+            result['full_rollout']=json.loads((rollout_out/'status.json').read_text())
         result['status']='complete'
     except BaseException as e:
         result['status']='failed';result['error']=repr(e);raise

@@ -1,0 +1,26 @@
+{
+  "status": "pilot_complete",
+  "kind": "direct",
+  "rollouts": 1,
+  "samples": 2048,
+  "reward_version": "tracking_v2",
+  "requested_rollouts": 1,
+  "optimizer_steps": 128,
+  "epochs": 4,
+  "rollout_wall_s": 243.53868287615478,
+  "samples_per_wall_s": 8.409341693949527,
+  "optimizer_wall_s": 0.8793147392570972,
+  "mean_reward": 0.009882058948278427,
+  "completed_episodes": 0,
+  "successes": 0,
+  "physical_guard_failures": 0,
+  "mean_slip_m_s": 0.0025376949711805484,
+  "elapsed_s": 265.1161447521299,
+  "training_velocity_rmse": [
+    0.008683118204658806,
+    0.00115265021946929,
+    0.03043737761528095
+  ],
+  "converged": false,
+  "stop_reason": "rollout_limit"
+}

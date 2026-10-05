@@ -1,0 +1,258 @@
+{
+  "kind": "direct",
+  "results": [
+    {
+      "case": "stop",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.00813507634997198,
+        0.00042746715284963595,
+        -0.03177544402071099
+      ],
+      "mean_slip_m_s": 0.0027362327936839323,
+      "work_proxy_j": 0.8899806644444069,
+      "min_clearance_m": 0.016889734856394077,
+      "peak_joint_deg": 15.142776978957098,
+      "velocity_rmse": [
+        0.008477600416527788,
+        0.0006694573440135684,
+        0.03595764317168442
+      ]
+    },
+    {
+      "case": "stop",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -6.056392716984289e-06,
+        -2.2196986588071665e-14,
+        -2.525731734320203e-13
+      ],
+      "mean_slip_m_s": 1.3522159343645577e-05,
+      "work_proxy_j": 1.838376803722515e-20,
+      "min_clearance_m": 0.033616033542463404,
+      "peak_joint_deg": 4.158248407442952e-09,
+      "velocity_rmse": [
+        1.7350768023877468e-05,
+        5.5076324612415695e-14,
+        6.295573473818304e-13
+      ]
+    },
+    {
+      "case": "stop",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -6.056392684833458e-06,
+        -4.0224344496999364e-14,
+        8.864166709537814e-14
+      ],
+      "mean_slip_m_s": 1.3522159189462336e-05,
+      "work_proxy_j": 1.2068355739428603e-20,
+      "min_clearance_m": 0.033616033544521216,
+      "peak_joint_deg": 8.632531689514468e-09,
+      "velocity_rmse": [
+        1.7350767923261264e-05,
+        9.486142605185202e-14,
+        2.774280266468959e-13
+      ]
+    },
+    {
+      "case": "straight",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.010056077496223786,
+        0.00023166716154571966,
+        -0.021615338942504773
+      ],
+      "mean_slip_m_s": 0.002517487769746577,
+      "work_proxy_j": 0.5032461512512669,
+      "min_clearance_m": 0.022000915544395934,
+      "peak_joint_deg": 10.717576955163318,
+      "velocity_rmse": [
+        0.006937273278128576,
+        0.0005543935265822282,
+        0.028529126628278702
+      ]
+    },
+    {
+      "case": "straight",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -6.056392716954497e-06,
+        -2.2195960438592083e-14,
+        -1.7230463340708812e-13
+      ],
+      "mean_slip_m_s": 1.3522159339543545e-05,
+      "work_proxy_j": 1.9868519092376278e-20,
+      "min_clearance_m": 0.03361603354246411,
+      "peak_joint_deg": 4.148427660800536e-09,
+      "velocity_rmse": [
+        0.00400608938877888,
+        5.418061367053815e-14,
+        5.085041090949458e-13
+      ]
+    },
+    {
+      "case": "straight",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.004665646848403478,
+        -0.00013881167687999465,
+        -0.0020437996613731106
+      ],
+      "mean_slip_m_s": 0.0011640692515883465,
+      "work_proxy_j": 0.528951919958051,
+      "min_clearance_m": 0.021332402570355402,
+      "peak_joint_deg": 11.137147267816198,
+      "velocity_rmse": [
+        0.0009187603183172247,
+        0.00251662341374681,
+        0.01236241270851914
+      ]
+    },
+    {
+      "case": "left",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.009169138269186453,
+        0.00094179941739544,
+        -0.0013942095033597345
+      ],
+      "mean_slip_m_s": 0.0030711453427460815,
+      "work_proxy_j": 0.6666779142532948,
+      "min_clearance_m": 0.017099903637712383,
+      "peak_joint_deg": 14.963063009513538,
+      "velocity_rmse": [
+        0.005503894955697048,
+        0.001065187231803031,
+        0.02835076823838194
+      ]
+    },
+    {
+      "case": "left",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -6.056392717012689e-06,
+        -2.2196046450383897e-14,
+        1.3775991579085695e-13
+      ],
+      "mean_slip_m_s": 1.3522159336806123e-05,
+      "work_proxy_j": 1.989016046111513e-20,
+      "min_clearance_m": 0.03361603354247817,
+      "peak_joint_deg": 4.15693069168625e-09,
+      "velocity_rmse": [
+        0.004006089388778919,
+        5.728569017106668e-14,
+        0.01999999999986224
+      ]
+    },
+    {
+      "case": "left",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.004665646849473643,
+        -0.00013881167680394017,
+        -0.002043799802371191
+      ],
+      "mean_slip_m_s": 0.0011640692505485713,
+      "work_proxy_j": 0.5289519199546366,
+      "min_clearance_m": 0.021332402569532463,
+      "peak_joint_deg": 11.13714726884357,
+      "velocity_rmse": [
+        0.0009187603189214135,
+        0.002516623413931964,
+        0.02519089599311883
+      ]
+    },
+    {
+      "case": "right",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.008654806341570473,
+        -0.00034968203384239566,
+        0.012351716627606295
+      ],
+      "mean_slip_m_s": 0.0025741361121288794,
+      "work_proxy_j": 0.6611305451406952,
+      "min_clearance_m": 0.021544873984440882,
+      "peak_joint_deg": 11.034571809970139,
+      "velocity_rmse": [
+        0.005427009140658437,
+        0.0005930757973595255,
+        0.037260763855620584
+      ]
+    },
+    {
+      "case": "right",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -6.056392716933845e-06,
+        -2.219632005201162e-14,
+        -4.259888740194746e-13
+      ],
+      "mean_slip_m_s": 1.3522159332665627e-05,
+      "work_proxy_j": 1.9548549624649494e-20,
+      "min_clearance_m": 0.03361603354246453,
+      "peak_joint_deg": 4.151387509606093e-09,
+      "velocity_rmse": [
+        0.004006089388778842,
+        5.493779244600034e-14,
+        0.01999999999957401
+      ]
+    },
+    {
+      "case": "right",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0046656468497522545,
+        -0.00013881167682235545,
+        -0.0020437997523155577
+      ],
+      "mean_slip_m_s": 0.0011640692517200586,
+      "work_proxy_j": 0.5289519200670665,
+      "min_clearance_m": 0.02133240256842598,
+      "peak_joint_deg": 11.137147269626842,
+      "velocity_rmse": [
+        0.0009187603191291491,
+        0.002516623414022355,
+        0.021704314279001876
+      ]
+    }
+  ],
+  "scope": "single seed, fixed friction, no noise, finite pilot evaluation; different tasks cannot be ranked together"
+}

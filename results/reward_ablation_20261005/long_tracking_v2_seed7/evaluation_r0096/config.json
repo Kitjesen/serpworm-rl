@@ -1,0 +1,9 @@
+{
+  "checkpoint": "/root/steel-snake-gpu/reward_ablation_20261005/results/long_tracking_v2_seed7/checkpoint.pt",
+  "seconds": 12.0,
+  "out": "/root/steel-snake-gpu/reward_ablation_20261005/results/long_tracking_v2_seed7/evaluation_r0096",
+  "kind": "direct",
+  "seed": 123,
+  "sensor_noise": false,
+  "checkpoint_sha256": "df726678b0bf33764de85d26af7fb29e26ab50ce02ca09c604c95364ca3d08cf"
+}

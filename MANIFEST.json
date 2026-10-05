@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-05T00:49:46.823358+00:00",
+  "generated_at_utc": "2026-10-05T04:54:08.207148+00:00",
   "origin": "https://github.com/Kitjesen/worm-sim",
   "origin_base_commit": "04c8177",
   "source_note": "Curated working-tree snapshot, including previously uncommitted experiments; not an unchanged copy of the origin commit.",
   "scope": "Current standalone GPU core/training, selected relevant evidence and demos; not the complete historical project archive.",
-  "file_count": 164,
-  "total_bytes": 48679369,
+  "file_count": 172,
+  "total_bytes": 51948989,
   "files": [
     {
       "path": ".gitattributes",
@@ -19,8 +19,8 @@
     },
     {
       "path": "bench_parallel.py",
-      "bytes": 3918,
-      "sha256": "4f0ba5c31f61fa181d64cff5eb8ff9b78eaa95a238e82c4dc15072bb5177f660"
+      "bytes": 5444,
+      "sha256": "ffa58c870c4513c9f8d660dcc8c2c7aa0512fad7acd66c33a9a8cb96403108a7"
     },
     {
       "path": "check_migration.py",
@@ -44,8 +44,8 @@
     },
     {
       "path": "docs/REWARD_ABLATION.zh-CN.md",
-      "bytes": 6722,
-      "sha256": "340c6b8cebbfae540d377585c06931186d5e145e387fb2c82e303f911f9e25ec"
+      "bytes": 9753,
+      "sha256": "9bc27e44d0916f348ca75b52df4464db3896cacf3b6f5757543caeb690398596"
     },
     {
       "path": "evaluate_gpu.py",
@@ -568,6 +568,31 @@
       "sha256": "9c7c1a70a28701ae0b69166830b6e153c65d25c8adb94135462c7c918f269444"
     },
     {
+      "path": "results/reward_ablation_20261005/batch_extended.json",
+      "bytes": 4153,
+      "sha256": "90a8ec20d20071a4481120dc1a7c697e46255e530c408f9329ebeaa1c1c79116"
+    },
+    {
+      "path": "results/reward_ablation_20261005/batch_extended_rollout/checkpoint.pt",
+      "bytes": 1591709,
+      "sha256": "fb75f48f4f1333e991162f3f07ba8779689da61392e51a255dca94cac552f41b"
+    },
+    {
+      "path": "results/reward_ablation_20261005/batch_extended_rollout/config.json",
+      "bytes": 2079,
+      "sha256": "d745719188d0a96952bab9fbb89c02ba9a06a82714856dd5e428a0fdb84b71d8"
+    },
+    {
+      "path": "results/reward_ablation_20261005/batch_extended_rollout/learning.jsonl",
+      "bytes": 559,
+      "sha256": "f893b5bdf8f12c803fe1efaacd3ea10ddc8f45038dd16648d849acbd5c86eba4"
+    },
+    {
+      "path": "results/reward_ablation_20261005/batch_extended_rollout/status.json",
+      "bytes": 674,
+      "sha256": "b5298c53db0846a11d497d9596efb98325297a32da08808a74d7a4bd5b403f1c"
+    },
+    {
       "path": "results/reward_ablation_20261005/batch_scaling.json",
       "bytes": 2038,
       "sha256": "f8797f12dbf42b0b8dc3d2a2545a87620b20954a396ad00ff83d771bb91f4746"
@@ -578,19 +603,34 @@
       "sha256": "38f8736f32f28043d950d32a07070481de05e69ad73b1d6909220eb915286d29"
     },
     {
+      "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/checkpoint_r0096.pt",
+      "bytes": 1591773,
+      "sha256": "df726678b0bf33764de85d26af7fb29e26ab50ce02ca09c604c95364ca3d08cf"
+    },
+    {
       "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/config.json",
       "bytes": 2035,
       "sha256": "6faa8b19e315731404eb81e625f1f86240a6eff1492357cea5a47a0f6d27ac08"
     },
     {
+      "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/evaluation_r0096/config.json",
+      "bytes": 390,
+      "sha256": "739120c0a9cd826d33e11e116340b0fbf45b4c934406da015532d88d954e12f3"
+    },
+    {
+      "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/evaluation_r0096/summary.json",
+      "bytes": 7010,
+      "sha256": "df7372902c469281103e5e137bcd2adba6761f74a3c0c140833c2617f4d1f368"
+    },
+    {
       "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/learning.jsonl",
-      "bytes": 3937,
-      "sha256": "688f9e1ce26532718d961648a7370834ae6881adddee49184626048b65fbe532"
+      "bytes": 70647,
+      "sha256": "77926ddd849e2572c5929c84b1fe4bcdefa605842a8d3775dea751d260c74f99"
     },
     {
       "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/status.json",
-      "bytes": 618,
-      "sha256": "33a54368ff8254c8ae4c152e4ab79757b0525b60e8f4d4a2d6f1cb821bd6dda1"
+      "bytes": 624,
+      "sha256": "df9f6caaa8f63356919860e120cb0894c5917e4b873df9f4742e6e82ca1b4093"
     },
     {
       "path": "results/reward_ablation_20261005/offline_rescoring.json",

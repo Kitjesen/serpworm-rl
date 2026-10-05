@@ -1,0 +1,143 @@
+{
+  "status": "complete",
+  "results": [
+    {
+      "batch": 8,
+      "steps_per_repeat": 128,
+      "warmup_steps": 64,
+      "repeat_wall_s": [
+        0.5269417762756348,
+        0.5268785897642374,
+        0.5268422272056341
+      ],
+      "median_batch_step_ms": 4.116238982533105,
+      "core_equivalent_policy_samples_per_s": 4.85880438061741,
+      "peak_allocated_mib": 28.23681640625,
+      "reserved_mib": 142.0,
+      "device_used_mib": 1728.625
+    },
+    {
+      "batch": 64,
+      "steps_per_repeat": 128,
+      "warmup_steps": 64,
+      "repeat_wall_s": [
+        2.220437005162239,
+        2.220373412594199,
+        2.220506215468049
+      ],
+      "median_batch_step_ms": 17.347164102829993,
+      "core_equivalent_policy_samples_per_s": 9.223409604679869,
+      "peak_allocated_mib": 52.7294921875,
+      "reserved_mib": 788.0,
+      "device_used_mib": 2376.625
+    },
+    {
+      "batch": 128,
+      "steps_per_repeat": 128,
+      "warmup_steps": 64,
+      "repeat_wall_s": [
+        4.377814354375005,
+        4.377772282809019,
+        4.377689942717552
+      ],
+      "median_batch_step_ms": 34.20134595944546,
+      "core_equivalent_policy_samples_per_s": 9.35635692172591,
+      "peak_allocated_mib": 79.6953125,
+      "reserved_mib": 1496.0,
+      "device_used_mib": 3084.625
+    },
+    {
+      "batch": 256,
+      "steps_per_repeat": 128,
+      "warmup_steps": 64,
+      "repeat_wall_s": [
+        8.939008932560682,
+        8.938940767198801,
+        8.938736656680703
+      ],
+      "median_batch_step_ms": 69.83547474374063,
+      "core_equivalent_policy_samples_per_s": 9.164396781842788,
+      "peak_allocated_mib": 124.39990234375,
+      "reserved_mib": 2870.0,
+      "device_used_mib": 4460.625
+    },
+    {
+      "batch": 512,
+      "steps_per_repeat": 128,
+      "warmup_steps": 64,
+      "repeat_wall_s": [
+        18.263123512268066,
+        18.312061985954642,
+        18.311971282586455
+      ],
+      "median_batch_step_ms": 143.06227564520668,
+      "core_equivalent_policy_samples_per_s": 8.947152519608942,
+      "peak_allocated_mib": 205.7685546875,
+      "reserved_mib": 5720.0,
+      "device_used_mib": 7314.625
+    },
+    {
+      "batch": 64,
+      "steps_per_repeat": 128,
+      "warmup_steps": 64,
+      "repeat_wall_s": [
+        2.228955674916506,
+        2.230768296867609,
+        2.231624338775873
+      ],
+      "median_batch_step_ms": 17.427877319278196,
+      "core_equivalent_policy_samples_per_s": 9.180693498628935,
+      "peak_allocated_mib": 85.2294921875,
+      "reserved_mib": 868.0,
+      "device_used_mib": 2462.625
+    },
+    {
+      "batch": 8,
+      "steps_per_repeat": 128,
+      "warmup_steps": 64,
+      "repeat_wall_s": [
+        0.5287217106670141,
+        0.5294582583010197,
+        0.5287788063287735
+      ],
+      "median_batch_step_ms": 4.131084424443543,
+      "core_equivalent_policy_samples_per_s": 4.841343808337686,
+      "peak_allocated_mib": 76.98681640625,
+      "reserved_mib": 262.0,
+      "device_used_mib": 1856.625
+    }
+  ],
+  "scope": "Same corrected beam physics, 5 segments, dt=0.25ms; core-only timing, not full PPO throughput or physics validation.",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "physics_sha256": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962",
+  "current_batch": 8,
+  "rollout_out": "results/batch_extended_rollout",
+  "full_rollout": {
+    "status": "pilot_complete",
+    "kind": "direct",
+    "rollouts": 1,
+    "samples": 2048,
+    "reward_version": "tracking_v2",
+    "requested_rollouts": 1,
+    "optimizer_steps": 128,
+    "epochs": 4,
+    "rollout_wall_s": 243.53868287615478,
+    "samples_per_wall_s": 8.409341693949527,
+    "optimizer_wall_s": 0.8793147392570972,
+    "mean_reward": 0.009882058948278427,
+    "completed_episodes": 0,
+    "successes": 0,
+    "physical_guard_failures": 0,
+    "mean_slip_m_s": 0.0025376949711805484,
+    "elapsed_s": 265.1161447521299,
+    "training_velocity_rmse": [
+      0.008683118204658806,
+      0.00115265021946929,
+      0.03043737761528095
+    ],
+    "converged": false,
+    "stop_reason": "rollout_limit"
+  },
+  "training_resumed": true,
+  "wall_s": 406.5439505111426
+}
