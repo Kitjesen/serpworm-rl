@@ -1,0 +1,41 @@
+{
+  "scope": "Offline rescoring of fixed legacy trajectories; not evidence of learning improvement. Penalties inherited from saved total reward.",
+  "results": [
+    {
+      "case": "stop",
+      "controller": "learned",
+      "legacy_mean_reward": 0.14999645402034123,
+      "rescored_v2_mean_reward": 0.09999596027328606
+    },
+    {
+      "case": "stop",
+      "controller": "zero_action",
+      "legacy_mean_reward": 0.1499964622159799,
+      "rescored_v2_mean_reward": 0.09999541683631738
+    },
+    {
+      "case": "stop",
+      "controller": "fixed_wave",
+      "legacy_mean_reward": 0.1499964622159799,
+      "rescored_v2_mean_reward": 0.09999541683623987
+    },
+    {
+      "case": "straight",
+      "controller": "learned",
+      "legacy_mean_reward": 0.11493979611744483,
+      "rescored_v2_mean_reward": 0.0028736695741571837
+    },
+    {
+      "case": "straight",
+      "controller": "zero_action",
+      "legacy_mean_reward": 0.11402898679176966,
+      "rescored_v2_mean_reward": -2.7043696232485757e-06
+    },
+    {
+      "case": "straight",
+      "controller": "fixed_wave",
+      "legacy_mean_reward": 0.12252695218970379,
+      "rescored_v2_mean_reward": 0.06543250988158095
+    }
+  ]
+}

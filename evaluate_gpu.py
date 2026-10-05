@@ -28,7 +28,7 @@ if __name__ == '__main__':
     write(out/'config.json', {**vars(args), 'kind': kind, 'seed': 123, 'sensor_noise': False,
                              'checkpoint_sha256': hashlib.sha256(Path(args.checkpoint).read_bytes()).hexdigest()})
     n = 3 if kind == 'direct' else 2
-    env = TensorEnv(kind, n=n, seed=123, noise=False)
+    env = TensorEnv(kind, n=n, seed=123, noise=False, reward_version=data['config'].get('reward', 'legacy'))
     model = ActorCritic(env.obs_size).cuda()
     model.load_state_dict(data['model']); model.eval()
     cases = [('stop', 0., 0.), ('straight', .004, 0.), ('left', .004, .02), ('right', .004, -.02)] if kind == 'direct' else [('straight', 0., 0.), ('left', 0., .45), ('right', 0., -.45)]

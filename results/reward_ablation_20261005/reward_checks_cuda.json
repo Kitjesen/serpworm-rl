@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "device": "cuda",
+  "legacy_equivalence": true,
+  "new_tracking_scores_without_penalties": [
+    0.0,
+    0.07500000000000001,
+    0.1,
+    0.0,
+    0.0,
+    0.07500000000000001,
+    0.05
+  ],
+  "legacy_stationary_score_4mm_s": 0.11411803960800171,
+  "legacy_perfect_score": 0.15,
+  "new_stationary_score_4mm_s": 0.0,
+  "new_perfect_score": 0.1,
+  "scope": "Reward arithmetic and ranking only; causal control benefit needs matched training/evaluation."
+}

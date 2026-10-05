@@ -5,6 +5,9 @@ Host synchronization only at rollout/report boundaries. No SB3/NumPy bridge.
 import argparse
 import hashlib
 import json
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 import time
 import torch
@@ -60,7 +63,7 @@ def train(args):
     try:
         torch.set_num_threads(1)
         torch.manual_seed(args.seed)
-        env = TensorEnv(args.kind, args.envs, args.seed)
+        env = TensorEnv(args.kind, args.envs, args.seed, reward_version=args.reward)
         model = ActorCritic(env.obs_size).cuda()
         optimizer = torch.optim.Adam(model.parameters(), lr=3e-4, eps=1e-5)
         write(out/'config.json', {**vars(args), 'torch': torch.__version__, 'gpu': torch.cuda.get_device_name(),
@@ -69,7 +72,11 @@ def train(args):
               'cpu_scope': 'initialization, Python dispatch, boundary checks, serialization',
               'physics': 'uncalibrated candidate; unchanged split coupling; no full self-contact',
               'algorithm': 'direct PPO without CPG' if args.kind == 'direct' else 'PPO fixed Kf=1; no option critic', 'dt_s': .00025, 'policy_hz': 10,
-              'rollout_equivalence': 'same task/reward as prior pilot; torch RNG differs; no identical training trajectory claim'})
+              'reward_scope': 'reward selection applies only to direct velocity task; CPG goal reward unchanged',
+              'rollout_equivalence': 'physics, observation, task, penalties unchanged; direct tracking term selected explicitly'})
+        (out/'sources').mkdir()
+        for source in Path(__file__).parent.glob('*.py'):
+            shutil.copy2(source, out/'sources'/source.name)
         shape = (args.horizon, args.envs)
         def buffer(*tail, dtype=torch.float32):
             return torch.empty(*shape, *tail, device='cuda', dtype=dtype)
@@ -83,14 +90,17 @@ def train(args):
             t0 = time.monotonic()
             metric_sum = torch.zeros(8, device='cuda', dtype=torch.float64)
             done_counts = torch.zeros(3, device='cuda', dtype=torch.long)
+            error_sum = torch.zeros(3, device='cuda', dtype=torch.float64)
             with torch.no_grad():
                 for t in range(args.horizon):
                     action, logp, _, value = model(obs)
+                    command = env.cmd.clone()
                     obsbuf[t], actionbuf[t], logbuf[t], valbuf[t] = obs, action, logp, value
                     obs, reward, terminated, truncated, terminal_obs, metrics = env.step(action)
                     rewbuf[t], termbuf[t], truncbuf[t] = reward, terminated, truncated
                     nextbuf[t] = model.critic(terminal_obs).squeeze(-1)
                     metric_sum += metrics.sum(0)
+                    error_sum += (env.last_velocity-command).square().sum(0)
                     done_counts += torch.stack(((terminated | truncated).sum(), (metrics[:, 6] > 0).sum(), (metrics[:, 5] > 0).sum()))
             # Block invalid rollouts before any learning. Synchronization is deliberate here.
             if bool(env.c.failed) or not bool(torch.isfinite(obsbuf).all() & torch.isfinite(rewbuf).all() & torch.isfinite(obs).all() & torch.isfinite(nextbuf).all()):
@@ -125,22 +135,36 @@ def train(args):
             completed += counts[0]; successes += counts[1]; failures += counts[2]
             metrics = (metric_sum/total).cpu().tolist()
             report = dict(status='training', kind=args.kind, rollouts=rollout, samples=samples,
+                          reward_version=args.reward, requested_rollouts=args.rollouts,
                           optimizer_steps=updates, epochs=rollout*args.epochs, rollout_wall_s=rollout_s,
                           samples_per_wall_s=total/rollout_s, optimizer_wall_s=optimize_s,
                           mean_reward=float(rewbuf.mean()), completed_episodes=completed,
                           successes=successes, physical_guard_failures=failures,
                           mean_slip_m_s=metrics[0], mean_goal_distance_m=metrics[4], elapsed_s=time.monotonic()-start)
+            if args.kind == 'direct':
+                report.pop('mean_goal_distance_m')
+                report['training_velocity_rmse'] = (error_sum/total).sqrt().cpu().tolist()
             checkpoint = {'model': model.state_dict(), 'optimizer': optimizer.state_dict(), 'obs_size': env.obs_size,
                           'config': vars(args), 'report': report, 'scope': 'pilot, not convergence or hardware validation'}
             torch.save(checkpoint, out/'checkpoint.tmp.pt')
             (out/'checkpoint.tmp.pt').replace(out/'checkpoint.pt')
+            if args.save_every and (rollout % args.save_every == 0 or rollout == args.rollouts):
+                shutil.copy2(out/'checkpoint.pt', out/f'checkpoint_r{rollout:04d}.pt')
             write(out/'status.json', report)
             with (out/'learning.jsonl').open('a', encoding='utf-8') as f:
                 f.write(json.dumps(report)+'\n')
             print(json.dumps(report), flush=True)
-            if time.monotonic()-start >= args.seconds:
+            if args.eval_every and rollout % args.eval_every == 0:
+                evaluation_dir = out/f'evaluation_r{rollout:04d}'
+                write(out/'status.json', {**report, 'status': 'evaluating_checkpoint', 'evaluation_dir': str(evaluation_dir)})
+                with (out/f'evaluation_r{rollout:04d}.log').open('w') as log:
+                    subprocess.run([sys.executable, '-u', str(Path(__file__).with_name('evaluate_gpu.py')),
+                                    str(out/'checkpoint.pt'), '--out', str(evaluation_dir)],
+                                   stdout=log, stderr=subprocess.STDOUT, check=True)
+            if args.seconds and time.monotonic()-start >= args.seconds:
                 break
-        write(out/'status.json', {**report, 'status': 'pilot_complete', 'converged': False})
+        write(out/'status.json', {**report, 'status': 'pilot_complete', 'converged': False,
+                                 'stop_reason': 'rollout_limit' if rollout == args.rollouts else 'wall_time_limit'})
     except BaseException as e:
         write(out/'status.json', dict(status='failed', error=repr(e), elapsed_s=time.monotonic()-start))
         raise
@@ -152,12 +176,15 @@ if __name__ == '__main__':
     parser.add_argument('--out', required=True)
     parser.add_argument('--envs', type=int, default=2)
     parser.add_argument('--horizon', type=int, default=64)
-    parser.add_argument('--rollouts', type=int, default=8)
+    parser.add_argument('--rollouts', type=int, default=256)
     parser.add_argument('--epochs', type=int, default=4)
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--seed', type=int, default=7)
-    parser.add_argument('--seconds', type=float, default=1800.)
+    parser.add_argument('--seconds', type=float, default=0., help='Wall limit; zero runs the requested finite rollout budget')
+    parser.add_argument('--reward', choices=['legacy', 'tracking_v2'], default='legacy')
+    parser.add_argument('--save-every', type=int, default=32, help='Retain a milestone checkpoint; zero disables extra copies')
+    parser.add_argument('--eval-every', type=int, default=0, help='Run held-out deterministic checks at this interval; zero disables')
     args = parser.parse_args()
-    if min(args.envs, args.horizon, args.rollouts, args.epochs, args.batch_size) < 1 or args.seconds <= 0:
-        parser.error('Counts and duration must be positive')
+    if min(args.envs, args.horizon, args.rollouts, args.epochs, args.batch_size) < 1 or args.seconds < 0 or min(args.save_every, args.eval_every) < 0:
+        parser.error('Counts must be positive; time limit and save interval nonnegative')
     train(args)

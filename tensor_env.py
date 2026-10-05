@@ -7,18 +7,22 @@ import math
 import torch
 from gpu_core import GPUCore, matrix
 from matsuoka_torch import Matsuoka
+from rewards import velocity_reward
 
 LIMIT = math.radians(20)
 STATE = ('x', 'v', 'servo', 'target', 'yaw', 'spin', 'angle', 'memory', 'tension', 'support')
 
 
 class TensorEnv:
-    def __init__(self, kind='direct', n=2, seed=7, device='cuda', dt=.00025, noise=True):
+    def __init__(self, kind='direct', n=2, seed=7, device='cuda', dt=.00025, noise=True, reward_version='legacy'):
         if kind not in ('direct', 'liu', 'liu_foc'):
             raise ValueError(kind)
         if device != 'cuda':
             raise ValueError('Physics training requires CUDA; CPU is only a numerical oracle.')
         self.kind, self.n, self.noise = kind, n, noise
+        if reward_version not in ('legacy', 'tracking_v2'):
+            raise ValueError(reward_version)
+        self.reward_version = reward_version
         self.c = GPUCore(5, n, device=device, dt=dt, yaw_motor_speed=2., strain_jacobian=True)
         self.c.capture(4)
         for _ in range(25):
@@ -190,9 +194,7 @@ class TensorEnv:
         action_cost = ((self.targets-old)/LIMIT).square().mean(-1)
         distance = (self.goals-x[:, 9, :2]).norm(dim=-1)
         if self.kind == 'direct':
-            ev = self.filtered_velocity[:, :2]-self.cmd[:, :2]
-            ew = self.filtered_velocity[:, 2]-self.cmd[:, 2]
-            reward = .1*((-ev.square().sum(-1)/.006**2).exp()+.5*(-(ew/.025).square()).exp()-.02*action_cost-.02*slip/.01)-.01*work
+            reward = velocity_reward(self.reward_version, self.filtered_velocity, self.cmd, action_cost, slip, work)
             success = torch.zeros_like(active[:, 0, 0])
         else:
             distance0 = (self.goals-x0[:, 9, :2]).norm(dim=-1)
