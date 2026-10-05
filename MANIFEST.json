@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-04T19:20:39.013238+00:00",
+  "generated_at_utc": "2026-10-05T00:10:20.604391+00:00",
   "origin": "https://github.com/Kitjesen/worm-sim",
   "origin_base_commit": "04c8177",
   "source_note": "Curated working-tree snapshot, including previously uncommitted experiments; not an unchanged copy of the origin commit.",
   "scope": "Current standalone GPU core/training, selected relevant evidence and demos; not the complete historical project archive.",
-  "file_count": 124,
-  "total_bytes": 45723651,
+  "file_count": 148,
+  "total_bytes": 46809107,
   "files": [
     {
       "path": ".gitattributes",
@@ -134,8 +134,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4885,
-      "sha256": "fbdbbffa69e2ce21ba035614c5a41b14224c6b0582a957d1d03247d6ccfb061d"
+      "bytes": 5245,
+      "sha256": "a47aea1e223fbf1771a85c6686c50fb06e275bf84f5706ab4e626c5643aa68c3"
     },
     {
       "path": "reference/BeamAdapter/AdaptiveBeamForceFieldAndMass.h",
@@ -294,8 +294,8 @@
     },
     {
       "path": "results/GPU_RUN.zh-CN.md",
-      "bytes": 1929,
-      "sha256": "e4ac0118e79b30e4688904c5bafb08ea0cdb541e626356b80ed9c49fc89be4e7"
+      "bytes": 2795,
+      "sha256": "e6eb47584be3f4bfe5e23d6d2267703074af05faec8fec70552844b665b142f7"
     },
     {
       "path": "results/historical_physics/coupling_intervention.json",
@@ -555,7 +555,7 @@
     {
       "path": "results/tensor_direct/checkpoint.pt",
       "bytes": 1591517,
-      "sha256": "46b6b1aa893cbc171bdd2fde7f7db58b263081564318db12dcfc20b2e8b2e87a"
+      "sha256": "d8f16f14404b908469b3cf6bdbe0b0ad4400549117120b6fb816c21c6a6729d2"
     },
     {
       "path": "results/tensor_direct/config.json",
@@ -564,8 +564,8 @@
     },
     {
       "path": "results/tensor_direct/learning.jsonl",
-      "bytes": 906,
-      "sha256": "18422c837e2b81cd3fb8f2901e75a1878c8d836940e338182e7f34f4fbf18ab8"
+      "bytes": 3630,
+      "sha256": "a1188a34a29c25e7c979e144233e348815aa74819db3ecba47cd35d4c970aed7"
     },
     {
       "path": "results/tensor_direct/sources/check_migration.py",
@@ -604,8 +604,128 @@
     },
     {
       "path": "results/tensor_direct/status.json",
-      "bytes": 487,
-      "sha256": "d1319c4fc8d521e8096484d03a49bf645e37b3852def4010c29bbc50b6543d00"
+      "bytes": 517,
+      "sha256": "5f9e00faf107e18986fd009573e463be0140b8221db4bf548bc274ff16afccd4"
+    },
+    {
+      "path": "results/tensor_liu/checkpoint.pt",
+      "bytes": 467165,
+      "sha256": "6fd561289ae239c704d6912928a22d8d9b030b6bbb126286d7297cd671f74ebf"
+    },
+    {
+      "path": "results/tensor_liu/config.json",
+      "bytes": 1470,
+      "sha256": "822a0936abd7f5144d92c8fe775906e14b496df632c559f5477082f1ec67f7f1"
+    },
+    {
+      "path": "results/tensor_liu/learning.jsonl",
+      "bytes": 3616,
+      "sha256": "ce7b4a07e62db51d92a2235775f82fa70b7275ef7faa98925fb18ddced94ef05"
+    },
+    {
+      "path": "results/tensor_liu/sources/check_migration.py",
+      "bytes": 4519,
+      "sha256": "32125ba9979975875c7b56824a7411a3a8699497b6ccbe8463642c0f24caf453"
+    },
+    {
+      "path": "results/tensor_liu/sources/evaluate_gpu.py",
+      "bytes": 4569,
+      "sha256": "5ecad89ca9737c24b3b8bd0c76d45c673a17f8a26bb490073bc315da413db12a"
+    },
+    {
+      "path": "results/tensor_liu/sources/gpu_core.py",
+      "bytes": 31244,
+      "sha256": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962"
+    },
+    {
+      "path": "results/tensor_liu/sources/matsuoka_torch.py",
+      "bytes": 1717,
+      "sha256": "7f2e3f55d81e644bd84f2a71d7c948bdbc6d079597cb309ccc74ba786027365d"
+    },
+    {
+      "path": "results/tensor_liu/sources/run_pilots.py",
+      "bytes": 1298,
+      "sha256": "15f23a4df74348349337cbfdc73f6f5ea1cd216cfcbd1fbfa496eab0a6e8605f"
+    },
+    {
+      "path": "results/tensor_liu/sources/tensor_env.py",
+      "bytes": 12008,
+      "sha256": "22bd018c1b567017d357960479b8bbd4547aa8d22564550adaa15c8a7ee563fc"
+    },
+    {
+      "path": "results/tensor_liu/sources/train_gpu.py",
+      "bytes": 9122,
+      "sha256": "0da5ce3cc11cfd80f822da5a407bc8b47b2194dfedfd02654d50527531b1bb70"
+    },
+    {
+      "path": "results/tensor_liu/sources/wheel_stiction.py",
+      "bytes": 3477,
+      "sha256": "e81e1699900ca38fed9833dc147dad393e11970c3148aa0338e3e07fed45f44e"
+    },
+    {
+      "path": "results/tensor_liu/status.json",
+      "bytes": 515,
+      "sha256": "6246a8984e83278f23dbc5b729fc4eeaf472d9416161c2eee9cdf780684efc81"
+    },
+    {
+      "path": "results/tensor_liu_foc/checkpoint.pt",
+      "bytes": 467165,
+      "sha256": "69a8c54e8ffb4b6b4d66354ef3f8dbb72f6362c2fb2918d93e98accb3583865f"
+    },
+    {
+      "path": "results/tensor_liu_foc/config.json",
+      "bytes": 1478,
+      "sha256": "efd64f8bb4393b9d83c3e655a8577acf7a7af13d08cd48b0220d539e92ac3226"
+    },
+    {
+      "path": "results/tensor_liu_foc/learning.jsonl",
+      "bytes": 3641,
+      "sha256": "2a0aaa8f3fdaa45fa42652365e6a20ee0a4ea879dc07190689727e364575911f"
+    },
+    {
+      "path": "results/tensor_liu_foc/sources/check_migration.py",
+      "bytes": 4519,
+      "sha256": "32125ba9979975875c7b56824a7411a3a8699497b6ccbe8463642c0f24caf453"
+    },
+    {
+      "path": "results/tensor_liu_foc/sources/evaluate_gpu.py",
+      "bytes": 4569,
+      "sha256": "5ecad89ca9737c24b3b8bd0c76d45c673a17f8a26bb490073bc315da413db12a"
+    },
+    {
+      "path": "results/tensor_liu_foc/sources/gpu_core.py",
+      "bytes": 31244,
+      "sha256": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962"
+    },
+    {
+      "path": "results/tensor_liu_foc/sources/matsuoka_torch.py",
+      "bytes": 1717,
+      "sha256": "7f2e3f55d81e644bd84f2a71d7c948bdbc6d079597cb309ccc74ba786027365d"
+    },
+    {
+      "path": "results/tensor_liu_foc/sources/run_pilots.py",
+      "bytes": 1298,
+      "sha256": "15f23a4df74348349337cbfdc73f6f5ea1cd216cfcbd1fbfa496eab0a6e8605f"
+    },
+    {
+      "path": "results/tensor_liu_foc/sources/tensor_env.py",
+      "bytes": 12008,
+      "sha256": "22bd018c1b567017d357960479b8bbd4547aa8d22564550adaa15c8a7ee563fc"
+    },
+    {
+      "path": "results/tensor_liu_foc/sources/train_gpu.py",
+      "bytes": 9122,
+      "sha256": "0da5ce3cc11cfd80f822da5a407bc8b47b2194dfedfd02654d50527531b1bb70"
+    },
+    {
+      "path": "results/tensor_liu_foc/sources/wheel_stiction.py",
+      "bytes": 3477,
+      "sha256": "e81e1699900ca38fed9833dc147dad393e11970c3148aa0338e3e07fed45f44e"
+    },
+    {
+      "path": "results/tensor_liu_foc/status.json",
+      "bytes": 518,
+      "sha256": "40960558037ff4fed86c8f96f288705ae8887177bf2cd31858936f887fab03d3"
     },
     {
       "path": "run_pilots.py",

@@ -1,0 +1,19 @@
+{
+  "status": "pilot_complete",
+  "kind": "liu",
+  "rollouts": 8,
+  "samples": 1024,
+  "optimizer_steps": 64,
+  "epochs": 32,
+  "rollout_wall_s": 77.46801658533514,
+  "samples_per_wall_s": 1.6522947874753087,
+  "optimizer_wall_s": 0.03561856411397457,
+  "mean_reward": 0.0016666927840560675,
+  "completed_episodes": 4,
+  "successes": 0,
+  "physical_guard_failures": 0,
+  "mean_slip_m_s": 0.00042060012106330975,
+  "mean_goal_distance_m": 0.06727593917680781,
+  "elapsed_s": 905.8968648426235,
+  "converged": false
+}
