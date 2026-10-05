@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-05T04:54:08.207148+00:00",
+  "generated_at_utc": "2026-10-05T05:03:48.706357+00:00",
   "origin": "https://github.com/Kitjesen/worm-sim",
   "origin_base_commit": "04c8177",
   "source_note": "Curated working-tree snapshot, including previously uncommitted experiments; not an unchanged copy of the origin commit.",
   "scope": "Current standalone GPU core/training, selected relevant evidence and demos; not the complete historical project archive.",
-  "file_count": 172,
-  "total_bytes": 51948989,
+  "file_count": 173,
+  "total_bytes": 51953480,
   "files": [
     {
       "path": ".gitattributes",
@@ -19,8 +19,8 @@
     },
     {
       "path": "bench_parallel.py",
-      "bytes": 5444,
-      "sha256": "ffa58c870c4513c9f8d660dcc8c2c7aa0512fad7acd66c33a9a8cb96403108a7"
+      "bytes": 6259,
+      "sha256": "a0a3582b83889b3bc65e409f5b1b1ad4a1c1cedde28625d548506b7b974a40e6"
     },
     {
       "path": "check_migration.py",
@@ -44,8 +44,8 @@
     },
     {
       "path": "docs/REWARD_ABLATION.zh-CN.md",
-      "bytes": 9753,
-      "sha256": "9bc27e44d0916f348ca75b52df4464db3896cacf3b6f5757543caeb690398596"
+      "bytes": 11343,
+      "sha256": "c4ddb36f36e747ddc248aa09adaa30bcd5a5f9e899bf71a43b73e8e65e061dc7"
     },
     {
       "path": "evaluate_gpu.py",
@@ -566,6 +566,11 @@
       "path": "results/README.md",
       "bytes": 1379,
       "sha256": "9c7c1a70a28701ae0b69166830b6e153c65d25c8adb94135462c7c918f269444"
+    },
+    {
+      "path": "results/reward_ablation_20261005/batch_2048.json",
+      "bytes": 2086,
+      "sha256": "a58229de048acc5170b0a2c5bd5cb6b60556af4c8803f101b2492da8b79c7c3e"
     },
     {
       "path": "results/reward_ablation_20261005/batch_extended.json",

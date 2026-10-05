@@ -1,0 +1,71 @@
+{
+  "status": "complete",
+  "results": [
+    {
+      "batch": 64,
+      "steps_per_repeat": 32,
+      "warmup_steps": 16,
+      "repeat_wall_s": [
+        0.5551078803837299,
+        0.5558981765061617,
+        0.5558480489999056
+      ],
+      "median_batch_step_ms": 17.37025153124705,
+      "core_equivalent_policy_samples_per_s": 9.21115043798754,
+      "peak_allocated_mib": 44.8486328125,
+      "reserved_mib": 776.0,
+      "device_used_mib": 3177.9375
+    },
+    {
+      "batch": 1024,
+      "steps_per_repeat": 32,
+      "warmup_steps": 16,
+      "repeat_wall_s": [
+        9.533312795683742,
+        9.53454521112144,
+        9.530045362189412
+      ],
+      "median_batch_step_ms": 297.9160248651169,
+      "core_equivalent_policy_samples_per_s": 8.593025504952458,
+      "peak_allocated_mib": 330.65625,
+      "reserved_mib": 11272.0,
+      "device_used_mib": 13689.9375
+    },
+    {
+      "batch": 2048,
+      "steps_per_repeat": 32,
+      "warmup_steps": 16,
+      "repeat_wall_s": [
+        19.976812090724707,
+        19.98407345637679,
+        20.006365219131112
+      ],
+      "median_batch_step_ms": 624.5022955117747,
+      "core_equivalent_policy_samples_per_s": 8.1985287112583,
+      "peak_allocated_mib": 632.353515625,
+      "reserved_mib": 22448.0,
+      "device_used_mib": 24885.9375
+    },
+    {
+      "batch": 64,
+      "steps_per_repeat": 32,
+      "warmup_steps": 16,
+      "repeat_wall_s": [
+        0.5552552305161953,
+        0.5553034823387861,
+        0.5559225473552942
+      ],
+      "median_batch_step_ms": 17.353233823087066,
+      "core_equivalent_policy_samples_per_s": 9.220183490360915,
+      "peak_allocated_mib": 68.9794921875,
+      "reserved_mib": 828.0,
+      "device_used_mib": 3265.9375
+    }
+  ],
+  "scope": "Same corrected beam physics, 5 segments, dt=0.25ms; core-only timing, not full PPO throughput or physics validation.",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "physics_sha256": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962",
+  "current_batch": 64,
+  "training_resumed": true,
+  "wall_s": 120.69151498563588
+}

@@ -24,6 +24,7 @@ def write(path, data):
 
 if __name__ == '__main__':
     p=argparse.ArgumentParser();p.add_argument('--pause-pid',type=int,default=0)
+    p.add_argument('--pause-eval-pid',type=int,default=0,help='An evaluation child of the verified training worker')
     p.add_argument('--batches',type=int,nargs='+',default=[8,16,32,64,8])
     p.add_argument('--steps',type=int,default=128);p.add_argument('--warmup',type=int,default=64)
     p.add_argument('--rollout-envs',type=int,default=0,help='Also run one independent 64-step PPO rollout with this many environments')
@@ -32,14 +33,21 @@ if __name__ == '__main__':
         p.error('Positive batches and steps required; steps/warmup must be multiples of 4')
     out=Path(args.out);out.parent.mkdir(parents=True,exist_ok=True)
     result={'status':'starting','results':[], 'scope':'Same corrected beam physics, 5 segments, dt=0.25ms; core-only timing, not full PPO throughput or physics validation.'}
-    paused=False
+    paused=[]
     started=time.monotonic()
     try:
         if args.pause_pid:
             cmd=Path(f'/proc/{args.pause_pid}/cmdline').read_bytes().replace(b'\0',b' ')
             if b'/reward_ablation_20261005/train_gpu.py' not in cmd or b'long_tracking_v2_seed7' not in cmd:
                 raise RuntimeError('Refusing to suspend an unrelated process')
-            os.kill(args.pause_pid,signal.SIGSTOP);paused=True
+            os.kill(args.pause_pid,signal.SIGSTOP);paused.append(args.pause_pid)
+            if args.pause_eval_pid:
+                proc=Path(f'/proc/{args.pause_eval_pid}')
+                child_cmd=(proc/'cmdline').read_bytes().replace(b'\0',b' ')
+                parent=next(line.split()[1] for line in (proc/'status').read_text().splitlines() if line.startswith('PPid:'))
+                if int(parent)!=args.pause_pid or b'/reward_ablation_20261005/evaluate_gpu.py' not in child_cmd:
+                    raise RuntimeError('Refusing to suspend an unrelated evaluation process')
+                os.kill(args.pause_eval_pid,signal.SIGSTOP);paused.append(args.pause_eval_pid)
             result['status']='waiting_for_queued_cuda_work';write(out,result)
             idle=0;deadline=time.monotonic()+180
             while idle < 2:
@@ -88,6 +96,8 @@ if __name__ == '__main__':
         result['status']='failed';result['error']=repr(e);raise
     finally:
         if paused:
-            os.kill(args.pause_pid,signal.SIGCONT)
+            for pid in reversed(paused):
+                try:os.kill(pid,signal.SIGCONT)
+                except ProcessLookupError:pass
             result['training_resumed']=True
         result['wall_s']=time.monotonic()-started;write(out,result)
