@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-05T00:35:56.784115+00:00",
+  "generated_at_utc": "2026-10-05T00:37:23.460999+00:00",
   "origin": "https://github.com/Kitjesen/worm-sim",
   "origin_base_commit": "04c8177",
   "source_note": "Curated working-tree snapshot, including previously uncommitted experiments; not an unchanged copy of the origin commit.",
   "scope": "Current standalone GPU core/training, selected relevant evidence and demos; not the complete historical project archive.",
-  "file_count": 160,
-  "total_bytes": 47074500,
+  "file_count": 162,
+  "total_bytes": 48667748,
   "files": [
     {
       "path": ".gitattributes",
@@ -39,8 +39,8 @@
     },
     {
       "path": "docs/REWARD_ABLATION.zh-CN.md",
-      "bytes": 4059,
-      "sha256": "0d5071f905f8320db468226f8877c8769c8939301fc295e8b3d4a519b58509c0"
+      "bytes": 4447,
+      "sha256": "7ac376cbfeae6cc3e2a12e788e46dd32bd7eec1fc1eaee921ccaa7c4b864b1ab"
     },
     {
       "path": "evaluate_gpu.py",
@@ -563,14 +563,24 @@
       "sha256": "9c7c1a70a28701ae0b69166830b6e153c65d25c8adb94135462c7c918f269444"
     },
     {
+      "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/checkpoint.pt",
+      "bytes": 1591773,
+      "sha256": "38f8736f32f28043d950d32a07070481de05e69ad73b1d6909220eb915286d29"
+    },
+    {
       "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/config.json",
       "bytes": 2035,
       "sha256": "6faa8b19e315731404eb81e625f1f86240a6eff1492357cea5a47a0f6d27ac08"
     },
     {
+      "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/learning.jsonl",
+      "bytes": 556,
+      "sha256": "3c364105ec057e8d2ef74b146332a4bda7f6f78256fd4648362a2699406101eb"
+    },
+    {
       "path": "results/reward_ablation_20261005/long_tracking_v2_seed7/status.json",
-      "bytes": 78,
-      "sha256": "19efdd084aa264ce1b10dd7e38de6b7630155808f249d8a75391f31553bde836"
+      "bytes": 609,
+      "sha256": "ef32b912c2a5bef06a84273517a3c3f31893aada864240090bdf268f9999b773"
     },
     {
       "path": "results/reward_ablation_20261005/offline_rescoring.json",
