@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-05T00:10:20.604391+00:00",
+  "generated_at_utc": "2026-10-05T00:18:09.041282+00:00",
   "origin": "https://github.com/Kitjesen/worm-sim",
   "origin_base_commit": "04c8177",
   "source_note": "Curated working-tree snapshot, including previously uncommitted experiments; not an unchanged copy of the origin commit.",
   "scope": "Current standalone GPU core/training, selected relevant evidence and demos; not the complete historical project archive.",
-  "file_count": 148,
-  "total_bytes": 46809107,
+  "file_count": 151,
+  "total_bytes": 47059467,
   "files": [
     {
       "path": ".gitattributes",
@@ -294,8 +294,8 @@
     },
     {
       "path": "results/GPU_RUN.zh-CN.md",
-      "bytes": 2795,
-      "sha256": "e6eb47584be3f4bfe5e23d6d2267703074af05faec8fec70552844b665b142f7"
+      "bytes": 4230,
+      "sha256": "e115c33a884138d24487c925cdde2e5f7ec51b5a80a68a1fc7f138237d7673a9"
     },
     {
       "path": "results/historical_physics/coupling_intervention.json",
@@ -561,6 +561,21 @@
       "path": "results/tensor_direct/config.json",
       "bytes": 1385,
       "sha256": "062f989afe7592897171df461a2ef9b6e0fa8d6f4063156e5f13d13ccc65ce86"
+    },
+    {
+      "path": "results/tensor_direct/evaluation/status.json",
+      "bytes": 46,
+      "sha256": "4248c8e708a21abe540f4a6d1886228889286b7f2103e138343521064457d7e0"
+    },
+    {
+      "path": "results/tensor_direct/evaluation/summary.json",
+      "bytes": 3622,
+      "sha256": "33c94696315524ca93ab66067b3500056384c416a6b3e3f46e0779faa54c4cd0"
+    },
+    {
+      "path": "results/tensor_direct/evaluation/traces.pt",
+      "bytes": 245257,
+      "sha256": "ed32cd64fcc971d7539a9bffe1adf713c1977b73a4f5d48591f4dc055f67d810"
     },
     {
       "path": "results/tensor_direct/learning.jsonl",
