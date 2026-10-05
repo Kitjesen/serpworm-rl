@@ -1,0 +1,70 @@
+{
+  "status": "complete",
+  "results": [
+    {
+      "batch": 8,
+      "steps_per_repeat": 128,
+      "repeat_wall_s": [
+        0.5275492127984762,
+        0.5273756086826324,
+        0.5272953901439905
+      ],
+      "median_batch_step_ms": 4.120121942833066,
+      "core_equivalent_policy_samples_per_s": 4.854225257771779,
+      "peak_allocated_mib": 28.23681640625
+    },
+    {
+      "batch": 16,
+      "steps_per_repeat": 128,
+      "repeat_wall_s": [
+        0.7569176908582449,
+        0.7568691447377205,
+        0.7568195145577192
+      ],
+      "median_batch_step_ms": 5.913040193263441,
+      "core_equivalent_policy_samples_per_s": 6.764709640494388,
+      "peak_allocated_mib": 38.66064453125
+    },
+    {
+      "batch": 32,
+      "steps_per_repeat": 128,
+      "repeat_wall_s": [
+        1.2123516276478767,
+        1.2122115567326546,
+        1.212355837225914
+      ],
+      "median_batch_step_ms": 9.471497090999037,
+      "core_equivalent_policy_samples_per_s": 8.446394401158154,
+      "peak_allocated_mib": 51.38720703125
+    },
+    {
+      "batch": 64,
+      "steps_per_repeat": 128,
+      "repeat_wall_s": [
+        2.2128784842789173,
+        2.219087379053235,
+        2.2215160131454468
+      ],
+      "median_batch_step_ms": 17.3366201488534,
+      "core_equivalent_policy_samples_per_s": 9.22901918749036,
+      "peak_allocated_mib": 68.9794921875
+    },
+    {
+      "batch": 8,
+      "steps_per_repeat": 128,
+      "repeat_wall_s": [
+        0.5267387647181749,
+        0.5267140101641417,
+        0.5266854912042618
+      ],
+      "median_batch_step_ms": 4.114953204407357,
+      "core_equivalent_policy_samples_per_s": 4.860322586069466,
+      "peak_allocated_mib": 60.73681640625
+    }
+  ],
+  "scope": "Same corrected beam physics, 5 segments, dt=0.25ms; core-only timing, not full PPO throughput or physics validation.",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "physics_sha256": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962",
+  "training_resumed": true,
+  "wall_s": 26.523642860352993
+}

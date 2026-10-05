@@ -1,24 +1,24 @@
 {
   "status": "training",
   "kind": "direct",
-  "rollouts": 1,
-  "samples": 512,
+  "rollouts": 7,
+  "samples": 3584,
   "reward_version": "tracking_v2",
   "requested_rollouts": 256,
-  "optimizer_steps": 32,
-  "epochs": 4,
-  "rollout_wall_s": 224.4535269960761,
-  "samples_per_wall_s": 2.2810958101315593,
-  "optimizer_wall_s": 0.31107823736965656,
-  "mean_reward": 0.01574874296784401,
-  "completed_episodes": 0,
+  "optimizer_steps": 224,
+  "epochs": 28,
+  "rollout_wall_s": 105.45777918025851,
+  "samples_per_wall_s": 4.855023536242316,
+  "optimizer_wall_s": 0.1526217069476843,
+  "mean_reward": 0.007240442093461752,
+  "completed_episodes": 16,
   "successes": 0,
   "physical_guard_failures": 0,
-  "mean_slip_m_s": 0.002497111621758,
-  "elapsed_s": 243.97685647010803,
+  "mean_slip_m_s": 0.002522994454529028,
+  "elapsed_s": 969.5500917900354,
   "training_velocity_rmse": [
-    0.0071486378164793,
-    0.001085769887903992,
-    0.030705323759796527
+    0.009846129946536279,
+    0.0011269903029197965,
+    0.026888499132989255
   ]
 }
