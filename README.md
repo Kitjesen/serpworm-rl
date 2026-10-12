@@ -49,6 +49,8 @@ python evaluate_gpu.py runs/direct_seed7/checkpoint.pt --out runs/direct_seed7/e
 - [演示说明](media/README.md)：区分手动运动学演示与历史动力学视频；视频不是新 GPU 策略成绩。
 - [架构、方程与验证缺口](docs/ARCHITECTURE.zh-CN.md)。
 - [GPU 迁移与 SOFA 的关系](docs/GPU_MIGRATION.zh-CN.md)。
+- [钢片动力学与采样加速文献调研](docs/STEEL_DYNAMICS_ACCELERATION_REVIEW.zh-CN.md)：求解瓶颈、动态降阶、神经代理与 Isaac Lab/ Newton 的适用边界。
+- [专用求解器原型](bench_plate_structure.py)已作为 `--plate-solver segment_lu` 可选项接入，默认仍为 `legacy`；[完整步进与短采样回归](results/solver_integrated_20261005/integrated.json)已通过，尚未完成新选项的长期训练评估。
 - [复现／上传清单](MANIFEST.json)：文件哈希、尺寸和快照时间。持续训练产生的新结果需要后续同步，不会自动出现在本次快照中。
 
 ## 仍然没有解决的物理问题

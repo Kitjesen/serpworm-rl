@@ -14,16 +14,22 @@ STATE = ('x', 'v', 'servo', 'target', 'yaw', 'spin', 'angle', 'memory', 'tension
 
 
 class TensorEnv:
-    def __init__(self, kind='direct', n=2, seed=7, device='cuda', dt=.00025, noise=True, reward_version='legacy'):
+    def __init__(self, kind='direct', n=2, seed=7, device='cuda', dt=.00025, noise=True, reward_version='legacy', plate_solver='legacy', control_profile='legacy', command_switching=True):
         if kind not in ('direct', 'liu', 'liu_foc'):
             raise ValueError(kind)
         if device != 'cuda':
             raise ValueError('Physics training requires CUDA; CPU is only a numerical oracle.')
         self.kind, self.n, self.noise = kind, n, noise
-        if reward_version not in ('legacy', 'tracking_v2'):
+        if control_profile not in ('legacy', 'smooth_v3') or (kind != 'direct' and control_profile != 'legacy'):
+            raise ValueError('smooth_v3 is a direct-action snake profile')
+        if reward_version not in ('legacy', 'tracking_v2', 'tracking_v3'):
             raise ValueError(reward_version)
         self.reward_version = reward_version
-        self.c = GPUCore(5, n, device=device, dt=dt, yaw_motor_speed=2., strain_jacobian=True)
+        self.control_profile = control_profile
+        self.limit = math.radians(25) if control_profile == 'smooth_v3' else LIMIT
+        self.target_gain = 1-math.exp(-.02/.2) if control_profile == 'smooth_v3' else 1.
+        self.command_switch_steps = 250 if control_profile == 'smooth_v3' and command_switching else 0
+        self.c = GPUCore(5, n, device=device, dt=dt, yaw_motor_speed=2., strain_jacobian=True, plate_solver=plate_solver)
         self.c.capture(4)
         for _ in range(25):
             self.c.advance_steps(round(.02/dt))
@@ -36,6 +42,7 @@ class TensorEnv:
         self.cpg = Matsuoka(n, device, self.dtype, c=.75 if kind == 'liu_foc' else 0.)
         self.targets = self.zeros(n, 4)
         self.previous_actions = self.zeros(n, 4)
+        self.previous_action_delta = self.zeros(n, 4)
         self.cmd = self.zeros(n, 3)
         self.goals = self.zeros(n, 2)
         self.count = torch.zeros(n, device=device, dtype=torch.long)
@@ -47,9 +54,10 @@ class TensorEnv:
         self.previous_angles = self.zeros(n, 14)
         self.dq = self.zeros(n, 14)
         self.sensor = self.zeros(n, 31)
-        self.history = self.zeros(n, 10, 38)
-        self.obs_size = 380 if kind == 'direct' else 14
-        self.angle_scale = self.tensor([math.pi]*10+[LIMIT]*4)
+        self.frame_size = 42 if control_profile == 'smooth_v3' else 38
+        self.history = self.zeros(n, 10, self.frame_size)
+        self.obs_size = 10*self.frame_size if kind == 'direct' else 14
+        self.angle_scale = self.tensor([math.pi]*10+[self.limit]*4)
         self.noise_scale = self.tensor([.002]*14+[.01]*3)
         self.command_scale = self.tensor([.01, .01, .03])
         self.frame_flip = self.tensor([-1., -1., 1.])
@@ -98,7 +106,10 @@ class TensorEnv:
 
     def packet(self, reset):
         if self.kind == 'direct':
-            frame = torch.cat((self.sensor, self.targets/LIMIT, self.cmd/self.command_scale), -1)
+            pieces = [self.sensor, self.targets/self.limit]
+            if self.control_profile == 'smooth_v3':
+                pieces.append(self.previous_actions)
+            frame = torch.cat((*pieces, self.cmd/self.command_scale), -1)
             shifted = torch.cat((self.history[:, 1:], frame[:, None]), 1)
             self.history.copy_(torch.where(reset[:, None, None], frame[:, None], shifted))
             return self.history.flatten(1).float().clone()
@@ -135,7 +146,7 @@ class TensorEnv:
             value = getattr(self.c, name)
             value.copy_(torch.where(mask.reshape(self.n, *([1]*(value.ndim-1))), self.initial[name], value))
         self.cpg.reset(mask)
-        for a in (self.targets, self.previous_actions, self.filtered_velocity):
+        for a in (self.targets, self.previous_actions, self.previous_action_delta, self.filtered_velocity):
             a.copy_(torch.where(mask[:, None], 0., a))
         self.count.copy_(torch.where(mask, 0, self.count))
         vx = torch.floor(self.random(self.n)*3)*.004
@@ -160,22 +171,39 @@ class TensorEnv:
             a.copy_(torch.where(mask.reshape(self.n, *([1]*(a.ndim-1))), a, old))
         return obs
 
+    @staticmethod
+    def body_velocity(before, after, dt=.1):
+        """Plate-centroid translation and head-to-tail heading rate, not one plate's rocking."""
+        axis0 = before[:, 9, :2]-before[:, 0, :2]
+        axis1 = after[:, 9, :2]-after[:, 0, :2]
+        axis0 = axis0/axis0.norm(dim=-1, keepdim=True).clamp_min(1e-9)
+        axis1 = axis1/axis1.norm(dim=-1, keepdim=True).clamp_min(1e-9)
+        forward = axis0+axis1
+        forward = forward/forward.norm(dim=-1, keepdim=True).clamp_min(1e-9)
+        left = torch.stack((-forward[:, 1], forward[:, 0]), -1)
+        velocity = (after[:, :, :2].mean(1)-before[:, :, :2].mean(1))/dt
+        turn = torch.atan2(axis0[:, 0]*axis1[:, 1]-axis0[:, 1]*axis1[:, 0], (axis0*axis1).sum(-1))/dt
+        return torch.stack(((velocity*forward).sum(-1), (velocity*left).sum(-1), turn), -1)
+
     @torch.no_grad()
     def step(self, action):
         action = action.to(dtype=self.dtype).clamp(-1, 1)
         c = self.c
         x0 = c.x[:, :10, :3].clone()
         old = self.targets.clone()
+        action_delta = action-self.previous_actions
+        acceleration_cost = (action_delta-self.previous_action_delta).square().mean(-1)
         work = self.zeros(self.n)
         raw_peak = self.zeros(self.n)
+        diagnostics = []
         for _ in range(5):
             if self.kind == 'direct':
-                desired = LIMIT*action
+                desired = self.limit*action
             else:
                 signal = self.cpg.step(3*action)
                 raw_peak = torch.maximum(raw_peak, signal.abs().amax(-1))
                 desired = math.radians(15)*signal.flip(-1).clamp(-1, 1)
-            self.targets.add_((desired-self.targets).clamp(-.02, .02))
+            self.targets.add_((self.target_gain*(desired-self.targets)).clamp(-.02, .02))
             c.target.zero_()
             c.yaw.copy_(self.targets)
             c.advance_steps(round(.02/c.dt))
@@ -186,15 +214,25 @@ class TensorEnv:
             cap = .5*torch.where(torque*rate > 0, (1-rate.abs()/2).clamp_min(0), 1.)
             torque = torch.maximum(torch.minimum(torque, cap), -cap)
             work += (torque*rate).abs().sum(-1)*.02
+            # Torque is sampled from the final actual physics substep; not its interval peak.
+            diagnostics.append(torch.stack((desired, self.targets, q, rate,
+                c.last_yaw_torque, c.last_yaw_torque_cap), -2).clone())
         velocity = (x[:, 4, :2]-x0[:, 4, :2])/.1
         measured = torch.stack(((velocity*f).sum(-1), (velocity*l).sum(-1), v[:, 4, 5]), -1)
-        self.filtered_velocity.add_((1-math.exp(-.1))*(measured-self.filtered_velocity))
+        self.last_point_velocity = measured.clone()
+        self.last_body_velocity = self.body_velocity(x0, x)
+        if self.reward_version == 'tracking_v3':
+            measured = self.last_body_velocity
+        tau = .2 if self.reward_version == 'tracking_v3' else 1.
+        self.filtered_velocity.add_((1-math.exp(-.1/tau))*(measured-self.filtered_velocity))
         active = c.support > 1e-6
         slip = (c.last_slip.norm(dim=-1)*active).sum((1, 2))/active.sum((1, 2)).clamp_min(1)
         action_cost = ((self.targets-old)/LIMIT).square().mean(-1)
+        if self.reward_version == 'tracking_v3':
+            action_cost = action_delta.square().mean(-1)
         distance = (self.goals-x[:, 9, :2]).norm(dim=-1)
         if self.kind == 'direct':
-            reward = velocity_reward(self.reward_version, self.filtered_velocity, self.cmd, action_cost, slip, work)
+            reward = velocity_reward(self.reward_version, self.filtered_velocity, self.cmd, action_cost, slip, work, acceleration_cost)
             success = torch.zeros_like(active[:, 0, 0])
         else:
             distance0 = (self.goals-x0[:, 9, :2]).norm(dim=-1)
@@ -208,13 +246,24 @@ class TensorEnv:
         fail |= clearance < .002
         reward -= 2*fail
         self.previous_actions.copy_(action)
-        terminal_obs = self.packet(self.no_reset)
+        self.previous_action_delta.copy_(action_delta)
         terminated = fail | success
         truncated = (self.count >= 1000) & ~terminated
         done = terminated | truncated
+        self.last_command = self.cmd.clone()
+        if self.command_switch_steps:
+            change = (self.count.remainder(self.command_switch_steps) == 0) & ~done
+            vx = torch.floor(self.random(self.n)*3)*.004
+            wz = (torch.floor(self.random(self.n)*3)-1)*.02
+            command = torch.stack((vx, torch.zeros_like(vx), torch.where(vx == 0, 0., wz)), -1)
+            self.cmd.copy_(torch.where(change[:, None], command, self.cmd))
+        terminal_obs = self.packet(self.no_reset)
         metrics = torch.stack((slip, work, clearance, q.abs().amax(-1), distance, fail.to(self.dtype), success.to(self.dtype), raw_peak), -1)
         self.last_velocity = self.filtered_velocity.clone()
         self.last_plate_positions = c.x[:, :10, :3].clone()
+        self.last_diagnostics = torch.stack(diagnostics)
+        self.last_action_rate_cost = action_cost.clone()
+        self.last_action_acceleration_cost = acceleration_cost.clone()
         reset_obs = self.reset(done)
         self.obs = torch.where(done[:, None], reset_obs, terminal_obs)
         return self.obs, reward.float(), terminated, truncated, terminal_obs, metrics

@@ -1,0 +1,20 @@
+{
+  "checkpoint_r0064.pt": "b1644f937954829968bf2da1a54e2068e71e5c1c13b918ff19ae018de05ee595",
+  "config.json": "8f4c66490025a6ec9abda76bb056d0204e7e57298ca8c84c294b129ffb934ecd",
+  "learning.jsonl": "6c69a87f4e13a0713e0ed538ac7d9e917c6ee910041e455e394240e37a3d1c24",
+  "status.json": "246f94ce2dc7c1c09573312d9b16a247879a22d7fc11d7397ab09329deb2af9c",
+  "steady_motion_audit.json": "a19bb3b827c416f4df7b3a8dea6a53e10884b791c53e592e1cdfcf79a96cc232",
+  "evaluation_r0016\\config.json": "7ce5196059601a4d1c7b2733a9c394098d9c83bfaa4c78e7ee67398f0c7d8bfe",
+  "evaluation_r0016\\status.json": "4687414244cdfea0653dec438556c2aa6713c2ac222ec590a51756695af16f45",
+  "evaluation_r0016\\summary.json": "f15561346bb45e38f36676fa98969fd971af8057a0ddcdf7909e615a111b2825",
+  "evaluation_r0032\\config.json": "5b79ec3e82a2c5fa8e476517621cc7ae5176f2734b2cc16a590a398b7b05ec8e",
+  "evaluation_r0032\\status.json": "4687414244cdfea0653dec438556c2aa6713c2ac222ec590a51756695af16f45",
+  "evaluation_r0032\\summary.json": "bb8ae381d912837324667c668e25ffc16bcb197c906eb575641e78245c08be7c",
+  "evaluation_r0048\\config.json": "20155e6622075df479d0ecfed2ec5bbceabaecc50b9582d9bcae6a44fd171922",
+  "evaluation_r0048\\status.json": "4687414244cdfea0653dec438556c2aa6713c2ac222ec590a51756695af16f45",
+  "evaluation_r0048\\summary.json": "ea97bd799cf726dad684e41e838bc7c50f07560f796dac39f2a12474f845cc65",
+  "evaluation_r0064\\config.json": "22047da3388973549ff103ea55a762ba9ff41ba1b7d0535a1caf9355027fecdd",
+  "evaluation_r0064\\status.json": "4687414244cdfea0653dec438556c2aa6713c2ac222ec590a51756695af16f45",
+  "evaluation_r0064\\summary.json": "527875a9e43d018718737f5b0823bcec37eda6214678c2a5e61d7fcb26769f1b",
+  "evaluation_r0064\\traces.pt": "70c0b84768d58fbfc0ad41028b4ef3e35226925e060399a744b1be2dfe41f45f"
+}

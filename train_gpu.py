@@ -55,6 +55,21 @@ def write(path, payload):
     tmp.replace(path)
 
 
+def restore_training(path, model, optimizer, args, obs_size):
+    """Continue weights and Adam; physical episodes restart, not bitwise replay."""
+    data = torch.load(path, map_location=next(model.parameters()).device, weights_only=False)
+    for key in ('kind', 'reward', 'control_profile', 'envs', 'horizon', 'seed', 'plate_solver'):
+        default = 'legacy' if key in ('reward', 'control_profile', 'plate_solver') else None
+        if data['config'].get(key, default) != getattr(args, key):
+            raise ValueError(f'Resume configuration mismatch: {key}')
+    report = data['report']
+    if data['obs_size'] != obs_size or args.rollouts <= report['rollouts']:
+        raise ValueError('Resume needs identical observations and a larger total rollout budget')
+    model.load_state_dict(data['model'])
+    optimizer.load_state_dict(data['optimizer'])
+    return report
+
+
 def train(args):
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=False)
@@ -63,17 +78,28 @@ def train(args):
     try:
         torch.set_num_threads(1)
         torch.manual_seed(args.seed)
-        env = TensorEnv(args.kind, args.envs, args.seed, reward_version=args.reward)
+        env = TensorEnv(args.kind, args.envs, args.seed, reward_version=args.reward, plate_solver=args.plate_solver, control_profile=args.control_profile)
         model = ActorCritic(env.obs_size).cuda()
         optimizer = torch.optim.Adam(model.parameters(), lr=3e-4, eps=1e-5)
+        previous = restore_training(args.resume, model, optimizer, args, env.obs_size) if args.resume else {}
+        first_rollout = previous.get('rollouts', 0)
+        if args.resume:
+            torch.manual_seed(args.seed+first_rollout)
+            env.rng.manual_seed(args.seed+first_rollout)
+            env.obs = env.reset(torch.ones_like(env.no_reset))
         write(out/'config.json', {**vars(args), 'torch': torch.__version__, 'gpu': torch.cuda.get_device_name(),
+              'resume_sha256': hashlib.sha256(Path(args.resume).read_bytes()).hexdigest() if args.resume else None,
+              'resume_scope': 'weights and Adam restored; physical episodes and rollout buffers restarted',
               'source_sha256': {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(__file__).parent.glob('*.py')},
               'online_numeric_device': 'cuda', 'physics_dtype': 'float64', 'policy_dtype': 'float32',
               'cpu_scope': 'initialization, Python dispatch, boundary checks, serialization',
               'physics': 'uncalibrated candidate; unchanged split coupling; no full self-contact',
               'algorithm': 'direct PPO without CPG' if args.kind == 'direct' else 'PPO fixed Kf=1; no option critic', 'dt_s': .00025, 'policy_hz': 10,
               'reward_scope': 'reward selection applies only to direct velocity task; CPG goal reward unchanged',
-              'rollout_equivalence': 'physics, observation, task, penalties unchanged; direct tracking term selected explicitly'})
+              'control_profile': args.control_profile, 'joint_limit_deg': env.limit*180/3.141592653589793,
+              'observation_size': env.obs_size, 'command_switch_steps': env.command_switch_steps,
+              'reward_velocity': 'plate centroid and whole-body heading' if args.reward == 'tracking_v3' else 'middle plate',
+              'rollout_equivalence': 'Compare explicit profiles; smooth_v3 changes actuator filter, angle range, action history and command switching.'})
         (out/'sources').mkdir()
         for source in Path(__file__).parent.glob('*.py'):
             shutil.copy2(source, out/'sources'/source.name)
@@ -84,13 +110,15 @@ def train(args):
         logbuf, rewbuf, valbuf, nextbuf = [buffer() for _ in range(4)]
         termbuf, truncbuf = buffer(dtype=torch.bool), buffer(dtype=torch.bool)
         obs = env.obs
-        updates, samples, completed, successes, failures = 0, 0, 0, 0, 0
-        write(out/'status.json', {'status': 'collecting_first_rollout', 'kind': args.kind, 'samples': 0})
-        for rollout in range(1, args.rollouts+1):
+        updates, samples, completed, successes, failures = [previous.get(key, 0) for key in
+            ('optimizer_steps', 'samples', 'completed_episodes', 'successes', 'physical_guard_failures')]
+        write(out/'status.json', {'status': 'collecting_first_rollout', 'kind': args.kind, 'samples': samples, 'rollouts': first_rollout})
+        for rollout in range(first_rollout+1, args.rollouts+1):
             t0 = time.monotonic()
             metric_sum = torch.zeros(8, device='cuda', dtype=torch.float64)
             done_counts = torch.zeros(3, device='cuda', dtype=torch.long)
             error_sum = torch.zeros(3, device='cuda', dtype=torch.float64)
+            action_stats = torch.zeros(4, device='cuda', dtype=torch.float64)
             with torch.no_grad():
                 for t in range(args.horizon):
                     action, logp, _, value = model(obs)
@@ -101,6 +129,8 @@ def train(args):
                     nextbuf[t] = model.critic(terminal_obs).squeeze(-1)
                     metric_sum += metrics.sum(0)
                     error_sum += (env.last_velocity-command).square().sum(0)
+                    action_stats += torch.stack((env.last_action_rate_cost.sum(), env.last_action_acceleration_cost.sum(),
+                        (action.abs()>1).double().mean(-1).sum(), env.last_diagnostics[:, :, 4].abs().amax((0, 2)).sum()))
                     done_counts += torch.stack(((terminated | truncated).sum(), (metrics[:, 6] > 0).sum(), (metrics[:, 5] > 0).sum()))
             # Block invalid rollouts before any learning. Synchronization is deliberate here.
             if bool(env.c.failed) or not bool(torch.isfinite(obsbuf).all() & torch.isfinite(rewbuf).all() & torch.isfinite(obs).all() & torch.isfinite(nextbuf).all()):
@@ -141,6 +171,10 @@ def train(args):
                           mean_reward=float(rewbuf.mean()), completed_episodes=completed,
                           successes=successes, physical_guard_failures=failures,
                           mean_slip_m_s=metrics[0], mean_goal_distance_m=metrics[4], elapsed_s=time.monotonic()-start)
+            ar, aa, clipped, torque = (action_stats/total).cpu().tolist()
+            report.update(control_profile=args.control_profile, action_change_cost=ar, action_second_difference_cost=aa,
+                          raw_action_clipping_fraction=clipped, mean_sampled_peak_torque_nm=torque,
+                          policy_std=model.logstd.detach().exp().cpu().tolist())
             if args.kind == 'direct':
                 report.pop('mean_goal_distance_m')
                 report['training_velocity_rmse'] = (error_sum/total).sqrt().cpu().tolist()
@@ -174,6 +208,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--kind', choices=['direct', 'liu', 'liu_foc'], default='direct')
     parser.add_argument('--out', required=True)
+    parser.add_argument('--resume', help='Trusted checkpoint; --rollouts is the cumulative target, episodes restart')
     parser.add_argument('--envs', type=int, default=2)
     parser.add_argument('--horizon', type=int, default=64)
     parser.add_argument('--rollouts', type=int, default=256)
@@ -181,7 +216,9 @@ if __name__ == '__main__':
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--seed', type=int, default=7)
     parser.add_argument('--seconds', type=float, default=0., help='Wall limit; zero runs the requested finite rollout budget')
-    parser.add_argument('--reward', choices=['legacy', 'tracking_v2'], default='legacy')
+    parser.add_argument('--reward', choices=['legacy', 'tracking_v2', 'tracking_v3'], default='legacy')
+    parser.add_argument('--control-profile', choices=['legacy', 'smooth_v3'], default='legacy')
+    parser.add_argument('--plate-solver', choices=['legacy', 'segment_lu'], default='legacy', help='Linear plate solve only; segment_lu assumes the existing split coupling')
     parser.add_argument('--save-every', type=int, default=32, help='Retain a milestone checkpoint; zero disables extra copies')
     parser.add_argument('--eval-every', type=int, default=0, help='Run held-out deterministic checks at this interval; zero disables')
     args = parser.parse_args()

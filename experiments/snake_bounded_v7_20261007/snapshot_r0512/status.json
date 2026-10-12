@@ -1,0 +1,37 @@
+{
+  "status": "pilot_complete",
+  "kind": "direct",
+  "rollouts": 512,
+  "samples": 262144,
+  "reward_version": "tracking_v3",
+  "requested_rollouts": 512,
+  "optimizer_steps": 8192,
+  "epochs": 2048,
+  "rollout_wall_s": 105.54323013871908,
+  "samples_per_wall_s": 4.851092763856676,
+  "optimizer_wall_s": 0.07521428726613522,
+  "mean_reward": 0.022420033812522888,
+  "completed_episodes": 1323,
+  "successes": 0,
+  "physical_guard_failures": 34,
+  "mean_slip_m_s": 0.0019691943579465015,
+  "elapsed_s": 65885.80564617924,
+  "control_profile": "bounded_v7",
+  "action_change_cost": 0.0012502059254430192,
+  "action_second_difference_cost": 0.49485983561425984,
+  "action_edge_fraction": 0.0,
+  "mean_sampled_peak_torque_nm": 0.29283939691521804,
+  "policy_std": [
+    0.37495890259742737,
+    0.4293244481086731,
+    0.39334818720817566,
+    0.32873356342315674
+  ],
+  "training_velocity_rmse": [
+    0.007816107692164835,
+    0.0006540180197423886,
+    0.04812324167804774
+  ],
+  "converged": false,
+  "stop_reason": "rollout_limit"
+}

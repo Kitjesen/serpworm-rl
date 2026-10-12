@@ -1,11 +1,11 @@
 {
-  "generated_at_utc": "2026-10-05T05:03:48.706357+00:00",
+  "generated_at_utc": "2026-10-05T13:24:05.661303+00:00",
   "origin": "https://github.com/Kitjesen/worm-sim",
   "origin_base_commit": "04c8177",
   "source_note": "Curated working-tree snapshot, including previously uncommitted experiments; not an unchanged copy of the origin commit.",
   "scope": "Current standalone GPU core/training, selected relevant evidence and demos; not the complete historical project archive.",
-  "file_count": 173,
-  "total_bytes": 51953480,
+  "file_count": 185,
+  "total_bytes": 52048177,
   "files": [
     {
       "path": ".gitattributes",
@@ -23,9 +23,19 @@
       "sha256": "a0a3582b83889b3bc65e409f5b1b1ad4a1c1cedde28625d548506b7b974a40e6"
     },
     {
+      "path": "bench_plate_structure.py",
+      "bytes": 8930,
+      "sha256": "873943a2cd0e4c5277b5d1c25e3491ca0c2dfefee7db7f0ca85ac2df44043ab9"
+    },
+    {
       "path": "check_migration.py",
       "bytes": 4519,
       "sha256": "32125ba9979975875c7b56824a7411a3a8699497b6ccbe8463642c0f24caf453"
+    },
+    {
+      "path": "check_plate_solver.py",
+      "bytes": 9096,
+      "sha256": "b0312298c4210a57bff10cca3a3b5174200164ac241aab27c065fc4bbe58af85"
     },
     {
       "path": "check_rewards.py",
@@ -34,13 +44,13 @@
     },
     {
       "path": "docs/ARCHITECTURE.zh-CN.md",
-      "bytes": 8112,
-      "sha256": "68e176d0faf2ea49d3e46b7bc5fcb5f988c01358b9e7d5608c3abb1e7b4d2dd7"
+      "bytes": 9230,
+      "sha256": "a94578a909de3d6ffba3d59bc65376a9d1f4e58754e4ad623ce6170246ee09a4"
     },
     {
       "path": "docs/GPU_MIGRATION.zh-CN.md",
-      "bytes": 3107,
-      "sha256": "1fe3552fc43d44a4539fa11aa0d5f759954f32ebc5499f6adc6ff42a7366f02c"
+      "bytes": 4327,
+      "sha256": "1fee85bb56573d05ddd14eacb20120519b7d60c56f6ae7d5545c6eccd97d5669"
     },
     {
       "path": "docs/REWARD_ABLATION.zh-CN.md",
@@ -48,14 +58,19 @@
       "sha256": "c4ddb36f36e747ddc248aa09adaa30bcd5a5f9e899bf71a43b73e8e65e061dc7"
     },
     {
+      "path": "docs/STEEL_DYNAMICS_ACCELERATION_REVIEW.zh-CN.md",
+      "bytes": 32841,
+      "sha256": "3798711db9d9c710f786c22f51a52220066b2549cbdad53e1f4aeebf35c654f5"
+    },
+    {
       "path": "evaluate_gpu.py",
-      "bytes": 4848,
-      "sha256": "bef15be6b455c6bed8a1f506478d6cf4bd43e85646147945f9d6afb1db899f14"
+      "bytes": 4969,
+      "sha256": "0e7eb2645596cf42546da914d4329c2f7d6b46dbf01ed0595fe3ad917dc6e745"
     },
     {
       "path": "gpu_core.py",
-      "bytes": 31244,
-      "sha256": "220f17952dacf41c52fc45a83385aa16ff2db353d145fae1d50e1c57e32fe962"
+      "bytes": 32489,
+      "sha256": "4c864aa6b7501faeab17683bb6adf0a56ca644996a47d1edafe722ecace8d845"
     },
     {
       "path": "inputs/parameters.json",
@@ -149,8 +164,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5458,
-      "sha256": "1fc04797a133c236526cecfbda0651cc0e6f68162d7d0166fe379d1896319e75"
+      "bytes": 5913,
+      "sha256": "b3abfd557c08e6bbbca889a345f156c17c15d2816ee19ad3391e61b6b615c132"
     },
     {
       "path": "reference/BeamAdapter/AdaptiveBeamForceFieldAndMass.h",
@@ -563,9 +578,19 @@
       "sha256": "65da709d11d100a2d6daa8bfe9387945d4dcf28951aa7a067b529fc7cbc44b89"
     },
     {
+      "path": "results/plate_structure_cpu_b1.json",
+      "bytes": 3969,
+      "sha256": "dfe1cd0a1401d3e2fbccca57193475e4795a3a1f7a816690678e78b177731dad"
+    },
+    {
+      "path": "results/plate_structure_cpu_b2.json",
+      "bytes": 3966,
+      "sha256": "472bed471d86661adbee5a2dd6b4240a52c0b062c79527b2830246c7a44e8a7a"
+    },
+    {
       "path": "results/README.md",
-      "bytes": 1379,
-      "sha256": "9c7c1a70a28701ae0b69166830b6e153c65d25c8adb94135462c7c918f269444"
+      "bytes": 5071,
+      "sha256": "49cbeca0a7ad2704342be3725f1e3a87963e1b4d3a94d0559ca6df5171e3ccca"
     },
     {
       "path": "results/reward_ablation_20261005/batch_2048.json",
@@ -651,6 +676,41 @@
       "path": "results/reward_checks.json",
       "bytes": 493,
       "sha256": "f737ed02396bf60d4a3ffc385cdcf4e3a44ebb734a4792f4614315a4f3b30638"
+    },
+    {
+      "path": "results/solver_integrated_20261005/integrated.json",
+      "bytes": 3809,
+      "sha256": "2a1682a7806704e6b8f5d47e98b3c3e96d43d3fd79f8b21efcb905546ab74312"
+    },
+    {
+      "path": "results/solver_integrated_20261005/status.json",
+      "bytes": 547,
+      "sha256": "fa978c346880b850aa93cd46d3b6bcce7826e226b960c3448f6b1e8dffb5c451"
+    },
+    {
+      "path": "results/solver_structure_20261005/b128.json",
+      "bytes": 5733,
+      "sha256": "7c5e4f4277d6e58759bb349ea70e5023e18532b13f80417b2badf7d1abfa50c9"
+    },
+    {
+      "path": "results/solver_structure_20261005/b64.json",
+      "bytes": 5730,
+      "sha256": "80573211b8da695c26131721b8cf8be6fe9df50ab01ddd01425739c69a1939f7"
+    },
+    {
+      "path": "results/solver_structure_20261005/b64_repeat.json",
+      "bytes": 5733,
+      "sha256": "237404b2f95062ad80a3b8f6156b24ed3d15f1e4071bace272f8e1662db2fe55"
+    },
+    {
+      "path": "results/solver_structure_20261005/b8.json",
+      "bytes": 5736,
+      "sha256": "a5784b8787ac6fba9626076a3f4e83c97b3e2c71cb7362efb814ffd023a18226"
+    },
+    {
+      "path": "results/solver_structure_20261005/status.json",
+      "bytes": 500,
+      "sha256": "4145a40460979162b5a19bdd0477b0863ece4f617f8d409c153c1e4f92da0703"
     },
     {
       "path": "results/tensor_direct/checkpoint.pt",
@@ -859,13 +919,13 @@
     },
     {
       "path": "tensor_env.py",
-      "bytes": 12080,
-      "sha256": "657d1df3bd94493070604c98c8813d343737b6af1862b4ff118bf736df9465ad"
+      "bytes": 12130,
+      "sha256": "3d976f0f69f2860bb60a83bd6f46f576505d34c03866a949f06513e2dea8efa7"
     },
     {
       "path": "train_gpu.py",
-      "bytes": 11408,
-      "sha256": "3cf9cc6ee8bea10a95a5c450081584a87fc339eb32e5c3d838827dd477c82684"
+      "bytes": 11614,
+      "sha256": "ef541c9437aa9999b2dec94566f03c55530451af86d04f2a50fc18a408e0cae2"
     },
     {
       "path": "wheel_stiction.py",

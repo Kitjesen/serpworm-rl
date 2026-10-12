@@ -1,0 +1,59 @@
+{
+  "kind": "direct",
+  "out": "train_r0064_speed40_fullservo180_joint45_20261009",
+  "envs": 8,
+  "horizon": 64,
+  "rollouts": 64,
+  "epochs": 4,
+  "batch_size": 128,
+  "seed": 7,
+  "seconds": 0.0,
+  "reward": "tracking_v3",
+  "control_profile": "bounded_v7",
+  "plate_solver": "legacy",
+  "save_every": 8,
+  "eval_every": 16,
+  "torch": "2.8.0+cu128",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "source_sha256": {
+    "evaluate_gpu.py": "b4511f2ab6129e41e5c51b886cd212241dfde02e875c59b841514108ab2d7d01",
+    "gpu_core.py": "30c757b804054e88bfe7acb00cfd9b57dce395b4beb6ce1da6e03efab09c9e69",
+    "matsuoka_torch.py": "7f2e3f55d81e644bd84f2a71d7c948bdbc6d079597cb309ccc74ba786027365d",
+    "rewards.py": "c4e7a19c76fd427c1f89aad737dfce59c718f286687743b6f45ecb1a0048037b",
+    "tensor_env.py": "1c3c6eba75ab1719e5f6e37ea66d0e3aa87b0db88b5ece5a2d69a4c8d1a524ed",
+    "train_gpu.py": "ffa628508fb0199f3accba3a1f3da1516083e07fbf5d92ca59edce10ae3d2c83",
+    "wheel_stiction.py": "e81e1699900ca38fed9833dc147dad393e11970c3148aa0338e3e07fed45f44e"
+  },
+  "online_numeric_device": "cuda",
+  "physics_dtype": "float64",
+  "policy_dtype": "float32",
+  "cpu_scope": "initialization, Python dispatch, boundary checks, serialization",
+  "physics": "uncalibrated candidate; unchanged split coupling; no full self-contact",
+  "algorithm": "direct PPO without CPG",
+  "dt_s": 0.00025,
+  "policy_hz": 10,
+  "reward_scope": "reward selection applies only to direct velocity task; CPG goal reward unchanged",
+  "joint_limit_deg": 45.0,
+  "observation_size": 520,
+  "command_switch_steps": 250,
+  "reward_velocity": "plate centroid and whole-body heading",
+  "rollout_equivalence": "bounded_v7 uses a tanh-squashed Gaussian with matching PPO log-probability.",
+  "action_distribution": "tanh-squashed Gaussian; stored actions are bounded and log-prob uses atanh plus Jacobian correction",
+  "actuator_mapping": "4 policy channels -> 10 worm servo targets + 4 yaw targets; physical delta cost uses all 14 channels",
+  "servo_target_limit_deg": 180,
+  "yaw_target_limit_deg": 45,
+  "command_range_m_s": [
+    -0.04,
+    0.04
+  ],
+  "command_range_mm_s": [
+    -40,
+    40
+  ],
+  "yaw_command_range_rad_s": [
+    -0.2,
+    0.2
+  ],
+  "lateral_command_m_s": 0.0,
+  "command_sampling": "continuous uniform ranges with 15% stop mixture"
+}

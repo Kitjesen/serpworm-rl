@@ -130,9 +130,11 @@ def local_matrices(lengths,p):
     return np.array([x[0] for x in out]),np.array([x[1] for x in out])
 
 class GPUCore:
-    def __init__(self,count=1,batch=1,dt=.00025,device='cuda',dtype=torch.float64,sofa_mass_compat=False,legacy_rolling=False,yaw_motor_speed=None,ground_contact=True,budget=False,strain_jacobian=False):
+    def __init__(self,count=1,batch=1,dt=.00025,device='cuda',dtype=torch.float64,sofa_mass_compat=False,legacy_rolling=False,yaw_motor_speed=None,ground_contact=True,budget=False,strain_jacobian=False,plate_solver='legacy'):
         if count not in (1,2,5) or batch<1 or not 0<dt<=.001:raise ValueError('Invalid topology/time step')
+        if plate_solver not in ('legacy','segment_lu'):raise ValueError('Invalid plate solver')
         self.count,self.batch,self.dt,self.device,self.dtype=count,batch,dt,torch.device(device),dtype
+        self.plate_solver=plate_solver
         self.sofa_mass_compat=sofa_mass_compat
         self.legacy_rolling=legacy_rolling or sofa_mass_compat
         self.yaw_motor_speed=yaw_motor_speed
@@ -144,6 +146,12 @@ class GPUCore:
         raw=np.load(ROOT/'inputs'/f'topology_{count}.npz');self.parameters=json.loads((ROOT/'inputs'/'parameters.json').read_text())
         self.nodes=self.tensor(raw['strip_nodes'],torch.long);self.edges=self.tensor(raw['edges'],torch.long)
         self.S,self.N=self.nodes.shape;self.E=self.N-1;self.P=2*count;self.D=len(raw['rest'])
+        if plate_solver=='segment_lu':
+            # Cold CPU check: each strip belongs to its ordered pair of plates.
+            expected=np.repeat(np.arange(self.P).reshape(count,2),self.S//count,axis=0)
+            if self.S%count or not np.array_equal(raw['strip_nodes'][:,[0,-1]],expected):
+                raise ValueError('segment_lu requires strips grouped by adjacent segment plate pairs')
+            self.segment_ids=torch.arange(count,device=self.device)
         self.lengths=self.tensor(raw['lengths'].reshape(self.S,self.E))
         self.transforms=self.tensor(raw['transforms']);self.mounts=self.tensor(raw['wheel_mounts'])[torch.arange(self.P,device=self.device)%2]
         self.anchors=self.tensor(raw['anchors']);self.guides=self.tensor(raw['guides'])
@@ -231,6 +239,9 @@ class GPUCore:
             if self.yaw_motor_speed is not None:
                 cap=.5*torch.where(yaw_torque*rate>0,(1-rate.abs()/self.yaw_motor_speed).clamp(0,1),1.)
                 yaw_torque=torch.maximum(torch.minimum(yaw_torque,cap),-cap)
+                self.last_yaw_torque_cap=cap[...,0]
+            else:self.last_yaw_torque_cap=torch.full_like(yaw,.5)
+            self.last_yaw_torque=yaw_torque[...,0]
             torque=yaw_torque*axis+20*cross(R[:,b,:,2],axis)-.1*(omega-axis*rate)
             f[:,b,3:]+=torque;f[:,a,3:]-=torque
         self.internal_force=f.sum(1)[:,:3]
@@ -420,7 +431,15 @@ class GPUCore:
         globalA.index_add_(1,self.scatter_mat,endA.reshape(self.batch,-1));globalA=globalA.reshape(self.batch,P,P)
         for i in range(self.P):globalA[:,6*i:6*i+6,6*i:6*i+6]+=plate[:,i]
         globalr=rhs[:,:self.P].reshape(self.batch,P).clone();globalr.index_add_(1,self.plate_dofs.reshape(-1),endr.reshape(self.batch,-1))
-        if self.batch<=8:
+        if self.plate_solver=='segment_lu':
+            # Valid for the current split coupling: inter-segment forces are in
+            # rhs only. Revisit this decomposition if implicit joint/contact
+            # terms introduce off-diagonal segment blocks in globalA.
+            blocks=globalA.reshape(self.batch,self.count,12,self.count,12).permute(0,1,3,2,4)
+            local=blocks[:,self.segment_ids,self.segment_ids].reshape(self.batch*self.count,12,12)
+            vp,info=torch.linalg.solve_ex(local,globalr.reshape(self.batch*self.count,12,1),check_errors=False)
+            vp=vp.reshape(self.batch,P,1)
+        elif self.batch<=8:
             vp,info=torch.linalg.solve_ex(globalA,globalr[...,None],check_errors=False)
         else:
             # Torch's larger-batch dispatch uses a solver path which synchronizes

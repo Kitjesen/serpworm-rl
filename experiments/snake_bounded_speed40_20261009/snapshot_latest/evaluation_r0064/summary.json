@@ -1,0 +1,1830 @@
+{
+  "kind": "direct",
+  "results": [
+    {
+      "case": "stop",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0004835307619592085,
+        4.565962556010963e-05,
+        -1.5769910330712464e-06
+      ],
+      "mean_slip_m_s": 6.556452829003254e-05,
+      "work_proxy_j": 0.04183950624489044,
+      "min_clearance_m": 0.020068760746030784,
+      "peak_joint_deg": 12.341691728959068,
+      "velocity_rmse": [
+        0.0011198354720092353,
+        0.000104509938109085,
+        5.0187923220096453e-05
+      ],
+      "body_velocity_rmse": [
+        0.0011794719051273215,
+        0.00010930191625690673,
+        6.222564122247758e-05
+      ],
+      "mean_body_velocity": [
+        0.0004835307620510005,
+        4.565962562093285e-05,
+        -1.5769911088046276e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.1956138533153385e-05,
+        4.748118411855571e-05,
+        2.5686026386785973e-05,
+        4.189402424310951e-05
+      ],
+      "actual_yaw_pp_max_deg_second_half": 4.748118411855571e-05,
+      "target_tracking_rmse_deg": 4.370715598857995,
+      "requested_target_peak_deg": 18.667269498109818,
+      "applied_target_peak_deg": 18.61746732000329,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        3.8606736211357335e-05,
+        1.6941980818156053e-05,
+        8.908741987252362e-06,
+        5.006173768147731e-05
+      ]
+    },
+    {
+      "case": "stop",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478310524913e-06,
+        -1.7629015222020103e-14,
+        -1.313394605074947e-13
+      ],
+      "mean_slip_m_s": 1.352215963807135e-05,
+      "work_proxy_j": 3.867610670363518e-21,
+      "min_clearance_m": 0.033616033545149436,
+      "peak_joint_deg": 2.348205871896033e-09,
+      "velocity_rmse": [
+        6.0850416502283456e-05,
+        7.6737891804834e-14,
+        6.663689454851314e-13
+      ],
+      "body_velocity_rmse": [
+        0.00017759972546151835,
+        9.882074852313989e-14,
+        1.0176437575613856e-12
+      ],
+      "mean_body_velocity": [
+        -7.426478301902906e-06,
+        -1.7629038010473955e-14,
+        -1.313392379513911e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.0777408643445007e-15,
+        3.309335934558479e-15,
+        8.337309159537802e-15,
+        5.9866060541373084e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 8.337309159537802e-15,
+      "target_tracking_rmse_deg": 1.3907658361491595e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        25.0,
+        14.125,
+        17.75
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.6164219502685856e-10,
+        4.4654598859670474e-10,
+        1.4055566352754057e-09,
+        1.1320378253737629e-09
+      ]
+    },
+    {
+      "case": "stop",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478157211877e-06,
+        1.7674260726106903e-15,
+        -2.1650784022132164e-13
+      ],
+      "mean_slip_m_s": 1.3522159399922573e-05,
+      "work_proxy_j": 7.938650401071471e-21,
+      "min_clearance_m": 0.033616033542755434,
+      "peak_joint_deg": 2.8985664259467586e-09,
+      "velocity_rmse": [
+        6.085041536777848e-05,
+        1.5644552032474044e-13,
+        1.0060509432390282e-12
+      ],
+      "body_velocity_rmse": [
+        0.00017759972232668557,
+        3.3915879582485393e-13,
+        1.4466525042917682e-12
+      ],
+      "mean_body_velocity": [
+        -7.426478148590358e-06,
+        1.7673695768778353e-15,
+        -2.165076998098283e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.7155064372341263e-15,
+        3.892709587296519e-15,
+        7.475516008762477e-15,
+        7.99247621942555e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 7.99247621942555e-15,
+      "target_tracking_rmse_deg": 1.910236635769408e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        13.375,
+        14.0,
+        7.5,
+        13.5
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.9363418981962304e-10,
+        3.600774047341557e-10,
+        1.5966082004791048e-09,
+        1.7418277598524454e-09
+      ]
+    },
+    {
+      "case": "straight",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0004843320731928692,
+        4.6772772999228326e-05,
+        -2.102507962159226e-06
+      ],
+      "mean_slip_m_s": 6.242088538462461e-05,
+      "work_proxy_j": 0.041697606864768644,
+      "min_clearance_m": 0.020014803942780775,
+      "peak_joint_deg": 12.38688384037037,
+      "velocity_rmse": [
+        0.0036315302536174448,
+        9.862839899156549e-05,
+        5.1002388342811946e-05
+      ],
+      "body_velocity_rmse": [
+        0.003643444759522439,
+        0.00010259390455020908,
+        6.2072690570836e-05
+      ],
+      "mean_body_velocity": [
+        0.0004843320732290599,
+        4.677277304885027e-05,
+        -2.102508118647246e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        0.00011215651090545016,
+        0.00014149289039451496,
+        7.715555517497197e-05,
+        0.00014041347255401188
+      ],
+      "actual_yaw_pp_max_deg_second_half": 0.00014149289039451496,
+      "target_tracking_rmse_deg": 4.359020206267162,
+      "requested_target_peak_deg": 18.69657263159752,
+      "applied_target_peak_deg": 18.68861769726309,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        2.099359534903851e-05,
+        6.489219175174752e-06,
+        1.8234871091005614e-05,
+        1.670180258648136e-05
+      ]
+    },
+    {
+      "case": "straight",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478310562062e-06,
+        -1.762945252874068e-14,
+        -1.3134045450598642e-13
+      ],
+      "mean_slip_m_s": 1.3522159651302083e-05,
+      "work_proxy_j": 3.725936811372081e-21,
+      "min_clearance_m": 0.03361603354514344,
+      "peak_joint_deg": 2.351553199204199e-09,
+      "velocity_rmse": [
+        0.004007881560085548,
+        6.743086363817962e-14,
+        6.509912894833587e-13
+      ],
+      "body_velocity_rmse": [
+        0.004011353074576034,
+        8.388431382372173e-14,
+        9.65649232853442e-13
+      ],
+      "mean_body_velocity": [
+        -7.426478301958417e-06,
+        -1.762945892450058e-14,
+        -1.313406128770023e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.5665471467252305e-15,
+        4.761113111700087e-15,
+        7.629820631822346e-15,
+        6.356227421493997e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 7.629820631822346e-15,
+      "target_tracking_rmse_deg": 1.3907792027067231e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        20.5,
+        21.5
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.8967648533754247e-10,
+        4.67437897178004e-10,
+        1.436746320356656e-09,
+        1.3074072422266028e-09
+      ]
+    },
+    {
+      "case": "straight",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.002093837892752291,
+        -1.202826300981187e-06,
+        -8.994179501194227e-06
+      ],
+      "mean_slip_m_s": 0.0003058842020596956,
+      "work_proxy_j": 0.09425336187714234,
+      "min_clearance_m": 0.028510742373588548,
+      "peak_joint_deg": 4.662068293366014,
+      "velocity_rmse": [
+        0.0024630455920196855,
+        2.4593541055118375e-05,
+        0.00023795978642131342
+      ],
+      "body_velocity_rmse": [
+        0.002646464367495539,
+        3.591514607601838e-05,
+        0.0003391246409917845
+      ],
+      "mean_body_velocity": [
+        0.0021305002693846943,
+        -1.3535992346602052e-06,
+        -5.60415651331704e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        8.768164074877625,
+        8.735378064682603,
+        8.54717151538624,
+        9.229453099767294
+      ],
+      "actual_yaw_pp_max_deg_second_half": 9.229453099767294,
+      "target_tracking_rmse_deg": 1.8855753742254129,
+      "requested_target_peak_deg": 7.500000223517417,
+      "applied_target_peak_deg": 7.148928125709879,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.218177203488495e-05,
+        1.2956178529160174e-05,
+        2.109553373184869e-05,
+        2.4010295344065416e-05
+      ]
+    },
+    {
+      "case": "straight20",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0022346200624081807,
+        6.0099622717651995e-05,
+        -5.582924936790309e-06
+      ],
+      "mean_slip_m_s": 0.00048391096779898634,
+      "work_proxy_j": 0.08255779980026796,
+      "min_clearance_m": 0.020034118536782164,
+      "peak_joint_deg": 12.408573168701698,
+      "velocity_rmse": [
+        0.018315440493478365,
+        0.00012789690621934036,
+        0.00012973658693141193
+      ],
+      "body_velocity_rmse": [
+        0.018482125035667832,
+        0.00018973210575152979,
+        0.00032744741704241907
+      ],
+      "mean_body_velocity": [
+        0.0022346222901423562,
+        6.0100358609332934e-05,
+        -5.582696947197346e-06
+      ],
+      "actual_servo_peak_deg": [
+        42.656979084268244,
+        42.656979084268244,
+        40.42239481294112,
+        40.42239481294112,
+        29.12524293608759,
+        29.12524293608759,
+        27.641880894637907,
+        27.641880894637907,
+        28.052376927087526,
+        28.052376927087526
+      ],
+      "actual_servo_peak_max_deg": 42.656979084268244,
+      "actual_yaw_pp_deg_second_half": [
+        0.29318967042887745,
+        0.6213295301119355,
+        0.5998444264557923,
+        0.28224545785940564
+      ],
+      "actual_yaw_pp_max_deg_second_half": 0.6213295301119355,
+      "target_tracking_rmse_deg": 3.5494233777952986,
+      "requested_target_peak_deg": 18.038141950964928,
+      "applied_target_peak_deg": 18.038051739421604,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        0.0021292294624873052,
+        0.00110351401747402,
+        0.0010374733531997036,
+        0.00234195504268786
+      ]
+    },
+    {
+      "case": "straight20",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478310651895e-06,
+        -1.7629285919185554e-14,
+        -1.3134027119394652e-13
+      ],
+      "mean_slip_m_s": 1.3522159621070124e-05,
+      "work_proxy_j": 3.2979827059271374e-21,
+      "min_clearance_m": 0.033616033545152434,
+      "peak_joint_deg": 2.3532566264080475e-09,
+      "velocity_rmse": [
+        0.020007517634769552,
+        6.901585354116465e-14,
+        5.900094276420904e-13
+      ],
+      "body_velocity_rmse": [
+        0.020008213333393036,
+        9.131879177948836e-14,
+        8.298238422297661e-13
+      ],
+      "mean_body_velocity": [
+        -7.4264783020324314e-06,
+        -1.7629262148752153e-14,
+        -1.3134033748373297e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.303335609723097e-15,
+        4.123506809908954e-15,
+        8.045130123646152e-15,
+        6.5180058531457686e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 8.045130123646152e-15,
+      "target_tracking_rmse_deg": 1.3907767556959585e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        12.0,
+        11.25,
+        24.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.5854971002194522e-10,
+        4.858922525299506e-10,
+        1.7037769466857248e-09,
+        1.3082331855612877e-09
+      ]
+    },
+    {
+      "case": "straight20",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.002093837892844968,
+        -1.2028263035602701e-06,
+        -8.994179499019185e-06
+      ],
+      "mean_slip_m_s": 0.00030588420202321893,
+      "work_proxy_j": 0.09425336186668057,
+      "min_clearance_m": 0.028510742373583677,
+      "peak_joint_deg": 4.662068293431091,
+      "velocity_rmse": [
+        0.017973975103385612,
+        2.459354105629795e-05,
+        0.00023795978651064783
+      ],
+      "body_velocity_rmse": [
+        0.01796740841147368,
+        3.591514602869623e-05,
+        0.0003391246414397241
+      ],
+      "mean_body_velocity": [
+        0.002130500269481141,
+        -1.353599243456351e-06,
+        -5.604156486962272e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        8.768164074894162,
+        8.73537806458955,
+        8.547171515315295,
+        9.229453099674153
+      ],
+      "actual_yaw_pp_max_deg_second_half": 9.229453099674153,
+      "target_tracking_rmse_deg": 1.8855753742320274,
+      "requested_target_peak_deg": 7.500000223517417,
+      "applied_target_peak_deg": 7.148928125709879,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.2181771993514097e-05,
+        1.295617854642374e-05,
+        2.1095533758738018e-05,
+        2.4010295341283546e-05
+      ]
+    },
+    {
+      "case": "straight40",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.012591270641031996,
+        0.0001334717402545104,
+        -0.0008672213230458559
+      ],
+      "mean_slip_m_s": 0.0020179999283985255,
+      "work_proxy_j": 0.3913825968685485,
+      "min_clearance_m": 0.019960510299694388,
+      "peak_joint_deg": 12.373341800839697,
+      "velocity_rmse": [
+        0.02891600873035855,
+        0.0003764368659122492,
+        0.0015955393733499356
+      ],
+      "body_velocity_rmse": [
+        0.029584779899631878,
+        0.0005921590243444047,
+        0.002348692715343355
+      ],
+      "mean_body_velocity": [
+        0.012671170917350767,
+        0.00012991859167758816,
+        -0.000871563243837164
+      ],
+      "actual_servo_peak_deg": [
+        64.75210064934966,
+        64.75210064934966,
+        66.5070711416579,
+        66.5070711416579,
+        58.0373049290477,
+        58.0373049290477,
+        50.4882209887019,
+        50.4882209887019,
+        52.61576919388808,
+        52.61576919388808
+      ],
+      "actual_servo_peak_max_deg": 66.5070711416579,
+      "actual_yaw_pp_deg_second_half": [
+        2.9715953766588026,
+        10.996838834114797,
+        10.552056191424347,
+        3.504665667983488
+      ],
+      "actual_yaw_pp_max_deg_second_half": 10.996838834114797,
+      "target_tracking_rmse_deg": 2.8893422242904236,
+      "requested_target_peak_deg": 18.062219470739365,
+      "applied_target_peak_deg": 16.949260916977156,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        1.5,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        0.15103190564921057,
+        0.012824033301363925,
+        0.01481496719724381,
+        0.04916125622793995
+      ]
+    },
+    {
+      "case": "straight40",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478310526664e-06,
+        -1.7629056963813432e-14,
+        -1.3134020404964877e-13
+      ],
+      "mean_slip_m_s": 1.352215962494979e-05,
+      "work_proxy_j": 3.4800852599742235e-21,
+      "min_clearance_m": 0.03361603354515066,
+      "peak_joint_deg": 2.354250776300507e-09,
+      "velocity_rmse": [
+        0.04000747206507843,
+        7.298755544687408e-14,
+        6.161659388856808e-13
+      ],
+      "body_velocity_rmse": [
+        0.04000781998468092,
+        1.088823046553041e-13,
+        9.018788018430428e-13
+      ],
+      "mean_body_velocity": [
+        -7.42647830189828e-06,
+        -1.762901954540963e-14,
+        -1.3134007198796507e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.5066482906924985e-15,
+        4.377325096037554e-15,
+        7.044897315073362e-15,
+        5.277543810254924e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 7.044897315073362e-15,
+      "target_tracking_rmse_deg": 1.390746737419976e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        13.0,
+        13.75,
+        17.0,
+        20.0
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.570924394447184e-10,
+        4.003921961083899e-10,
+        1.3995312874235861e-09,
+        1.3283016314923187e-09
+      ]
+    },
+    {
+      "case": "straight40",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0020938378927834026,
+        -1.2028263030069609e-06,
+        -8.994179502681716e-06
+      ],
+      "mean_slip_m_s": 0.0003058842016499329,
+      "work_proxy_j": 0.09425336186673092,
+      "min_clearance_m": 0.028510742373333293,
+      "peak_joint_deg": 4.6620682935921005,
+      "velocity_rmse": [
+        0.03793824278097093,
+        2.459354107886726e-05,
+        0.0002379597864686062
+      ],
+      "body_velocity_rmse": [
+        0.03791579821460285,
+        3.591514610975053e-05,
+        0.00033912464104303284
+      ],
+      "mean_body_velocity": [
+        0.002130500269414581,
+        -1.3535992411401064e-06,
+        -5.604156495380976e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        8.768164074998705,
+        8.735378064586046,
+        8.547171515393424,
+        9.229453099710563
+      ],
+      "actual_yaw_pp_max_deg_second_half": 9.229453099710563,
+      "target_tracking_rmse_deg": 1.885575374219789,
+      "requested_target_peak_deg": 7.500000223517417,
+      "applied_target_peak_deg": 7.148928125709879,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.218177201028636e-05,
+        1.2956178533857661e-05,
+        2.109553374261305e-05,
+        2.4010295346877318e-05
+      ]
+    },
+    {
+      "case": "reverse20",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0004448126902983145,
+        3.453928580930759e-05,
+        3.005448948688353e-07
+      ],
+      "mean_slip_m_s": 6.388090885113165e-05,
+      "work_proxy_j": 0.03837772751113688,
+      "min_clearance_m": 0.021236533119687366,
+      "peak_joint_deg": 11.28655341044258,
+      "velocity_rmse": [
+        0.02047165100898206,
+        9.730162540186346e-05,
+        4.698904822243301e-05
+      ],
+      "body_velocity_rmse": [
+        0.02047596379587383,
+        0.00010358859659127719,
+        7.035216987531835e-05
+      ],
+      "mean_body_velocity": [
+        0.00044481269072445647,
+        3.4539285814106854e-05,
+        3.005449068703619e-07
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        4.188677955895816e-05,
+        7.843126423156429e-05,
+        4.312946951935061e-05,
+        7.722086659790479e-05
+      ],
+      "actual_yaw_pp_max_deg_second_half": 7.843126423156429e-05,
+      "target_tracking_rmse_deg": 4.163568694843826,
+      "requested_target_peak_deg": 17.294019386172295,
+      "applied_target_peak_deg": 17.18411851526926,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.125,
+        0.375
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        0.0004603474049290986,
+        0.00025418453334290144,
+        0.00011173152085687657,
+        0.0014334014784193993
+      ]
+    },
+    {
+      "case": "reverse20",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478310383455e-06,
+        -1.7629327231962982e-14,
+        -1.3133968583920639e-13
+      ],
+      "mean_slip_m_s": 1.3522159630314254e-05,
+      "work_proxy_j": 3.74072930835367e-21,
+      "min_clearance_m": 0.03361603354514411,
+      "peak_joint_deg": 2.347503874657963e-09,
+      "velocity_rmse": [
+        0.019992664745870484,
+        7.440953481884406e-14,
+        6.436733543320972e-13
+      ],
+      "body_velocity_rmse": [
+        0.019993360961339288,
+        1.118186920602106e-13,
+        9.870620765077915e-13
+      ],
+      "mean_body_velocity": [
+        -7.426478301764128e-06,
+        -1.762925140535221e-14,
+        -1.3133960794996773e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.114412706162047e-15,
+        4.302022927809017e-15,
+        6.680186337228361e-15,
+        5.88561221588272e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 6.680186337228361e-15,
+      "target_tracking_rmse_deg": 1.390782392324182e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        15.875,
+        13.5,
+        10.625,
+        24.5
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.7908879975541994e-10,
+        4.585886309167117e-10,
+        1.51567066646862e-09,
+        1.1182959217193704e-09
+      ]
+    },
+    {
+      "case": "reverse20",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0020938378928919326,
+        -1.2028263006151459e-06,
+        -8.99417951247958e-06
+      ],
+      "mean_slip_m_s": 0.00030588420194338056,
+      "work_proxy_j": 0.09425336187071327,
+      "min_clearance_m": 0.02851074237343835,
+      "peak_joint_deg": 4.66206829354096,
+      "velocity_rmse": [
+        0.02214883320734443,
+        2.4593541070514873e-05,
+        0.00023795978638167626
+      ],
+      "body_velocity_rmse": [
+        0.022209632743140396,
+        3.5915146095592144e-05,
+        0.0003391246408645364
+      ],
+      "mean_body_velocity": [
+        0.0021305002695286694,
+        -1.3535992357964603e-06,
+        -5.604156507787937e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        8.768164074844524,
+        8.735378064672481,
+        8.547171515444953,
+        9.229453099790678
+      ],
+      "actual_yaw_pp_max_deg_second_half": 9.229453099790678,
+      "target_tracking_rmse_deg": 1.8855753742311983,
+      "requested_target_peak_deg": 7.500000223517417,
+      "applied_target_peak_deg": 7.148928125709879,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.2181772001754176e-05,
+        1.2956178534606626e-05,
+        2.1095533719253513e-05,
+        2.401029529156522e-05
+      ]
+    },
+    {
+      "case": "reverse40",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0003813788440863078,
+        1.7464802068780337e-05,
+        3.6213348909105347e-06
+      ],
+      "mean_slip_m_s": 5.8260572447589854e-05,
+      "work_proxy_j": 0.029625493666809225,
+      "min_clearance_m": 0.023709227492355774,
+      "peak_joint_deg": 9.107999736023482,
+      "velocity_rmse": [
+        0.04038914849173535,
+        6.785993026777402e-05,
+        4.0368644131690725e-05
+      ],
+      "body_velocity_rmse": [
+        0.040391965089383135,
+        7.775342599751863e-05,
+        6.817108446059731e-05
+      ],
+      "mean_body_velocity": [
+        0.00038137884407648447,
+        1.746480208827539e-05,
+        3.6213348372901626e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.8727854775746303e-05,
+        5.101495178724651e-05,
+        2.7520283022778923e-05,
+        5.670949976862782e-05
+      ],
+      "actual_yaw_pp_max_deg_second_half": 5.670949976862782e-05,
+      "target_tracking_rmse_deg": 3.7663525136699163,
+      "requested_target_peak_deg": 14.2198745906353,
+      "applied_target_peak_deg": 14.149490391876004,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        0.00011934562697830073,
+        6.882520855780379e-05,
+        4.130240345743253e-05,
+        0.00028153127957789546
+      ]
+    },
+    {
+      "case": "reverse40",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.42647831051666e-06,
+        -1.7629488176959547e-14,
+        -1.313394870201073e-13
+      ],
+      "mean_slip_m_s": 1.3522159613291543e-05,
+      "work_proxy_j": 3.575771667412444e-21,
+      "min_clearance_m": 0.03361603354515016,
+      "peak_joint_deg": 2.3519821597595714e-09,
+      "velocity_rmse": [
+        0.03999261912538792,
+        8.18312220950477e-14,
+        6.322048980329299e-13
+      ],
+      "body_velocity_rmse": [
+        0.03999296717422065,
+        1.1052573809308185e-13,
+        9.349618922123736e-13
+      ],
+      "mean_body_velocity": [
+        -7.42647830189828e-06,
+        -1.762956161096418e-14,
+        -1.3133947100995022e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.667921204815765e-15,
+        4.560464836665098e-15,
+        7.578211679029368e-15,
+        6.828288840748152e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 7.578211679029368e-15,
+      "target_tracking_rmse_deg": 1.3907572832090544e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        16.125,
+        19.5,
+        12.75,
+        16.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.726723848943013e-10,
+        4.0958922370139395e-10,
+        1.568771357341111e-09,
+        1.1580846548891273e-09
+      ]
+    },
+    {
+      "case": "reverse40",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.002093837892777043,
+        -1.202826301056684e-06,
+        -8.994179514575255e-06
+      ],
+      "mean_slip_m_s": 0.0003058842020116951,
+      "work_proxy_j": 0.09425336186889438,
+      "min_clearance_m": 0.028510742373370153,
+      "peak_joint_deg": 4.662068293578306,
+      "velocity_rmse": [
+        0.042122729353078335,
+        2.4593541055281913e-05,
+        0.0002379597862850809
+      ],
+      "body_velocity_rmse": [
+        0.04217212109150029,
+        3.591514602166602e-05,
+        0.0003391246407112477
+      ],
+      "mean_body_velocity": [
+        0.002130500269407842,
+        -1.353599235727371e-06,
+        -5.604156506171054e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        8.768164074910581,
+        8.735378064651304,
+        8.547171515254975,
+        9.229453099557904
+      ],
+      "actual_yaw_pp_max_deg_second_half": 9.229453099557904,
+      "target_tracking_rmse_deg": 1.885575374234326,
+      "requested_target_peak_deg": 7.500000223517417,
+      "applied_target_peak_deg": 7.148928125709879,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.2181771983094872e-05,
+        1.2956178546044661e-05,
+        2.1095533735357862e-05,
+        2.4010295350381835e-05
+      ]
+    },
+    {
+      "case": "left",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.00051882422575698,
+        5.093911933926495e-05,
+        -2.1550034992952573e-06
+      ],
+      "mean_slip_m_s": 6.849640993997127e-05,
+      "work_proxy_j": 0.045927442918506686,
+      "min_clearance_m": 0.019245508081109655,
+      "peak_joint_deg": 13.084785983351388,
+      "velocity_rmse": [
+        0.0036644992611421373,
+        0.0001228053642114367,
+        0.020002226724913575
+      ],
+      "body_velocity_rmse": [
+        0.0036953552361934554,
+        0.000130046835856783,
+        0.020002290131051426
+      ],
+      "mean_body_velocity": [
+        0.0005188242257691799,
+        5.093911943992197e-05,
+        -2.1550038275436564e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        1.5050081721362392e-05,
+        3.4417146696502655e-05,
+        1.8578723238389066e-05,
+        2.8682154775430747e-05
+      ],
+      "actual_yaw_pp_max_deg_second_half": 3.4417146696502655e-05,
+      "target_tracking_rmse_deg": 4.627115127052456,
+      "requested_target_peak_deg": 19.63960513472557,
+      "applied_target_peak_deg": 19.581418706593947,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        7.949277535382839e-05,
+        8.590949168817774e-05,
+        5.6820899684254344e-05,
+        0.00030126823413685063
+      ]
+    },
+    {
+      "case": "left",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478310706519e-06,
+        -1.762827723095973e-14,
+        -1.3134031339039743e-13
+      ],
+      "mean_slip_m_s": 1.3522159635069427e-05,
+      "work_proxy_j": 3.5825025262943615e-21,
+      "min_clearance_m": 0.03361603354514938,
+      "peak_joint_deg": 2.3485821604837657e-09,
+      "velocity_rmse": [
+        0.004007881560085624,
+        7.756252088086094e-14,
+        0.02000000000013134
+      ],
+      "body_velocity_rmse": [
+        0.004011353074575182,
+        1.0112715755610835e-13,
+        0.02000000000013134
+      ],
+      "mean_body_velocity": [
+        -7.426478302087943e-06,
+        -1.7628330404571232e-14,
+        -1.3134024523684684e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.763367428434955e-15,
+        3.936967495861028e-15,
+        7.280696360796261e-15,
+        6.126014569849083e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 7.280696360796261e-15,
+      "target_tracking_rmse_deg": 1.3907712850077139e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        16.0,
+        12.0,
+        17.25,
+        17.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.6519268513357715e-10,
+        4.2362828252521186e-10,
+        1.3632624839011322e-09,
+        9.75332559402335e-10
+      ]
+    },
+    {
+      "case": "left",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0020938378928310095,
+        -1.2028263021632e-06,
+        -8.994179504613561e-06
+      ],
+      "mean_slip_m_s": 0.00030588420177233406,
+      "work_proxy_j": 0.0942533618676904,
+      "min_clearance_m": 0.028510742373695337,
+      "peak_joint_deg": 4.662068293314137,
+      "velocity_rmse": [
+        0.0024630455919649238,
+        2.4593541071401743e-05,
+        0.02001040709331321
+      ],
+      "body_velocity_rmse": [
+        0.0026464643674492293,
+        3.591514605179166e-05,
+        0.02000847749786212
+      ],
+      "mean_body_velocity": [
+        0.002130500269452968,
+        -1.3535992397905286e-06,
+        -5.604156510681379e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        8.768164074886547,
+        8.735378064597525,
+        8.547171515337352,
+        9.229453099835053
+      ],
+      "actual_yaw_pp_max_deg_second_half": 9.229453099835053,
+      "target_tracking_rmse_deg": 1.8855753742388617,
+      "requested_target_peak_deg": 7.500000223517417,
+      "applied_target_peak_deg": 7.148928125709879,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.2181772011793452e-05,
+        1.2956178541916898e-05,
+        2.1095533718531414e-05,
+        2.40102953310179e-05
+      ]
+    },
+    {
+      "case": "right",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.001259641651935318,
+        4.638498687642305e-05,
+        -7.678655904217893e-06
+      ],
+      "mean_slip_m_s": 0.0003911163209802429,
+      "work_proxy_j": 0.059118273133889856,
+      "min_clearance_m": 0.020981528454318173,
+      "peak_joint_deg": 11.619109625092811,
+      "velocity_rmse": [
+        0.0035272599852487945,
+        8.797365078401715e-05,
+        0.019992868924672728
+      ],
+      "body_velocity_rmse": [
+        0.004051374093354873,
+        0.0001325688798418207,
+        0.019995675617036645
+      ],
+      "mean_body_velocity": [
+        0.0012596416434707649,
+        4.638498716017071e-05,
+        -7.678657533824846e-06
+      ],
+      "actual_servo_peak_deg": [
+        36.763366553376706,
+        36.763366553376706,
+        21.80535132432981,
+        21.80535132432981,
+        15.573850305109866,
+        15.573850305109866,
+        15.345636761472871,
+        15.345636761472871,
+        11.821889938898865,
+        11.821889938898865
+      ],
+      "actual_servo_peak_max_deg": 36.763366553376706,
+      "actual_yaw_pp_deg_second_half": [
+        0.0444819315923354,
+        0.09544474307348358,
+        0.10277487933327585,
+        0.025137438467298504
+      ],
+      "actual_yaw_pp_max_deg_second_half": 0.10277487933327585,
+      "target_tracking_rmse_deg": 3.596191884005437,
+      "requested_target_peak_deg": 17.522428929805756,
+      "applied_target_peak_deg": 17.521747938991908,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        0.00012678225373378716,
+        0.0001219751515550781,
+        0.00012978260880386049,
+        0.00011678390462190916
+      ]
+    },
+    {
+      "case": "right",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478310464683e-06,
+        -1.7628573747059918e-14,
+        -1.3133979076835095e-13
+      ],
+      "mean_slip_m_s": 1.3522159623562903e-05,
+      "work_proxy_j": 3.602082579157199e-21,
+      "min_clearance_m": 0.03361603354515331,
+      "peak_joint_deg": 2.350587236696442e-09,
+      "velocity_rmse": [
+        0.0040078815600851385,
+        7.783961393579448e-14,
+        0.01999999999986866
+      ],
+      "body_velocity_rmse": [
+        0.004011353074571343,
+        1.0849082666545179e-13,
+        0.01999999999986866
+      ],
+      "mean_body_velocity": [
+        -7.4264783018473945e-06,
+        -1.7628602967443586e-14,
+        -1.3133978372076365e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.3003348555335736e-15,
+        3.787207376129218e-15,
+        6.770110593421858e-15,
+        6.135368190947306e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 6.770110593421858e-15,
+      "target_tracking_rmse_deg": 1.3907737268070764e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.125,
+        4.0,
+        0.75,
+        18.875
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.9095993804543456e-10,
+        4.159064159760517e-10,
+        1.6554030922690662e-09,
+        1.11814809548654e-09
+      ]
+    },
+    {
+      "case": "right",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0020938378928784976,
+        -1.202826310035909e-06,
+        -8.994179520015461e-06
+      ],
+      "mean_slip_m_s": 0.0003058842017509615,
+      "work_proxy_j": 0.09425336186874117,
+      "min_clearance_m": 0.02851074237326582,
+      "peak_joint_deg": 4.6620682936269695,
+      "velocity_rmse": [
+        0.0024630455919628976,
+        2.459354106731947e-05,
+        0.019992420005570118
+      ],
+      "body_velocity_rmse": [
+        0.002646464367445476,
+        3.5915146034543674e-05,
+        0.019997270795314
+      ],
+      "mean_body_velocity": [
+        0.0021305002695032197,
+        -1.3535992490646667e-06,
+        -5.604156519911841e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        8.768164074931512,
+        8.735378064685253,
+        8.547171515094872,
+        9.22945309958694
+      ],
+      "actual_yaw_pp_max_deg_second_half": 9.22945309958694,
+      "target_tracking_rmse_deg": 1.8855753742285197,
+      "requested_target_peak_deg": 7.500000223517417,
+      "applied_target_peak_deg": 7.148928125709879,
+      "sampled_torque_saturation_fraction": 0.0,
+      "actual_angle_dominant_hz": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.218177202238183e-05,
+        1.2956178538889106e-05,
+        2.1095533696060676e-05,
+        2.401029532452876e-05
+      ]
+    },
+    {
+      "case": "stop_after_forward",
+      "controller": "learned",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0004875827667060028,
+        4.6010091913740604e-05,
+        -1.6897945561469901e-06
+      ],
+      "mean_slip_m_s": 6.330248188285267e-05,
+      "work_proxy_j": 0.04214069970361152,
+      "min_clearance_m": 0.020013948712190796,
+      "peak_joint_deg": 12.387552168637153,
+      "velocity_rmse": [
+        0.0022777461842879735,
+        9.866183188463213e-05,
+        5.101631253020959e-05
+      ],
+      "body_velocity_rmse": [
+        0.002296692677487928,
+        0.00010263256115140891,
+        6.208896348997329e-05
+      ],
+      "mean_body_velocity": [
+        0.0004875827589544701,
+        4.601009203697518e-05,
+        -1.68979734699563e-06
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        0.1357695810219103,
+        0.07739435747424735,
+        0.027994042699486,
+        0.18199105954584271
+      ],
+      "actual_yaw_pp_max_deg_second_half": 0.18199105954584271,
+      "target_tracking_rmse_deg": 4.337041201807769,
+      "requested_target_peak_deg": 18.696573972702023,
+      "applied_target_peak_deg": 18.688734345568523,
+      "sampled_torque_saturation_fraction": 0.0,
+      "stop_phase_mean_body_velocity": [
+        6.506175531422525e-06,
+        -1.5251116720840515e-06,
+        8.258982281398469e-07
+      ],
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.25,
+        0.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        0.00036563542719207425,
+        0.0008720920561246956,
+        0.0008753313158698374,
+        0.0002471690586784273
+      ]
+    },
+    {
+      "case": "stop_after_forward",
+      "controller": "zero_action",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        -7.426478310670291e-06,
+        -1.762946462894049e-14,
+        -1.3134000556640465e-13
+      ],
+      "mean_slip_m_s": 1.3522159634030323e-05,
+      "work_proxy_j": 3.744385824937575e-21,
+      "min_clearance_m": 0.033616033545161426,
+      "peak_joint_deg": 2.351270606013414e-09,
+      "velocity_rmse": [
+        0.0028395624902426858,
+        6.36565937653687e-14,
+        6.025806787622036e-13
+      ],
+      "body_velocity_rmse": [
+        0.002844460557253927,
+        8.628418946960102e-14,
+        9.158348166674736e-13
+      ],
+      "mean_body_velocity": [
+        -7.426478302050936e-06,
+        -1.7629470681918068e-14,
+        -1.313399470338283e-13
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        2.291761719150939e-15,
+        3.112479153576854e-15,
+        7.63588345206163e-15,
+        7.393080003561275e-15
+      ],
+      "actual_yaw_pp_max_deg_second_half": 7.63588345206163e-15,
+      "target_tracking_rmse_deg": 1.3907963017049655e-09,
+      "requested_target_peak_deg": 0.0,
+      "applied_target_peak_deg": 0.0,
+      "sampled_torque_saturation_fraction": 0.0,
+      "stop_phase_mean_body_velocity": [
+        5.932156617779091e-10,
+        -6.817211457417802e-20,
+        5.875845037588138e-19
+      ],
+      "actual_angle_dominant_hz": [
+        14.25,
+        9.375,
+        7.5,
+        15.875
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        1.7935984140977718e-10,
+        4.2893781552820585e-10,
+        1.5421349511550637e-09,
+        1.228845811708123e-09
+      ]
+    },
+    {
+      "case": "stop_after_forward",
+      "controller": "fixed_wave",
+      "samples": 120,
+      "failed": false,
+      "success": false,
+      "mean_velocity": [
+        0.0011081773775615685,
+        -1.619326284800047e-06,
+        1.2225166966818286e-05
+      ],
+      "mean_slip_m_s": 0.00015652427298514903,
+      "work_proxy_j": 0.047611053693212384,
+      "min_clearance_m": 0.028510742373471544,
+      "peak_joint_deg": 4.662068293510716,
+      "velocity_rmse": [
+        0.0018704873346010978,
+        1.8274281551279068e-05,
+        0.00016099900004260266
+      ],
+      "body_velocity_rmse": [
+        0.001954276873871139,
+        2.6617060651368415e-05,
+        0.000231872595155836
+      ],
+      "mean_body_velocity": [
+        0.0011081773776012273,
+        -1.6193262848978295e-06,
+        1.2225166966775997e-05
+      ],
+      "actual_servo_peak_deg": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "actual_servo_peak_max_deg": 0.0,
+      "actual_yaw_pp_deg_second_half": [
+        1.5426251939412454,
+        1.6396799999514762,
+        1.6936048500308012,
+        1.6929753694599368
+      ],
+      "actual_yaw_pp_max_deg_second_half": 1.6936048500308012,
+      "target_tracking_rmse_deg": 1.3640541271513,
+      "requested_target_peak_deg": 7.500000223517417,
+      "applied_target_peak_deg": 7.148928125709879,
+      "sampled_torque_saturation_fraction": 0.0,
+      "stop_phase_mean_body_velocity": [
+        0.00019386357918777357,
+        -9.988705361963648e-07,
+        6.122360717177156e-06
+      ],
+      "actual_angle_dominant_hz": [
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "actual_angle_power_fraction_ge_2hz": [
+        0.00012277888259683748,
+        7.862731692233414e-05,
+        0.00010824852124334932,
+        0.0001577959977718225
+      ]
+    }
+  ],
+  "scope": "single seed, fixed friction, no noise, finite pilot evaluation; different tasks cannot be ranked together"
+}

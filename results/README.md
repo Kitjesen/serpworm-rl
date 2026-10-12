@@ -5,11 +5,34 @@
 | 路径 | 含义 | 不可推出的结论 |
 |---|---|---|
 | `migration_cpu_checks.json` | 原 CPG 与 torch 数值对照、GAE终止检查 | GPU整机或实物有效 |
-| `migration_checks.json`（生成后归档） | RTX5090迁移检查 | 长时稳定性、策略收敛 |
-| `tensor_direct/` 等（运行后归档） | 新 CUDA 数值链训练配置、状态、检查点 | 未评估前的导航能力 |
+| `migration_checks.json` | 已归档的 RTX5090 迁移检查：CPG、GPU 更新与掩码重置通过 | 长时稳定性、策略收敛 |
+| `tensor_direct/` 等 | 新 CUDA 数值链训练配置、状态、检查点；状态以具体快照为准 | 未评估前的导航能力 |
 | `pilot_cpu_interface/` | 迁移前3组短训练；包含原始日志和检查点 | 新 CUDA PPO 的结果 |
 | `historical_physics/` | 旧核心版本的接触、耦合与性能对照 | 最新应变 Jacobian 版本全部通过 |
 | `controller_checks.*` | 原振荡器独立积分检查 | 整机控制性能 |
+| `solver_structure_20261005/` | 初态推进 8 步后的冻结系统：12×12 批量 LU 与原 60×60 解一致，CUDA Graph 检查通过 | 完整动力学或训练获得同样加速 |
+| `solver_integrated_20261005/` | 可选解法接入后，四种激励各5秒动态回归、完整物理步计时及8环境短采样通过 | 长期策略收敛、任意工况等价或完整PPO同倍加速 |
+
+## 已有基础应当复用
+
+下列检查已经完成，后续修改应调用现有工况作版本回归，不需要重新从零建立验证方案。
+
+| 已完成的检查 | 保存证据 | 已验证范围 |
+|---|---|---|
+| 单、双、五体节 SOFA／CPU／GPU 数值对照 | [历史内核检查](historical_physics/kernel_validation.json) | 对应报告中的源文件哈希；不能自动覆盖后来修改的应变 Jacobian |
+| 钢片恢复力反馈到绳索 | [刚度干预](historical_physics/coupling_intervention.json) | 同收绳目标下，钢片刚度×0.5／1／2使张力约为1.12／2.22／4.48 N；证明反馈存在，不是实物标定 |
+| 滚阻静止、滚动、止逆、滑移与减速 | [轮模型对照](historical_physics/wheel_stiction_validation.json) | 三种时间步下的新旧实现对照；工况含义见[原项目说明](D:/doso/robot/worm-sim-ribbon-publish/single_segment/physics_core_20261003/v2_gpu/README.zh-CN.md:73) |
+| 网格与时间步敏感性 | [原项目 v1 基准](D:/doso/robot/worm-sim-ribbon-publish/single_segment/physics_core_20261003/v1/README.zh-CN.md:25) | 单／双／五体节0.5／0.25／0.125 ms；单体节16／32单元比较通过当时门槛，不是任意工况收敛证明 |
+| 五体节后退蠕动波 | [0.25 ms](D:/doso/robot/worm-sim-ribbon-publish/single_segment/physics_core_20261003/v2_gpu/results/5_worm_retrograde_h250/report.json)、[0.125 ms](D:/doso/robot/worm-sim-ribbon-publish/single_segment/physics_core_20261003/v2_gpu/results/5_worm_retrograde_h125/report.json) | 旧核心15秒固定波，波峰顺序、连接、作用反作用与前进检查通过；前进位移相差约0.042 mm |
+| CUDA 学习链路 | [迁移检查](migration_checks.json)、[运行记录](GPU_RUN.zh-CN.md)、[完整 rollout 记录](../docs/REWARD_ABLATION.zh-CN.md) | 真实物理观测、奖励、缓存、GAE和网络优化链已跑通；控制质量另看独立评估 |
+
+原项目的绝对路径链接用于本机追溯，相关完整文件未全部复制到本仓库。历史报告中的成功与失败都保留：例如修正滚阻后的五体节诊断存在约2.71 mm残余压缩，未通过原2 mm回弹门槛，不能因为时间步结果一致而改写为设计通过。
+
+**本轮已完成新求解器的增量回归：** 保持网格、材料、时间步和动作一致，静置、后退波、蛇形与融合激励各5秒的最大节点位置差8.67e-11 m、张力差2.53e-8 N。64环境完整物理步17.288→15.231 ms，吞吐提高13.5%；8环境64个策略转移的采样4.844→5.137样本/s，提高6.0%。见[原始结果](solver_integrated_20261005/integrated.json)与[可复验脚本](../check_plate_solver.py)。短采样未包含PPO更新或20秒超时；上述为当前方程的新旧求解对照，不是新增实物验证。
+
+下一步针对剩余几何、材料、装配和梁链消元做分项计时，再优化最大耗时项；只有改变方程、网格或时间步时，才扩大对应物理回归范围。原长训练保持旧解法，未混入此算法变更。
+
+真正尚未完成的是完整能量／惯性一致性、统一非线性耦合、钢片与机身碰撞、实物标定及可靠的策略收敛。这些与上述已完成的数值迁移检查分别记录。
 
 迁移前首次训练：direct采样1090步、完整更新8轮；liu与liu_foc各938步、完整更新7轮。每组约30分钟，单种子；未确认收敛。评估状态以快照文件为准。
 

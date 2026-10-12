@@ -1,0 +1,55 @@
+{
+  "remote_base": "/root/steel-snake-gpu/snake_bounded_v7_20261007/train_r0512_fullservo180_joint45_20261009",
+  "files": {
+    "r0416/traces.pt": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0416\\traces.pt",
+      "bytes": 2428517,
+      "sha256": "be62e6b74ad0dd8b648f99002c67aa6aa66ea6fafd7960267e2237a6bc8f15f6"
+    },
+    "r0416/summary.json": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0416\\summary.json",
+      "bytes": 20376,
+      "sha256": "15c4b5fc13dc315ee59469268fd76dca60d063448d6e1572480c3516ee6bdc33"
+    },
+    "r0416/checkpoint_r0416.pt": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0416\\checkpoint_r0416.pt",
+      "bytes": 2022173,
+      "sha256": "18933d7628af5e34afb985f0884452b59d7136954a062cdc5a29020e346bc3e7"
+    },
+    "r0416/config.json": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0416\\config.json",
+      "bytes": 2760,
+      "sha256": "207cffb5b3ce92a64d675cb0b12489264d328a44b223d6aedfa24832b9cbc79c"
+    },
+    "r0416/status.json": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0416\\status.json",
+      "bytes": 1035,
+      "sha256": "2f5c3489698547f4fe0b1ba110d0405eded0e3924297b1f14050f8ddb5f2b2a7"
+    },
+    "r0512/traces.pt": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0512\\traces.pt",
+      "bytes": 2428517,
+      "sha256": "c1885de0192ca24ef0bfe101d9c4632bd0df507e550d8f3e5c4075e03dd4d6ce"
+    },
+    "r0512/summary.json": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0512\\summary.json",
+      "bytes": 20395,
+      "sha256": "7fcaee800693346da75efbcfda366d400d95ff146c872a80577284feb48a47d6"
+    },
+    "r0512/checkpoint_r0512.pt": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0512\\checkpoint_r0512.pt",
+      "bytes": 2022173,
+      "sha256": "f7c5c7e796cf0a597cbc9634282d01bf5d800c839a1176953b5dce137b61244e"
+    },
+    "r0512/config.json": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0512\\config.json",
+      "bytes": 2760,
+      "sha256": "207cffb5b3ce92a64d675cb0b12489264d328a44b223d6aedfa24832b9cbc79c"
+    },
+    "r0512/status.json": {
+      "path": "D:\\doso\\robot\\steel-snake-gpu\\experiments\\snake_bounded_v7_20261007\\snapshot_r0512\\status.json",
+      "bytes": 1035,
+      "sha256": "2f5c3489698547f4fe0b1ba110d0405eded0e3924297b1f14050f8ddb5f2b2a7"
+    }
+  }
+}
