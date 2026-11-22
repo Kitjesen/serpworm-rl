@@ -1,0 +1,455 @@
+{
+  "passed_static_alignment": true,
+  "scope": "Static CAD assembly and reduced-model consistency audit, no SOFA trajectory rerun",
+  "parameter_file": "D:\\doso\\robot\\worm-sim-ribbon-publish\\single_segment\\parameters_sofa_candidate.json",
+  "parameter_sha256": "28c507f6634c113b7540f09e63200263301f4f5c55dd203b9a7f0b40d01a56ee",
+  "strip_endpoint_helper_shape": [
+    8,
+    2,
+    3
+  ],
+  "max_crease_to_actual_rendered_tab_edge_error_m": 5.2495375792010016e-14,
+  "expected_inward_normals": {
+    "front": [
+      -1,
+      0,
+      0
+    ],
+    "back": [
+      1,
+      0,
+      0
+    ]
+  },
+  "bolt_to_fold_mm": 4.0,
+  "strip_midplane_normal_offset_mm": 0.075,
+  "front_crease_x_mm": -16.575,
+  "back_crease_x_mm": 0.075,
+  "crease_details": [
+    {
+      "plate": "front",
+      "strip": 0,
+      "crease_m": [
+        -0.016575,
+        0.049889493071918804,
+        0.02324535386978975
+      ],
+      "rendered_tab_outer_edge_m": [
+        -0.016575,
+        0.049889493071930004,
+        0.0232453538697645
+      ],
+      "mismatch_m": 2.7622826769040537e-14
+    },
+    {
+      "plate": "front",
+      "strip": 1,
+      "crease_m": [
+        -0.016575,
+        0.020664903721505475,
+        0.052469938133340166
+      ],
+      "rendered_tab_outer_edge_m": [
+        -0.016575,
+        0.020664903721516,
+        0.0524699381333725
+      ],
+      "mismatch_m": 3.4005457538505644e-14
+    },
+    {
+      "plate": "front",
+      "strip": 2,
+      "crease_m": [
+        -0.016575,
+        -0.020664903721505475,
+        0.052469938133340166
+      ],
+      "rendered_tab_outer_edge_m": [
+        -0.016575,
+        -0.020664903721516,
+        0.0524699381333725
+      ],
+      "mismatch_m": 3.4005457538505644e-14
+    },
+    {
+      "plate": "front",
+      "strip": 3,
+      "crease_m": [
+        -0.016575,
+        -0.049889493071918804,
+        0.02324535386978975
+      ],
+      "rendered_tab_outer_edge_m": [
+        -0.016575,
+        -0.049889493071930004,
+        0.0232453538697645
+      ],
+      "mismatch_m": 2.7622826769040537e-14
+    },
+    {
+      "plate": "front",
+      "strip": 4,
+      "crease_m": [
+        -0.016575,
+        -0.04988949310020308,
+        -0.018084458801505474
+      ],
+      "rendered_tab_outer_edge_m": [
+        -0.016575,
+        -0.0498894931001785,
+        -0.018084458801516
+      ],
+      "mismatch_m": 2.6743237076062952e-14
+    },
+    {
+      "plate": "front",
+      "strip": 5,
+      "crease_m": [
+        -0.016575,
+        -0.02066490360836839,
+        -0.04730904818020308
+      ],
+      "rendered_tab_outer_edge_m": [
+        -0.016575,
+        -0.020664903608322002,
+        -0.0473090481801785
+      ],
+      "mismatch_m": 5.2495375792010016e-14
+    },
+    {
+      "plate": "front",
+      "strip": 6,
+      "crease_m": [
+        -0.016575,
+        0.02066490360836839,
+        -0.04730904818020308
+      ],
+      "rendered_tab_outer_edge_m": [
+        -0.016575,
+        0.020664903608322002,
+        -0.0473090481801785
+      ],
+      "mismatch_m": 5.2495375792010016e-14
+    },
+    {
+      "plate": "front",
+      "strip": 7,
+      "crease_m": [
+        -0.016575,
+        0.04988949310020308,
+        -0.018084458801505474
+      ],
+      "rendered_tab_outer_edge_m": [
+        -0.016575,
+        0.0498894931001785,
+        -0.018084458801516
+      ],
+      "mismatch_m": 2.6743237076062952e-14
+    },
+    {
+      "plate": "back",
+      "strip": 0,
+      "crease_m": [
+        7.5e-05,
+        0.04988949310020308,
+        0.022200078801505475
+      ],
+      "rendered_tab_outer_edge_m": [
+        7.5e-05,
+        0.0498894931001785,
+        0.022200078801516
+      ],
+      "mismatch_m": 2.6743237076062952e-14
+    },
+    {
+      "plate": "back",
+      "strip": 1,
+      "crease_m": [
+        7.5e-05,
+        0.02066490360836839,
+        0.05142466818020308
+      ],
+      "rendered_tab_outer_edge_m": [
+        7.5e-05,
+        0.020664903608322002,
+        0.051424668180178504
+      ],
+      "mismatch_m": 5.2495375792010016e-14
+    },
+    {
+      "plate": "back",
+      "strip": 2,
+      "crease_m": [
+        7.5e-05,
+        -0.02066490360836839,
+        0.05142466818020308
+      ],
+      "rendered_tab_outer_edge_m": [
+        7.5e-05,
+        -0.020664903608322002,
+        0.051424668180178504
+      ],
+      "mismatch_m": 5.2495375792010016e-14
+    },
+    {
+      "plate": "back",
+      "strip": 3,
+      "crease_m": [
+        7.5e-05,
+        -0.04988949310020308,
+        0.022200078801505475
+      ],
+      "rendered_tab_outer_edge_m": [
+        7.5e-05,
+        -0.0498894931001785,
+        0.022200078801516
+      ],
+      "mismatch_m": 2.6743237076062952e-14
+    },
+    {
+      "plate": "back",
+      "strip": 4,
+      "crease_m": [
+        7.5e-05,
+        -0.049889493071918804,
+        -0.01912973386978975
+      ],
+      "rendered_tab_outer_edge_m": [
+        7.5e-05,
+        -0.049889493071930004,
+        -0.0191297338697645
+      ],
+      "mismatch_m": 2.7622826769040537e-14
+    },
+    {
+      "plate": "back",
+      "strip": 5,
+      "crease_m": [
+        7.5e-05,
+        -0.020664903580084118,
+        -0.048354323191918805
+      ],
+      "rendered_tab_outer_edge_m": [
+        7.5e-05,
+        -0.020664903580073498,
+        -0.04835432319193
+      ],
+      "mismatch_m": 1.5429015997943544e-14
+    },
+    {
+      "plate": "back",
+      "strip": 6,
+      "crease_m": [
+        7.5e-05,
+        0.020664903580084118,
+        -0.048354323191918805
+      ],
+      "rendered_tab_outer_edge_m": [
+        7.5e-05,
+        0.020664903580073498,
+        -0.04835432319193
+      ],
+      "mismatch_m": 1.5429015997943544e-14
+    },
+    {
+      "plate": "back",
+      "strip": 7,
+      "crease_m": [
+        7.5e-05,
+        0.049889493071918804,
+        -0.01912973386978975
+      ],
+      "rendered_tab_outer_edge_m": [
+        7.5e-05,
+        0.049889493071930004,
+        -0.0191297338697645
+      ],
+      "mismatch_m": 2.7622826769040537e-14
+    }
+  ],
+  "bore_validation": {
+    "passed": true,
+    "angles_deg": [
+      0,
+      90
+    ],
+    "sample_increment_deg": 0.5,
+    "rope_radius_mm": 0.4,
+    "routes": [
+      {
+        "route": "right_upper",
+        "bore_radius_mm": 0.750000546844246,
+        "bore_radial_margin_mm": 0.350000546844246,
+        "minimum_motor_aabb_surface_gap_mm": 0.10000000000000042,
+        "worst_sample": {
+          "angle_deg": 0.0,
+          "motor": 1,
+          "leg": 2
+        },
+        "omitting_external_guide_minimum_aabb_gap_mm": -0.4
+      },
+      {
+        "route": "right_lower",
+        "bore_radius_mm": 0.7500013801820636,
+        "bore_radial_margin_mm": 0.35000138018206356,
+        "minimum_motor_aabb_surface_gap_mm": 2.3593255791611645,
+        "worst_sample": {
+          "angle_deg": 28.5,
+          "motor": 1,
+          "leg": 2
+        },
+        "omitting_external_guide_minimum_aabb_gap_mm": 1.6705959024511405
+      },
+      {
+        "route": "left_upper",
+        "bore_radius_mm": 0.7500005468442458,
+        "bore_radial_margin_mm": 0.35000054684424575,
+        "minimum_motor_aabb_surface_gap_mm": 0.10000000000000042,
+        "worst_sample": {
+          "angle_deg": 0.0,
+          "motor": 0,
+          "leg": 2
+        },
+        "omitting_external_guide_minimum_aabb_gap_mm": -0.4
+      },
+      {
+        "route": "left_lower",
+        "bore_radius_mm": 0.7500013801820636,
+        "bore_radial_margin_mm": 0.35000138018206356,
+        "minimum_motor_aabb_surface_gap_mm": 2.313434813905246,
+        "worst_sample": {
+          "angle_deg": 29.0,
+          "motor": 0,
+          "leg": 2
+        },
+        "omitting_external_guide_minimum_aabb_gap_mm": 1.6287025485287656
+      }
+    ],
+    "method": "Exact capsule-centerline distance to conservative solid motor AABBs; positive distance certifies separation from the enclosed original mesh. Nonpositive AABB distance alone would not prove mesh penetration.",
+    "continuous_angle_note": "All candidate moving ties and their guide-to-tie segments remain at x <= -16.75 mm for every horn angle; original motors satisfy x >= -16.25 mm. Thus the 0.4 mm-radius cable has >=0.1 mm motor clearance continuously, not only at sampled angles.",
+    "limits": "Candidate x=-25 mm external guides and front anchor usage are unconfirmed hardware; no rim-wrap contact, guide friction, guide support/bracket collision, folded steel contact, nor evolving inter-plate span clearance is certified. This is geometry only, not a new SOFA force/trajectory validation."
+  },
+  "transmission_geometry_comparison": [
+    {
+      "route": "right_upper",
+      "angle_deg": 0,
+      "reduced_circle_takeup_mm": -3.469446951953614e-15,
+      "display_polyline_length_increase_mm": 0.0,
+      "difference_mm": 3.469446951953614e-15
+    },
+    {
+      "route": "right_upper",
+      "angle_deg": 30,
+      "reduced_circle_takeup_mm": 7.278663711100374,
+      "display_polyline_length_increase_mm": 5.772147920591074,
+      "difference_mm": -1.5065157905093003
+    },
+    {
+      "route": "right_upper",
+      "angle_deg": 60,
+      "reduced_circle_takeup_mm": 19.432021849699318,
+      "display_polyline_length_increase_mm": 17.192874502282283,
+      "difference_mm": -2.2391473474170365
+    },
+    {
+      "route": "right_upper",
+      "angle_deg": 90,
+      "reduced_circle_takeup_mm": 31.736593076259346,
+      "display_polyline_length_increase_mm": 28.596606430028316,
+      "difference_mm": -3.1399866462310313
+    },
+    {
+      "route": "right_lower",
+      "angle_deg": 0,
+      "reduced_circle_takeup_mm": -3.469446951953614e-15,
+      "display_polyline_length_increase_mm": 0.0,
+      "difference_mm": 3.469446951953614e-15
+    },
+    {
+      "route": "right_lower",
+      "angle_deg": 30,
+      "reduced_circle_takeup_mm": 7.278663711100374,
+      "display_polyline_length_increase_mm": 6.03402519693437,
+      "difference_mm": -1.2446385141660041
+    },
+    {
+      "route": "right_lower",
+      "angle_deg": 60,
+      "reduced_circle_takeup_mm": 19.432021849699318,
+      "display_polyline_length_increase_mm": 17.50518546539795,
+      "difference_mm": -1.9268363843013696
+    },
+    {
+      "route": "right_lower",
+      "angle_deg": 90,
+      "reduced_circle_takeup_mm": 31.736593076259346,
+      "display_polyline_length_increase_mm": 28.75468424621061,
+      "difference_mm": -2.9819088300487366
+    },
+    {
+      "route": "left_upper",
+      "angle_deg": 0,
+      "reduced_circle_takeup_mm": -3.469446951953614e-15,
+      "display_polyline_length_increase_mm": 0.0,
+      "difference_mm": 3.469446951953614e-15
+    },
+    {
+      "route": "left_upper",
+      "angle_deg": 30,
+      "reduced_circle_takeup_mm": 7.278663711100374,
+      "display_polyline_length_increase_mm": 5.817837084823134,
+      "difference_mm": -1.4608266262772402
+    },
+    {
+      "route": "left_upper",
+      "angle_deg": 60,
+      "reduced_circle_takeup_mm": 19.432021849699318,
+      "display_polyline_length_increase_mm": 17.247336549130367,
+      "difference_mm": -2.18468530056895
+    },
+    {
+      "route": "left_upper",
+      "angle_deg": 90,
+      "reduced_circle_takeup_mm": 31.736593076259346,
+      "display_polyline_length_increase_mm": 28.64457106515095,
+      "difference_mm": -3.0920220111083987
+    },
+    {
+      "route": "left_lower",
+      "angle_deg": 0,
+      "reduced_circle_takeup_mm": -3.469446951953614e-15,
+      "display_polyline_length_increase_mm": 0.0,
+      "difference_mm": 3.469446951953614e-15
+    },
+    {
+      "route": "left_lower",
+      "angle_deg": 30,
+      "reduced_circle_takeup_mm": 7.278663711100374,
+      "display_polyline_length_increase_mm": 5.9844595102480085,
+      "difference_mm": -1.2942042008523662
+    },
+    {
+      "route": "left_lower",
+      "angle_deg": 60,
+      "reduced_circle_takeup_mm": 19.432021849699318,
+      "display_polyline_length_increase_mm": 17.447695043694484,
+      "difference_mm": -1.9843268060048338
+    },
+    {
+      "route": "left_lower",
+      "angle_deg": 90,
+      "reduced_circle_takeup_mm": 31.736593076259346,
+      "display_polyline_length_increase_mm": 28.704551754616308,
+      "difference_mm": -3.032041321643038
+    }
+  ],
+  "necessary_next_checks": [
+    "Recompute strip stress-free curve from the shifted crease endpoints; do not transplant old responses onto the new geometry.",
+    "Record actual span lengths, cable extensions, unilateral tensions, horn angles, plate pose and minimum wheel/steel/hardware clearance in the new tagged SOFA run.",
+    "Check tendon virtual-work power and motor load against the SAME reduced takeup function and lever derivative. Current drawn guide-to-tie polyline is not that constitutive transmission law.",
+    "Add takeup-rate contribution to cable extension rate if viscous cable force is claimed to use full extension-rate damping; the old span-speed-only term omits it.",
+    "Resolve real horn phase, external-guide hardware, wrap/contact geometry and bearing/guide friction before claiming real rope/horn contact validation.",
+    "Fastener visual mass/contact remain separate unless explicitly incorporated in identified plate mass/inertia."
+  ],
+  "limits": "The route has real CAD bore centres and static tab continuity, but is still a reduced tendon transmission model. It is not a complete flexible cable or horn-rim contact solve. No measured clamp compliance, material plasticity or actual screw preload was added."
+}

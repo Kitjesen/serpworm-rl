@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "angles_deg": [
+    0,
+    90
+  ],
+  "sample_increment_deg": 0.5,
+  "rope_radius_mm": 0.4,
+  "routes": [
+    {
+      "route": "right_upper",
+      "bore_radius_mm": 0.750000546844246,
+      "external_guide_used": true,
+      "bore_radial_margin_mm": 0.350000546844246,
+      "minimum_motor_aabb_surface_gap_mm": 0.10000000000000042,
+      "worst_sample": {
+        "angle_deg": 0.0,
+        "motor": 1,
+        "leg": 2
+      },
+      "omitting_external_guide_minimum_aabb_gap_mm": -0.4
+    },
+    {
+      "route": "right_lower",
+      "bore_radius_mm": 0.7500013801820636,
+      "external_guide_used": false,
+      "bore_radial_margin_mm": 0.35000138018206356,
+      "minimum_motor_aabb_surface_gap_mm": 1.6705959024511405,
+      "worst_sample": {
+        "angle_deg": 90.0,
+        "motor": 1,
+        "leg": 1
+      },
+      "omitting_external_guide_minimum_aabb_gap_mm": 1.6705959024511405
+    },
+    {
+      "route": "left_upper",
+      "bore_radius_mm": 0.7500005468442458,
+      "external_guide_used": true,
+      "bore_radial_margin_mm": 0.35000054684424575,
+      "minimum_motor_aabb_surface_gap_mm": 0.10000000000000042,
+      "worst_sample": {
+        "angle_deg": 0.0,
+        "motor": 0,
+        "leg": 2
+      },
+      "omitting_external_guide_minimum_aabb_gap_mm": -0.4
+    },
+    {
+      "route": "left_lower",
+      "bore_radius_mm": 0.7500013801820636,
+      "external_guide_used": false,
+      "bore_radial_margin_mm": 0.35000138018206356,
+      "minimum_motor_aabb_surface_gap_mm": 1.6287025485287656,
+      "worst_sample": {
+        "angle_deg": 90.0,
+        "motor": 0,
+        "leg": 1
+      },
+      "omitting_external_guide_minimum_aabb_gap_mm": 1.6287025485287656
+    }
+  ],
+  "method": "Exact capsule-centerline distance to conservative solid motor AABBs; positive distance certifies separation from the enclosed original mesh. Nonpositive AABB distance alone would not prove mesh penetration.",
+  "continuous_angle_note": "Upper candidate external-guide-to-tie segments remain at x <= -16.75 mm while motors satisfy x >= -16.25 mm, giving >=0.1 mm motor clearance. Lower direct exit-to-tie spans are checked over the stated sampled angles; the upper X-bound does not apply to them.",
+  "limits": "Candidate x=-25 mm external guides and front anchor usage are unconfirmed hardware; no rim-wrap contact, guide friction, guide support/bracket collision, folded steel contact, nor evolving inter-plate span clearance is certified. This is geometry only, not a new SOFA force/trajectory validation."
+}

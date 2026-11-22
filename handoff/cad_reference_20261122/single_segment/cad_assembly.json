@@ -1,0 +1,552 @@
+{
+  "schema_version": 1,
+  "units": "m",
+  "status": "CAD bore centers confirmed; cable assignment, external guides, front fastening usage and dimensions remain unmeasured candidates",
+  "source_plate_holes": "D:\\doso\\robot\\single_segment\\plate_holes.json",
+  "source_plate_holes_sha256": "03520affa2755a86ee93f5ea5cf58350340f017600543caffc8daf23ee8c18f3",
+  "source_stl_sha256": {
+    "front2_Link": "bb8c8b31fcf08ba876b9dc2d15c7f844e142efb6a552bc6caaa1da6e4fcbbc5a",
+    "back2_Link": "a08643fe7ae8ac917cf4bfb0884d21e71eed2b07848feeb93ca73de83261afe4"
+  },
+  "side_convention": "robot forward=-X; servo0=+Y=right; servo1=-Y=left",
+  "rope_radius_m": 0.0004,
+  "rope_radius_status": "visual routing candidate, not measured cable radius",
+  "horn_pivots_m": [
+    [
+      -0.01375,
+      0.02854903,
+      0.00031017
+    ],
+    [
+      -0.01375,
+      -0.02845097,
+      0.00031017
+    ]
+  ],
+  "horn_tie_radius_m": 0.0235,
+  "horn_surface_tie_offset_x_m": -0.003,
+  "horn_neutral_phase_rad": 1.5707963267948966,
+  "horn_phase_status": "CAD Y arm rotated onto Z at display zero; hardware zero phase unmeasured",
+  "plates": {
+    "front2_Link": {
+      "face_x_m": -0.0165,
+      "opposite_face_x_m": -0.0135,
+      "thickness_m": 0.003,
+      "axis": [
+        1,
+        0,
+        0
+      ]
+    },
+    "back2_Link": {
+      "face_x_m": 0.0,
+      "opposite_face_x_m": -0.003,
+      "thickness_m": 0.003,
+      "axis": [
+        1,
+        0,
+        0
+      ]
+    }
+  },
+  "routes": [
+    {
+      "name": "right_upper",
+      "servo_slot": 0,
+      "arm_sign": 1,
+      "front_hole_id": "F02",
+      "back_hole_id": "B15",
+      "front_anchor_m": [
+        -0.0165,
+        0.030132100000000002,
+        0.041165004166657866
+      ],
+      "front_outer_face_m": [
+        -0.0135,
+        0.030132100000000002,
+        0.041165004166657866
+      ],
+      "front_hole_radius_m": 0.0014999988169854138,
+      "back_entry_m": [
+        0.0,
+        0.0285,
+        0.0413943
+      ],
+      "back_exit_m": [
+        -0.003,
+        0.0285,
+        0.0413943
+      ],
+      "external_guide_m": [
+        -0.025,
+        0.0285,
+        0.0413943
+      ],
+      "back_hole_radius_m": 0.000750000546844246,
+      "front_bore_confirmed": true,
+      "front_bore_type": "straight",
+      "front_bore_axis_clear": true,
+      "back_bore_confirmed": true,
+      "back_bore_type": "straight",
+      "back_bore_axis_clear": true
+    },
+    {
+      "name": "right_lower",
+      "use_external_guide": false,
+      "servo_slot": 0,
+      "arm_sign": -1,
+      "front_hole_id": "F05",
+      "back_hole_id": "B20",
+      "front_anchor_m": [
+        -0.0165,
+        0.030132100000000002,
+        -0.036004114166655235
+      ],
+      "front_outer_face_m": [
+        -0.0135,
+        0.030132100000000002,
+        -0.036004114166655235
+      ],
+      "front_hole_radius_m": 0.0014999988169844879,
+      "back_entry_m": [
+        0.0,
+        0.0285,
+        -0.038323951666687096
+      ],
+      "back_exit_m": [
+        -0.003,
+        0.0285,
+        -0.038323951666687096
+      ],
+      "external_guide_m": [
+        -0.025,
+        0.0285,
+        -0.038323951666687096
+      ],
+      "back_hole_radius_m": 0.0007500013801820636,
+      "front_bore_confirmed": true,
+      "front_bore_type": "straight",
+      "front_bore_axis_clear": true,
+      "back_bore_confirmed": true,
+      "back_bore_type": "straight",
+      "back_bore_axis_clear": true
+    },
+    {
+      "name": "left_upper",
+      "servo_slot": 1,
+      "arm_sign": 1,
+      "front_hole_id": "F03",
+      "back_hole_id": "B16",
+      "front_anchor_m": [
+        -0.0165,
+        -0.030132100000000002,
+        0.041165004166657866
+      ],
+      "front_outer_face_m": [
+        -0.0135,
+        -0.030132100000000002,
+        0.041165004166657866
+      ],
+      "front_hole_radius_m": 0.0014999988169854136,
+      "back_entry_m": [
+        0.0,
+        -0.0285,
+        0.0413943
+      ],
+      "back_exit_m": [
+        -0.003,
+        -0.0285,
+        0.0413943
+      ],
+      "external_guide_m": [
+        -0.025,
+        -0.0285,
+        0.0413943
+      ],
+      "back_hole_radius_m": 0.0007500005468442458,
+      "front_bore_confirmed": true,
+      "front_bore_type": "straight",
+      "front_bore_axis_clear": true,
+      "back_bore_confirmed": true,
+      "back_bore_type": "straight",
+      "back_bore_axis_clear": true
+    },
+    {
+      "name": "left_lower",
+      "use_external_guide": false,
+      "servo_slot": 1,
+      "arm_sign": -1,
+      "front_hole_id": "F04",
+      "back_hole_id": "B19",
+      "front_anchor_m": [
+        -0.0165,
+        -0.030132100000000002,
+        -0.036004114166655235
+      ],
+      "front_outer_face_m": [
+        -0.0135,
+        -0.030132100000000002,
+        -0.036004114166655235
+      ],
+      "front_hole_radius_m": 0.001499998816984488,
+      "back_entry_m": [
+        0.0,
+        -0.0285,
+        -0.038323951666687096
+      ],
+      "back_exit_m": [
+        -0.003,
+        -0.0285,
+        -0.038323951666687096
+      ],
+      "external_guide_m": [
+        -0.025,
+        -0.0285,
+        -0.038323951666687096
+      ],
+      "back_hole_radius_m": 0.0007500013801820636,
+      "front_bore_confirmed": true,
+      "front_bore_type": "straight",
+      "front_bore_axis_clear": true,
+      "back_bore_confirmed": true,
+      "back_bore_type": "straight",
+      "back_bore_axis_clear": true
+    }
+  ],
+  "reserved_rope_hole_ids": [
+    "F02",
+    "F03",
+    "F04",
+    "F05",
+    "B14",
+    "B15",
+    "B16",
+    "B17",
+    "B18",
+    "B19",
+    "B20",
+    "B21"
+  ],
+  "user_confirmed_rope_passage_ids": [
+    "B18",
+    "B19"
+  ],
+  "unassigned_user_confirmed_hole": "B18 remains open; user has not identified its cord assignment",
+  "steel_clamps": [
+    {
+      "id": "P1",
+      "front_hole_ids": [
+        "F06",
+        "F07"
+      ],
+      "back_hole_ids": [
+        "B22",
+        "B23"
+      ],
+      "front_holes_xyz_m": [
+        [
+          -0.0165,
+          0.04810739083334548,
+          0.01709522
+        ],
+        [
+          -0.0165,
+          0.044280560000000004,
+          0.02633402
+        ]
+      ],
+      "back_holes_xyz_m": [
+        [
+          0.0,
+          0.04810739083334548,
+          0.01604995
+        ],
+        [
+          0.0,
+          0.044280560000000004,
+          0.02528874
+        ]
+      ]
+    },
+    {
+      "id": "P2",
+      "front_hole_ids": [
+        "F09",
+        "F10"
+      ],
+      "back_hole_ids": [
+        "B24",
+        "B25"
+      ],
+      "front_holes_xyz_m": [
+        [
+          -0.0165,
+          0.02375357,
+          0.04686100333333884
+        ],
+        [
+          -0.0165,
+          0.014514770000000001,
+          0.05068784
+        ]
+      ],
+      "back_holes_xyz_m": [
+        [
+          0.0,
+          0.02375357,
+          0.04581573
+        ],
+        [
+          0.0,
+          0.014514769999999998,
+          0.04964257
+        ]
+      ]
+    },
+    {
+      "id": "P3",
+      "front_hole_ids": [
+        "F11",
+        "F12"
+      ],
+      "back_hole_ids": [
+        "B26",
+        "B27"
+      ],
+      "front_holes_xyz_m": [
+        [
+          -0.0165,
+          -0.014514769999999998,
+          0.05068784
+        ],
+        [
+          -0.0165,
+          -0.02375357,
+          0.04686100333333884
+        ]
+      ],
+      "back_holes_xyz_m": [
+        [
+          0.0,
+          -0.014514769999999998,
+          0.04964257
+        ],
+        [
+          0.0,
+          -0.023753569999999998,
+          0.04581573
+        ]
+      ]
+    },
+    {
+      "id": "P4",
+      "front_hole_ids": [
+        "F14",
+        "F15"
+      ],
+      "back_hole_ids": [
+        "B28",
+        "B29"
+      ],
+      "front_holes_xyz_m": [
+        [
+          -0.0165,
+          -0.04428056,
+          0.02633402
+        ],
+        [
+          -0.0165,
+          -0.04810739083334548,
+          0.01709522
+        ]
+      ],
+      "back_holes_xyz_m": [
+        [
+          0.0,
+          -0.044280560000000004,
+          0.02528874
+        ],
+        [
+          0.0,
+          -0.04810739083334548,
+          0.01604995
+        ]
+      ]
+    },
+    {
+      "id": "P5",
+      "front_hole_ids": [
+        "F16",
+        "F17"
+      ],
+      "back_hole_ids": [
+        "B30",
+        "B31"
+      ],
+      "front_holes_xyz_m": [
+        [
+          -0.0165,
+          -0.04810739083334548,
+          -0.01193433
+        ],
+        [
+          -0.0165,
+          -0.044280560000000004,
+          -0.02117312
+        ]
+      ],
+      "back_holes_xyz_m": [
+        [
+          0.0,
+          -0.04810739083334548,
+          -0.012979599999999999
+        ],
+        [
+          0.0,
+          -0.04428056,
+          -0.02221839749998652
+        ]
+      ]
+    },
+    {
+      "id": "P6",
+      "front_hole_ids": [
+        "F18",
+        "F19"
+      ],
+      "back_hole_ids": [
+        "B33",
+        "B34"
+      ],
+      "front_holes_xyz_m": [
+        [
+          -0.0165,
+          -0.02375357,
+          -0.04170011083334549
+        ],
+        [
+          -0.0165,
+          -0.014514769999999998,
+          -0.045526950000000004
+        ]
+      ],
+      "back_holes_xyz_m": [
+        [
+          0.0,
+          -0.023753569999999995,
+          -0.04274538583332187
+        ],
+        [
+          0.0,
+          -0.014514769999999996,
+          -0.04657222
+        ]
+      ]
+    },
+    {
+      "id": "P7",
+      "front_hole_ids": [
+        "F20",
+        "F21"
+      ],
+      "back_hole_ids": [
+        "B35",
+        "B36"
+      ],
+      "front_holes_xyz_m": [
+        [
+          -0.0165,
+          0.014514770000000001,
+          -0.04552695
+        ],
+        [
+          -0.0165,
+          0.023753569999999998,
+          -0.04170011083334549
+        ]
+      ],
+      "back_holes_xyz_m": [
+        [
+          0.0,
+          0.014514770000000001,
+          -0.04657222
+        ],
+        [
+          0.0,
+          0.023753569999999998,
+          -0.04274538583332187
+        ]
+      ]
+    },
+    {
+      "id": "P8",
+      "front_hole_ids": [
+        "F22",
+        "F23"
+      ],
+      "back_hole_ids": [
+        "B38",
+        "B39"
+      ],
+      "front_holes_xyz_m": [
+        [
+          -0.0165,
+          0.044280560000000004,
+          -0.02117312
+        ],
+        [
+          -0.0165,
+          0.04810739083334548,
+          -0.01193433
+        ]
+      ],
+      "back_holes_xyz_m": [
+        [
+          0.0,
+          0.044280560000000004,
+          -0.02221839749998652
+        ],
+        [
+          0.0,
+          0.04810739083334548,
+          -0.012979599999999999
+        ]
+      ]
+    }
+  ],
+  "motor_aabbs_m": [
+    [
+      [
+        -0.01625,
+        -0.0385,
+        -0.01793983
+      ],
+      [
+        0.0282,
+        -0.0185,
+        0.03806017
+      ]
+    ],
+    [
+      [
+        -0.01625,
+        0.0185,
+        -0.01793983
+      ],
+      [
+        0.0282,
+        0.0385,
+        0.03806017
+      ]
+    ]
+  ],
+  "motor_aabb_source": "Original back2_Link component groups 0 and 1, inspected source CAD exact extrema to 0.1 micrometre; safe conservative enclosing boxes",
+  "physics_recommendation": "Use each front_anchor_m and back_entry_m for the inter-plate tendon span and local moment arms in a NEW geometry-tagged SOFA run. For lower cords use back_entry -> back_exit -> moving horn tie; upper cords retain an unconfirmed external guide. The bore exit is an idealized guide boundary, not solved hole-edge contact. Do not relabel or overwrite recorded forces after a display-only correction.",
+  "limitations": [
+    "Passing bore centers does not validate guide friction or force transmission.",
+    "Upper external x=-25 mm guides remain candidates, absent from confirmed hardware. Lower external-guide coordinates are retained for schema compatibility but use_external_guide=false excludes them from the path.",
+    "Do not install screws in reserved rope holes.",
+    "Exact rope/rim contact and physical guide support geometry remain unresolved."
+  ],
+  "assembly_geometry_version": "cad_holes_v1"
+}
