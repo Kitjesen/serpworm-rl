@@ -1,0 +1,24 @@
+{
+  "scope": "Real CPU core and new guard wiring, passive 10 physics substeps only; not sustained locomotion",
+  "device": "cpu",
+  "dt_s": 0.00025,
+  "integrated_s": 0.0025,
+  "model": "finite_cylinder_projection_certificate_v1",
+  "finite": true,
+  "axes_shape": [
+    1,
+    20,
+    3
+  ],
+  "certified_min_gap_m": [
+    0.03550090838542892
+  ],
+  "sphere_min_gap_m": [
+    0.03355357656342347
+  ],
+  "source_sha256": {
+    "gpu_core.py": "30c757b804054e88bfe7acb00cfd9b57dce395b4beb6ce1da6e03efab09c9e69",
+    "tensor_env.py": "1c543da503a0b5d71e6c2c55a6c7e7c6d81d8fbea926fb105bc4b432b2b4380b",
+    "wheel_envelope.py": "4718b69f42a17c55321f369341330c385e8ec4077bee90d13a7e66c9a17b090a"
+  }
+}

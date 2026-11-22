@@ -1,0 +1,119 @@
+{
+  "status": "local_checks_passed_gpu_pending",
+  "local_numerical_checks_passed": true,
+  "source_unchanged_during_checks": true,
+  "torch": "2.8.0+cpu",
+  "cuda_available": false,
+  "source_sha256": {
+    "audit_saved_wave.py": "045ea6c62baeab7b7c6efec22a84c57241f150d79464ec81cfa75c909627640b",
+    "audit_wheel_geometry.py": "896ce35a3d81899c28da8f01f4cae0dbbc03604f17d53498f0d0ad7a6d483164",
+    "evaluate_gpu.py": "5768a063ee518d6591c1696ae8aead3fd713277c8d41db098cbf343e5e50076a",
+    "gpu_core.py": "30c757b804054e88bfe7acb00cfd9b57dce395b4beb6ce1da6e03efab09c9e69",
+    "pretrain_actor.py": "81c33fb412d570c02e8c6718b2cafc5309f51326482d13f954d7094cabd96549",
+    "probe_fixed_waves.py": "a333105866d95afa419588c9d82916c0b1ba778643df8001428d5d753392804f",
+    "probe_policy_distribution.py": "c91fad2a4907759d27a9a73500e6a59b0a51dd4c5ca8b80956f8175b02df1405",
+    "render_topology_3d.py": "72cdc4f9659c0fc642a7a06e89fa618e7d20f9afa41e6fc2cc383bba2d04a167",
+    "rewards.py": "450b5172ddd5ea97d6bfdcddb2c847dff82055484edf424fe3c5de411fe7dc56",
+    "run_pipeline.py": "6d0cc8788ed7d12e0e55aa8dffc1fe0a268e1f4f0160744aea8ff34c8cc0d80e",
+    "tensor_env.py": "1c543da503a0b5d71e6c2c55a6c7e7c6d81d8fbea926fb105bc4b432b2b4380b",
+    "test_evaluation.py": "0582e048127a7b75e98304d19e9800800c55a2837d4a0f325f1a49de3e6e5a9e",
+    "test_pipeline.py": "510e1fd32a73eba1420124f7f317b013166280e6187d4def53bfa51499cca23c",
+    "test_policy_distribution.py": "2a0dcadedbf155e8f9ef61fa71c26a294f39ab2631b844381c0f01927118806d",
+    "test_ppo.py": "ddb984e3370992e9c95063867990411a8cdc6f2ab3067d5df5184979a8a7dcff",
+    "test_pretrain.py": "c3a909552cdfca3c302107fe0abfd0b9637d338ba836d5e46ca3a4c0ffea8d30",
+    "test_rewards.py": "f3f1229f0d932e6abfb78243f3bd1a44a064d7a49750c15dc0e43e0a92e738c7",
+    "test_wave_probe.py": "99fb7653181cbc65af511edbad248487b25ae21976352cd9f9f139ee1a690c5c",
+    "test_wheel_envelope.py": "e601a43beabd1be70c2eeaf5de91dea4516d8eee63d3a58359a6d0835af8f4c3",
+    "train_gpu.py": "1e4adaafedcac9c1ff264231f420aa38948006d50326ad3922b0c3acecaaa223",
+    "validate_local.py": "965ec01a1d5f0e681111d42162724f49c3c58ef8bfc5422f62389a6096d1e56c",
+    "wheel_envelope.py": "4718b69f42a17c55321f369341330c385e8ec4077bee90d13a7e66c9a17b090a",
+    "wheel_stiction.py": "e81e1699900ca38fed9833dc147dad393e11970c3148aa0338e3e07fed45f44e"
+  },
+  "input_sha256": {
+    "parameters.json": "403715adff23b4b5499d33d2ec7024be5f7a8e8766daa66eec3c818c5ef4022e",
+    "topology_5.npz": "33d93c9714184f70190fa278540a0aa694a37ce690df2045f3a45d11b067b241"
+  },
+  "checks": [
+    {
+      "command": [
+        "D:\\doso\\robot\\.venv_wave_validation\\Scripts\\python.exe",
+        "test_ppo.py",
+        "--device",
+        "cpu"
+      ],
+      "exit_code": 0,
+      "wall_s": 3.949929099995643,
+      "log": "D:\\doso\\robot\\steel-snake-gpu\\handoff\\snake_wave_gate_v5_20261122\\validation_logs\\test_ppo.log"
+    },
+    {
+      "command": [
+        "D:\\doso\\robot\\.venv_wave_validation\\Scripts\\python.exe",
+        "test_rewards.py",
+        "--device",
+        "cpu"
+      ],
+      "exit_code": 0,
+      "wall_s": 3.8171888000069885,
+      "log": "D:\\doso\\robot\\steel-snake-gpu\\handoff\\snake_wave_gate_v5_20261122\\validation_logs\\test_rewards.log"
+    },
+    {
+      "command": [
+        "D:\\doso\\robot\\.venv_wave_validation\\Scripts\\python.exe",
+        "test_evaluation.py"
+      ],
+      "exit_code": 0,
+      "wall_s": 5.7381277000095,
+      "log": "D:\\doso\\robot\\steel-snake-gpu\\handoff\\snake_wave_gate_v5_20261122\\validation_logs\\test_evaluation.log"
+    },
+    {
+      "command": [
+        "D:\\doso\\robot\\.venv_wave_validation\\Scripts\\python.exe",
+        "test_wave_probe.py"
+      ],
+      "exit_code": 0,
+      "wall_s": 4.2597162000020035,
+      "log": "D:\\doso\\robot\\steel-snake-gpu\\handoff\\snake_wave_gate_v5_20261122\\validation_logs\\test_wave_probe.log"
+    },
+    {
+      "command": [
+        "D:\\doso\\robot\\.venv_wave_validation\\Scripts\\python.exe",
+        "test_pretrain.py"
+      ],
+      "exit_code": 0,
+      "wall_s": 8.521068000001833,
+      "log": "D:\\doso\\robot\\steel-snake-gpu\\handoff\\snake_wave_gate_v5_20261122\\validation_logs\\test_pretrain.log"
+    },
+    {
+      "command": [
+        "D:\\doso\\robot\\.venv_wave_validation\\Scripts\\python.exe",
+        "test_pipeline.py"
+      ],
+      "exit_code": 0,
+      "wall_s": 4.142802600006689,
+      "log": "D:\\doso\\robot\\steel-snake-gpu\\handoff\\snake_wave_gate_v5_20261122\\validation_logs\\test_pipeline.log"
+    },
+    {
+      "command": [
+        "D:\\doso\\robot\\.venv_wave_validation\\Scripts\\python.exe",
+        "test_policy_distribution.py"
+      ],
+      "exit_code": 0,
+      "wall_s": 3.8618892000085907,
+      "log": "D:\\doso\\robot\\steel-snake-gpu\\handoff\\snake_wave_gate_v5_20261122\\validation_logs\\test_policy_distribution.log"
+    },
+    {
+      "command": [
+        "D:\\doso\\robot\\.venv_wave_validation\\Scripts\\python.exe",
+        "test_wheel_envelope.py"
+      ],
+      "exit_code": 0,
+      "wall_s": 3.9474997999932384,
+      "log": "D:\\doso\\robot\\steel-snake-gpu\\handoff\\snake_wave_gate_v5_20261122\\validation_logs\\test_wheel_envelope.log"
+    }
+  ],
+  "gpu_fixed_wave_gate": "not_run",
+  "real_teacher_bc": "not_run",
+  "new_ppo": "not_started",
+  "remote_compute": "Not checked by this numerical test runner; see README for the dated connectivity finding",
+  "scope": "Numerical/synthetic checks only. CPU smoke and archived CUDA reanalysis are separately labelled; no new sustained-motion success claim."
+}

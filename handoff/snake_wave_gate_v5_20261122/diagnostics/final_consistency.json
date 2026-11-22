@@ -1,0 +1,14 @@
+{
+  "all_python_syntax_valid": true,
+  "frozen_source_matches_validation": true,
+  "unchanged_core_and_inputs": {
+    "gpu_core.py": true,
+    "wheel_stiction.py": true,
+    "inputs/parameters.json": true,
+    "inputs/topology_5.npz": true
+  },
+  "scenario_count": 38,
+  "current_gpu_wave_validation": "not_run",
+  "new_ppo": "not_started",
+  "blocker": "authorized GPU endpoint connection timed out; local runtime CPU only"
+}

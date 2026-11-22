@@ -1,0 +1,16 @@
+{
+  "scope": "Numerical reward contracts, not learned locomotion or physical validation",
+  "torch": "2.8.0+cpu",
+  "cuda_available": false,
+  "devices": [
+    {
+      "device": "cpu",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": true
+    }
+  ],
+  "passed": true
+}
