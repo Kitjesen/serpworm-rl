@@ -7,9 +7,9 @@
 1. 已复算保存的旧 CUDA 原始时程：固定蛇形波在 6～12 秒的平均前向速度为 **13.0501 mm/s**，三个 2 秒窗口分别为 **12.7391、14.2009、12.2104 mm/s**；最小瞬时前向速度 **3.4724 mm/s**。零动作对照尾段约为零。四个实际蛇关节峰峰值 **39.69～45.52°**。
 2. 对上述同一时程重放 sustain_v4 奖励：20 mm/s 命令下，波形尾段奖励约 **1.1130/秒**，静止约 **1.0000/秒**。5 mm/s 命令下这条波形超速，奖励低于静止。不能由此说奖励普遍偏爱静止，也不能直接比较跨奖励版本总分。
 3. 新目录的本地 CPU 整机短试已完成：3 条轨迹、2 秒、物理步长 0.001 秒，全部状态有限，记录了正确的四关节角、请求／施加／实际收绳、张力和接触。但两条大幅波都触发旧球形 `wheel_clearance`；满幅混合波最小体节间距约 **74.25 mm**，止挡力约 **37.34 N**。这是执行检查和问题发现，**没有通过持续运动门槛**。静止对照在这段短窗仍有初始化过渡，更不能用这两秒均速宣布步态成功。此短试早于下面的圆柱分离证书修正。
-4. 原服务器 `connect.westd.seetacloud.com:32040` 当前连接超时；本机未检测到 CUDA GPU。新 40 秒 CUDA 扫描、真实波形 BC 和新 PPO **尚未启动**。本地 CPU Torch 环境仅用于诊断与测试，不冒充 GPU 训练。
+4. 彼时远端 GPU 服务器连接超时、本地机器无 CUDA GPU，因此 40 秒 CUDA 扫描、真实波形 BC 和新 PPO **尚未完成**。本地 CPU Torch 环境仅用于诊断与合约测试，不冒充 GPU 训练。
 
-旧时程复算证据：`diagnostics/archived_wave_reanalysis.json`；新 CPU 短试：`diagnostics/cpu_dynamic_smoke/`。旧试验采用不同初始化和 10 Hz 策略，不能替代当前 40 秒验证。短试执行期间完善了新脚本的源码归档、成本归一化等逻辑，短试仅引用物理轨迹和字段检查，不用于教师资格或新奖励结论。
+旧时程复算与诊断记录已归档至 `archive/results/v5_diagnostics/`。旧试验采用不同初始化和 10 Hz 策略，不能替代当前 40 秒验证。短试仅用于物理轨迹和字段检查，不用于教师资格或新奖励结论。
 
 ## 查出的具体问题
 
@@ -88,25 +88,25 @@
 
 ## 入口
 
-在有CUDA PyTorch的机器上，从本目录运行（输出目录必须不存在）：
+在有 CUDA PyTorch 的机器上，从仓库根目录运行（输出目录必须不存在）：
 
 ```bash
-python run_pipeline.py --out runs/wave_gate_v5_trial1
+python scripts/run_pipeline.py --out runs/wave_gate_v5_trial1
 ```
 
-流程会保存源码与输入哈希、固定波源代码快照、原始时程、BC来源、初始闭环结果、训练检查点和进程状态。服务器地址／端口与密码不写入源码或报告。
+流程会保存源码与输入哈希、固定波源代码快照、原始时程、BC 来源、初始闭环结果、训练检查点和进程状态。服务器地址／端口与密码不写入源码或报告。
 
 单独验证固定波：
 
 ```bash
-python probe_fixed_waves.py --list-cases
-python probe_fixed_waves.py --device cuda --dt 0.00025 --seconds 40 --out diagnostics/cuda_wave_matrix
+python scripts/probe_fixed_waves.py --list-cases
+python scripts/probe_fixed_waves.py --device cuda --dt 0.00025 --seconds 40 --out runs/cuda_wave_matrix
 ```
 
-旧策略分布对照（提供实际旧源码和真实第32轮检查点路径）：
+旧策略分布对照（提供实际旧源码和真实第 32 轮检查点路径）：
 
 ```bash
-python probe_policy_distribution.py --source-dir /path/to/frozen/snake_sustain_v4_20261019 --checkpoint /path/to/results/snake_seed7/checkpoint_r0032.pt --out diagnostics/policy_distribution_snake_r32
+python scripts/probe_policy_distribution.py --source-dir /path/to/frozen/snake_sustain_v4_20261019 --checkpoint /path/to/results/snake_seed7/checkpoint_r0032.pt --out runs/policy_distribution_snake_r32
 ```
 
-本机数值检查使用 `D:/doso/robot/.venv_wave_validation/Scripts/python.exe`。该环境安装CPU Torch2.8，仅供数值和CPU诊断；完整CUDA验证与新PPO目前仍待恢复GPU连接。所有本轮验证状态与源码哈希见 `validation.json`。
+历史 2026-11-22 CPU 校验快照归档于 `archive/results/v5_diagnostics/validation_20261122.json`。

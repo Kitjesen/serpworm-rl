@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "serpworm-rl"
+version = "0.8.0"
+description = "SerpWorm-RL & FlexGraph / FlexGraph-RS v2: FP64 3D corotational Euler-Bernoulli beam fused_cuda & Rust DER/C-IPC rigid-flexible engines, v6-v8 pure-proprioceptive autonomous RL with HIM-DreamWaQ & saddle-safe Z2 equivariance, morphology-agnostic FlexGraph RL, and HIL deployment."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26,<3",
+    "torch>=2.8.0",
+]
+
+[project.optional-dependencies]
+viz = ["matplotlib>=3.8"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+serpworm-pipeline = "serpworm.pipeline:main"
+serpworm-probe = "serpworm.probes.fixed_waves:main"
+serpworm-bc = "serpworm.rl.pretrain_bc:cli_main"
+serpworm-train = "serpworm.rl.train_ppo:main"
+serpworm-eval = "serpworm.rl.evaluate:main"
+serpworm-train-unified = "serpworm.rl.train_unified:main"
+serpworm-eval-unified = "serpworm.rl.eval_unified:main"
+serpworm-train-auto = "serpworm.rl.train_autonomous:main"
+serpworm-eval-auto = "serpworm.rl.eval_autonomous:main"
+serpworm-train-flexgraph = "flexgraph.trainer:main"
+serpworm-audit-wheels = "serpworm.probes.wheel_geometry:main"
+serpworm-audit-wave = "serpworm.probes.saved_wave:main"
+serpworm-probe-dist = "serpworm.probes.policy_distribution:main"
+serpworm-render = "serpworm.probes.render_topology:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"serpworm.physics" = ["csrc/*.cu"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
