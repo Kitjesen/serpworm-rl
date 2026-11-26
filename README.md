@@ -1,4 +1,4 @@
-# SerpWorm-RL & FlexGraph (`v0.8.0`)
+# SerpWorm-RL & FlexGraph (`v0.8.1`)
 
 面向刚柔耦合连续体与模块化仿生机器人的全栈 **FP64 物理仿真、纯本体强化学习、形态无关通用控制与硬件在环部署** 代码库，包含三个协同演进的软件层：
 
@@ -29,11 +29,11 @@
   - 提供 **`HIMDreamWaQ`**（显式 7D 状态估计 + $\beta$-VAE 隐式地形上下文 + InfoNCE/SwAV 对比动力学）、**TorchScript (`.ts`) 冻结导出**、**200 步 HIL 干跑基准** 与 **`sysid_toolkit.py`** 辨识工具。
 
 #### (b) FlexGraph Python (`src/flexgraph/`)
-- **图编译 IR 与自适应稀疏路由 (`graph.py`, `solver.py`)**：将任意刚柔混合机器人表达为二分多图 `RigidFlexGraph`（支持 JSON 序列化），自动路由至 `block_diagonal_pairs` / `tree_chain` / `sparse_general` 稀疏 Schur 求解器；内置 `serpworm`、`bristle_worm`、`tendon_endoscope`、`flexspine_crawler` 构型生成器与 $\mathbb{Z}_2, \mathbb{Z}_2\times\mathbb{Z}_2, D_4$ 对称群定义。
+- **图编译 IR 与自适应稀疏路由 (`graph.py`, `solver.py`)**：将任意刚柔混合机器人表达为二分多图 `RigidFlexGraph`（支持 JSON 序列化与可选线性隐式关节耦合 `implicit_coupling`），自动路由至 `block_diagonal_pairs` / `tree_chain` / `sparse_general` 稀疏 Schur 求解器；内置 `serpworm`、`bristle_worm`、`tendon_endoscope`、`flexspine_crawler` 构型生成器与 $\mathbb{Z}_2, \mathbb{Z}_2\times\mathbb{Z}_2, D_4$ 对称群定义。
 - **可组合 3D SDF 世界与统一接触 (`sdf_world.py`, `contact.py`)**：支持高度场、变截面 3D 样条管腔、包围盒与体素 SDF 组合，以及 `AnisotropicPatchContact` 和 $C^2$ 光滑自接触。
 - **形态无关 RL 策略与多形态训练器 (`policy.py`, `env.py`, `trainer.py`, `rust_backend.py`)**：
   - `TokenizedHIMDreamWaQ`（含掩码感知 `TokenRunningNorm`、变长执行器 Token 注意力、非对称特权 Critic 与故障掩码容错）+ 任意有限群精确 Reynolds 等变封装 `FiniteGroupEquivariantWrapper`。
-  - `FlexGraphPPOTrainer`（`scripts/train_flexgraph.py`）支持 5 类内置构型（`serpworm_N3`, `serpworm_N5`, `bristle_worm`, `tendon_endoscope`, `flexspine_crawler`）轮询／混合训练、自适应 KL 学习率、GAE `time_outs` 截断引导、对称正则与故障注入课程，并经由 `rust_backend.py` 无缝对接 `fg_ffi` 原生动态库（缺失时零崩溃回退至 `GraphSchurSolver`）。
+  - `FlexGraphPPOTrainer`（`scripts/train_flexgraph.py`）支持 5 类内置构型（`serpworm_N3`, `serpworm_N5`, `bristle_worm`, `tendon_endoscope`, `flexspine_crawler`）轮询／混合训练、自适应 KL 学习率、GAE `time_outs` 截断引导、对称正则与故障注入课程，并经由 `rust_backend.py` 统一接入 `fg_ffi` 全部 36 个 v2 C-ABI 符号（含 ROS URDF / MJCF、波纹管网格、IFT 伴随梯度及 `clarabel_socp` / `faer` / `rubble_terrain` 配置，动态库缺失时零崩溃回退至 `GraphSchurSolver`）。
 
 #### (c) FlexGraph-RS v2 (`rust/flexgraph-rs/` + `src/flexgraph_rs/`)
 - **8-Crate 纯 Rust FP64 工作空间**：`fg-math`（李群/空间代数/协同旋转梁/DER）、`fg-ir`（图 IR 与稀疏消元树分析）、`fg-sdf`（BVH/CSG/样条管/体素 SDF）、`fg-contact`（C-IPC / Tight-Inclusion CCD / Compliance LCP + Clarabel SOCP / ARPC）、`fg-robots`（内建构型 + ROS URDF / MJCF 导入）、`fg-solver`（并行 Block-Thomas、树型/$LDL^\top$、`faer` 稀疏求解器、伴随可微）、`fg-ffi`（36 个 C-ABI 符号 + Rayon 并行批量环境池）、`fg-bench`。
@@ -48,7 +48,7 @@
 
 ```text
 serpworm-rl/
-├── pyproject.toml                   # 包配置 (v0.8.0)、依赖与 CLI 入口
+├── pyproject.toml                   # 包配置 (v0.8.1)、依赖与 CLI 入口
 ├── requirements.txt                 # 基础 Python 依赖清单
 ├── src/
 │   ├── serpworm/                    # SerpWorm-RL 主线包

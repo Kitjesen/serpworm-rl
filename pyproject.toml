@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "serpworm-rl"
-version = "0.8.0"
+version = "0.8.1"
 description = "SerpWorm-RL & FlexGraph / FlexGraph-RS v2: FP64 3D corotational Euler-Bernoulli beam fused_cuda & Rust DER/C-IPC rigid-flexible engines, v6-v8 pure-proprioceptive autonomous RL with HIM-DreamWaQ & saddle-safe Z2 equivariance, morphology-agnostic FlexGraph RL, and HIL deployment."
 readme = "README.md"
 requires-python = ">=3.10"
