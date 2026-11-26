@@ -13,6 +13,7 @@ import pytest
 import torch
 
 from flexgraph import (
+    ALL_V2_C_ABI_SYMBOLS,
     BUILTIN_ARCHETYPES,
     ComposableSDFWorld,
     FiniteGroupEquivariantWrapper,
@@ -24,6 +25,7 @@ from flexgraph import (
     TokenRunningNorm,
     TokenizedHIMDreamWaQ,
     TokenizedPolicyConfig,
+    V2_C_ABI_SYMBOLS,
     benchmark_backend_parity,
     build_archetype,
     build_bristle_worm_graph,
@@ -31,6 +33,10 @@ from flexgraph import (
     build_serpworm_graph,
     build_tendon_endoscope_graph,
     compute_gae,
+    create_native_world,
+    create_world_from_mjcf,
+    create_world_from_ros_urdf,
+    create_world_with_corrugated_pipe_mesh,
     default_glob_signs_for_group,
     graph_to_rust_ir_dict,
     graph_to_rust_ir_json,
@@ -601,3 +607,217 @@ def test_cli_help_and_2rollout_cpu_smoke(tmp_path: Path):
     assert len(prog['history']) == 2
     assert prog['history'][0]['morphologies'] == ['serpworm_N3']
     assert prog['history'][1]['morphologies'] == ['flexspine_crawler']
+
+
+# ---------------------------------------------------------------------------
+# 7. v0.8.1 Regressions: All 5 Morphologies Stability, BristleWorm +Arc Polarity & 36/36 v2 FFI
+# ---------------------------------------------------------------------------
+def test_all_five_morphologies_stable_and_bristle_worm_forward_polarity():
+    """Verify all 5 archetypes run with 0% failure and bounded aux/est targets, and bristle_worm advances +arc_s."""
+    import math
+
+    torch.manual_seed(29)
+    policy = TokenizedHIMDreamWaQ(TokenizedPolicyConfig(d_model=32, n_heads=4, n_attn_layers=1)).eval()
+
+    for mname in BUILTIN_ARCHETYPES:
+        g, w = build_archetype(mname, elements_per_beam=4)
+        env = FlexGraphEnv(
+            g,
+            world=w,
+            batch=2,
+            dt=0.001,
+            substeps_per_policy=10,
+            history_len=8,
+            backend='python',
+        )
+        tok, glob, mask = env.reset()
+        n_steps = 12 if mname == 'flexspine_crawler' else 6
+        for step_i in range(n_steps):
+            # Strong alternating actuation (exercises hip joint implicit stability on flexspine_crawler!)
+            sgn = 1.0 if (step_i % 4) < 2 else -1.0
+            act = torch.tensor(
+                [[sgn * (0.6 if (j % 2 == 0) else -0.6) for j in range(env.N_act)]] * 2,
+                dtype=torch.float32,
+            )
+            out = env.step_batch(act, delta_scale=0.50, auto_reset=False)
+            assert not out.info['failed'], f'{mname} solver failed at step {step_i + 1}'
+            assert not bool(out.terminated.any().item()), (
+                f'{mname} terminated at step {step_i + 1}: tilt={out.info["tilt_rad"].tolist()}'
+            )
+            assert torch.isfinite(out.est_target).all()
+            assert torch.isfinite(out.next_glob_sens).all()
+            assert float(env.solver.v[:, : env.solver.P, 3:].abs().max().item()) < 50.0, (
+                f'{mname} angular velocity spike at step {step_i + 1}'
+            )
+            with torch.no_grad():
+                aux = policy.compute_aux_losses(
+                    tok,
+                    glob,
+                    next_glob_sens=out.next_glob_sens,
+                    est_target=out.est_target,
+                    active_mask=mask,
+                )
+            assert torch.isfinite(aux['total_aux'])
+            assert float(aux['total_aux'].item()) < 10.0, (
+                f'{mname} aux loss exploded ({float(aux["total_aux"].item()):.3f}) at step {step_i + 1}'
+            )
+            tok, glob, mask = out.obs
+
+    # Verify bristle_worm anisotropic scale polarity aligns with SerpWorm (-X == +arc_s)
+    gb, wb = build_archetype('bristle_worm', elements_per_beam=4)
+    assert all(site.fwd_local == (-1.0, 0.0, 0.0) for site in gb.contact_sites)
+    # Also verify flexspine_crawler hip joints enable implicit_coupling (matches Rust centipede.rs)
+    gf, _ = build_archetype('flexspine_crawler', elements_per_beam=4)
+    assert all(jt.implicit_coupling for jt in gf.joints)
+    assert graph_to_rust_ir_dict(gf)['joints'][0]['implicit_coupling'] is True
+
+    env_bw = FlexGraphEnv(gb, world=wb, batch=1, dt=0.001, substeps_per_policy=10, history_len=4, backend='python')
+    env_bw.reset()
+    arc0 = float(env_bw._query_com_arc()[0].item())
+    for k in range(20):
+        t = k * env_bw.policy_dt
+        tgt = torch.zeros((1, env_bw.N_act), dtype=torch.float64)
+        for seg in range(3):
+            val = 0.65 * math.pi * (0.5 + 0.5 * math.sin(2.0 * math.pi * (2.5 * t - seg / 3.0)))
+            tgt[0, 2 * seg] = val
+            tgt[0, 2 * seg + 1] = val
+        env_bw.solver.step(tgt, steps=10)
+    arc1 = float(env_bw._query_com_arc()[0].item())
+    assert arc1 - arc0 > 2e-4, f'Expected positive +arc_s forward progression on bristle_worm, got d_arc={arc1 - arc0:.6f} m'
+
+
+def test_unified_v2_36_symbols_and_v2_ffi_config():
+    """Verify unified flexgraph Rust backend covers all 36/36 FlexGraph-RS v2 C-ABI exports and v2 FfiConfigJson."""
+    import numpy as np
+
+    assert len(V2_C_ABI_SYMBOLS) == 6
+    assert len(ALL_V2_C_ABI_SYMBOLS) == 36
+
+    # v2 FfiConfigJson serializer supports clarabel_socp, faer, tight_inclusion_ccd, rubble_terrain
+    cfg_v2 = world_to_ffi_config_dict(
+        lcp_solver='clarabel_socp',
+        sparse_backend='faer',
+        use_tight_inclusion_ccd=True,
+        world_sdf_override='rubble_terrain',
+    )
+    assert cfg_v2['lcp_solver'] == 'clarabel_socp'
+    assert cfg_v2['sparse_backend'] == 'faer'
+    assert cfg_v2['use_tight_inclusion_ccd'] is True
+    assert cfg_v2['world_sdf'] == 'rubble_terrain'
+    assert 'contact' not in cfg_v2
+
+    ffi = load_flexgraph_ffi(prefer_pyo3=False)
+    if not ffi.available:
+        pytest.skip(f'Compiled fg_ffi library not present: {ffi.reason}')
+
+    assert ffi.mode == 'cdylib'
+    assert ffi.abi_version == 2
+    assert ffi.supports_v2 is True
+    assert len(ffi.exported_symbols) == 36
+    for sym in ALL_V2_C_ABI_SYMBOLS:
+        assert sym in ffi.exported_symbols
+
+    # 1. ROS URDF + Clarabel SOCP
+    ros_urdf = """<?xml version="1.0"?>
+    <robot name="fg_unified_pendulum">
+      <link name="world"/>
+      <link name="arm">
+        <inertial><origin xyz="0.1 0 0"/><mass value="0.5"/>
+          <inertia ixx="1e-3" ixy="0" ixz="0" iyy="2e-3" iyz="0" izz="2e-3"/>
+        </inertial>
+        <collision><geometry><capsule radius="0.02" length="0.20"/></geometry></collision>
+      </link>
+      <joint name="hinge" type="revolute">
+        <parent link="world"/><child link="arm"/>
+        <origin xyz="0 0 0.30" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit lower="-1.5" upper="1.5" effort="5.0" velocity="4.0"/>
+      </joint>
+    </robot>"""
+    with create_world_from_ros_urdf(ros_urdf, config={'lcp_solver': 'clarabel_socp'}) as w_urdf:
+        assert w_urdf.info.num_bodies == 2
+        w_urdf.set_targets([0.3])
+        d_u = w_urdf.step(dt=0.001, steps=5)
+        assert not d_u.failed and np.all(np.isfinite(w_urdf.poses))
+
+    # 2. MuJoCo MJCF
+    mjcf_xml = """<mujoco model="fg_unified_hopper">
+      <compiler angle="degree"/>
+      <option timestep="0.001" gravity="0 0 -9.81"/>
+      <worldbody>
+        <body name="torso" pos="0 0 0.25">
+          <freejoint name="root"/>
+          <geom name="torso_s" type="sphere" size="0.05"/>
+          <body name="foot" pos="0 0 -0.10">
+            <joint name="knee" type="hinge" axis="0 1 0" range="-45 45"/>
+            <geom name="shin" type="capsule" fromto="0 0 0 0 0 -0.10" size="0.02"/>
+          </body>
+        </body>
+      </worldbody>
+      <actuator><motor joint="knee" gear="20"/></actuator>
+    </mujoco>"""
+    with create_world_from_mjcf(mjcf_xml) as w_mjcf:
+        assert w_mjcf.info.num_bodies == 2
+        w_mjcf.set_targets([0.2])
+        d_m = w_mjcf.step(dt=0.001, steps=5)
+        assert not d_m.failed and np.all(np.isfinite(w_mjcf.poses))
+
+    # 3. Corrugated pipe mesh directly from Python RigidFlexGraph + Tight Inclusion CCD
+    g_bw = build_bristle_worm_graph(n_segments=2, elements_per_strip=4)
+    with create_world_with_corrugated_pipe_mesh(
+        g_bw,
+        config={'use_tight_inclusion_ccd': True},
+        length=1.0,
+        r_mean=0.14,
+        corrugation_amp=0.005,
+        n_waves=5.0,
+        origin=(0.2, 0.0, 0.08),
+    ) as w_pipe:
+        d_p = w_pipe.step(dt=0.001, steps=5)
+        assert not d_p.failed and np.all(np.isfinite(w_pipe.poses))
+
+    # 4. Native world + IFT reverse-mode adjoint + get/set diff_param
+    adj_cfg = {
+        'use_strain_jacobian': True,
+        'world_fixed_inertia': False,
+        'contact': {'backend': 'none'},
+        'world_sdf': 'empty',
+    }
+    with create_native_world('soft_octopus_arm_der', config=adj_cfg) as w_octo:
+        n_steps = 4
+        controls = np.zeros((n_steps, w_octo.info.num_total_actuators), dtype=np.float64)
+        controls[:, 0] = np.linspace(0.001, 0.004, n_steps)
+        targets = np.repeat(w_octo.poses[: w_octo.info.num_bodies][None], n_steps + 1, axis=0)
+        targets[:, -1, 1] += 0.010
+        p_spec = {'name': 'beam_E', 'kind': 'beam_youngs_modulus', 'target_ids': [], 'scale': 1e6}
+        e0 = w_octo.get_diff_param(p_spec)
+        assert e0 > 0.0
+        w_octo.set_diff_param(p_spec, e0 * 1.05)
+        assert w_octo.get_diff_param(p_spec) == pytest.approx(e0 * 1.05, rel=1e-9)
+        w_octo.set_diff_param(p_spec, e0)
+        adj = w_octo.adjoint_grad(
+            controls=controls,
+            dt=0.001,
+            target_poses=targets,
+            weight_pos=200.0,
+            diff_params=[p_spec],
+        )
+        assert np.isfinite(adj.loss) and adj.loss > 0.0
+        assert adj.grad_controls.shape == (n_steps, w_octo.info.num_total_actuators)
+        assert adj.grad_params.shape == (1,) and np.all(np.isfinite(adj.grad_params))
+
+    # 5. RustGraphSolverBackend with v2 faer + rubble_terrain config
+    g_fs = build_flexspine_crawler_graph(n_segments=2, elements_per_spine=4)
+    sim_v2 = RustGraphSolverBackend(
+        g_fs,
+        batch=2,
+        dt=0.001,
+        backend='rust',
+        strict_rust=True,
+        sparse_backend='faer',
+        world_sdf_override='rubble_terrain',
+    )
+    assert sim_v2.active_backend == 'rust' and sim_v2.supports_v2 is True
+    sim_v2.step(torch.tensor([[0.4, -0.4, 0.4, -0.4]] * 2, dtype=torch.float64), steps=10)
+    assert not bool(sim_v2.failed.item()) and torch.isfinite(sim_v2.x).all()
+    sim_v2.close()

@@ -39,17 +39,29 @@ from flexgraph.sdf_world import ComposableSDFWorld, HeightFieldSDF
 from flexgraph.solver import GraphSchurSolver
 
 __all__ = [
+    'ALL_V2_C_ABI_SYMBOLS',
+    'AdjointGradResult',
+    'EnergyMomentum',
     'FFIBindings',
     'FgEnergyMomentum',
     'FgStepDiag',
     'FgWorldInfo',
+    'FlexGraphRsBatchSolver',
+    'FlexGraphRsSolver',
     'OPTIONAL_C_ABI_SYMBOLS',
     'REQUIRED_BATCH_C_ABI_SYMBOLS',
     'REQUIRED_C_ABI_SYMBOLS',
     'REQUIRED_WORLD_C_ABI_SYMBOLS',
     'RustGraphSolverBackend',
+    'StepDiag',
+    'V2_C_ABI_SYMBOLS',
+    'WorldInfo',
     'benchmark_backend_parity',
+    'create_native_world',
     'create_solver',
+    'create_world_from_mjcf',
+    'create_world_from_ros_urdf',
+    'create_world_with_corrugated_pipe_mesh',
     'discover_ffi_candidates',
     'graph_to_rust_ir_dict',
     'graph_to_rust_ir_json',
@@ -57,6 +69,23 @@ __all__ = [
     'world_to_ffi_config_dict',
     'world_to_ffi_config_json',
 ]
+
+try:
+    from flexgraph_rs import (
+        AdjointGradResult,
+        EnergyMomentum,
+        FlexGraphRsBatchSolver,
+        FlexGraphRsSolver,
+        StepDiag,
+        WorldInfo,
+    )
+except Exception:  # pragma: no cover - optional sibling package
+    AdjointGradResult = None  # type: ignore[assignment]
+    EnergyMomentum = None  # type: ignore[assignment]
+    FlexGraphRsBatchSolver = None  # type: ignore[assignment]
+    FlexGraphRsSolver = None  # type: ignore[assignment]
+    StepDiag = None  # type: ignore[assignment]
+    WorldInfo = None  # type: ignore[assignment]
 
 # Exact C-ABI structs matching #[repr(C)] definitions in rust/flexgraph-rs/crates/fg-ffi/src/lib.rs
 class FgWorldInfo(ctypes.Structure):
@@ -134,6 +163,15 @@ REQUIRED_WORLD_C_ABI_SYMBOLS: tuple[str, ...] = (
 # Backwards-compatible alias referencing the primary batch C-ABI contract
 REQUIRED_C_ABI_SYMBOLS: tuple[str, ...] = REQUIRED_BATCH_C_ABI_SYMBOLS
 
+V2_C_ABI_SYMBOLS: tuple[str, ...] = (
+    'fg_world_create_from_ros_urdf',
+    'fg_world_create_from_mjcf',
+    'fg_world_create_with_corrugated_pipe_mesh',
+    'fg_world_adjoint_grad',
+    'fg_world_get_diff_param',
+    'fg_world_set_diff_param',
+)
+
 OPTIONAL_C_ABI_SYMBOLS: tuple[str, ...] = (
     'fg_last_error',
     'fg_string_free',
@@ -150,6 +188,10 @@ OPTIONAL_C_ABI_SYMBOLS: tuple[str, ...] = (
     'fg_world_contact_normals_ptr',
     'fg_world_get_energy_momentum',
     'fg_world_export_graph_json',
+) + V2_C_ABI_SYMBOLS
+
+ALL_V2_C_ABI_SYMBOLS: tuple[str, ...] = tuple(
+    sorted(set(REQUIRED_BATCH_C_ABI_SYMBOLS) | set(REQUIRED_WORLD_C_ABI_SYMBOLS) | set(OPTIONAL_C_ABI_SYMBOLS))
 )
 
 
@@ -165,6 +207,7 @@ class FFIBindings:
     missing_symbols: tuple[str, ...] = ()
     supports_batch_handle: bool = False
     supports_world_handle: bool = False
+    supports_v2: bool = False
     reason: str = ''
     cdll: Any = None
     pyo3_module: Any = None
@@ -186,6 +229,7 @@ class FFIBindings:
             'abi_version': self.abi_version,
             'supports_batch_handle': self.supports_batch_handle,
             'supports_world_handle': self.supports_world_handle,
+            'supports_v2': self.supports_v2,
             'exported_symbols': list(self.exported_symbols),
             'missing_symbols': list(self.missing_symbols),
             'reason': self.reason,
@@ -207,9 +251,10 @@ def discover_ffi_candidates(extra_paths: list[str | Path] | None = None) -> list
         for p in extra_paths:
             candidates.append(Path(p))
 
-    env_override = os.environ.get('FLEXGRAPH_FFI_LIB', '').strip()
-    if env_override:
-        candidates.append(Path(env_override))
+    for env_key in ('FLEXGRAPH_FFI_LIB', 'FLEXGRAPH_RS_LIB'):
+        env_override = os.environ.get(env_key, '').strip()
+        if env_override:
+            candidates.append(Path(env_override))
 
     repo_root = Path(__file__).resolve().parents[2]
     target_root = repo_root / 'rust' / 'flexgraph-rs' / 'target'
@@ -237,7 +282,7 @@ def discover_ffi_candidates(extra_paths: list[str | Path] | None = None) -> list
 
 
 def _configure_cdll_signatures(lib: ctypes.CDLL, exported: set[str]) -> None:
-    """Bind exact ctypes argtypes/restype matching ``rust/flexgraph-rs/crates/fg-ffi/src/lib.rs``."""
+    """Bind exact ctypes argtypes/restype matching all 36 symbols in ``fg-ffi/src/lib.rs``."""
     c_void_p = ctypes.c_void_p
     c_char_p = ctypes.c_char_p
     c_int = ctypes.c_int
@@ -245,6 +290,7 @@ def _configure_cdll_signatures(lib: ctypes.CDLL, exported: set[str]) -> None:
     c_size_t_p = ctypes.POINTER(ctypes.c_size_t)
     c_double = ctypes.c_double
     c_double_p = ctypes.POINTER(ctypes.c_double)
+    c_uint8 = ctypes.c_uint8
     c_uint8_p = ctypes.POINTER(ctypes.c_uint8)
 
     if 'fg_last_error' in exported:
@@ -254,12 +300,32 @@ def _configure_cdll_signatures(lib: ctypes.CDLL, exported: set[str]) -> None:
         lib.fg_string_free.argtypes = [c_void_p]
         lib.fg_string_free.restype = None
 
-    # --- Single-world handle (FgWorldHandle, lib.rs:387-776) ---
-    for sym in ('fg_world_create_from_json', 'fg_world_create_from_yaml', 'fg_world_create_from_urdf_flex', 'fg_world_create_archetype'):
+    # --- Single-world handle (FgWorldHandle, lib.rs) ---
+    for sym in (
+        'fg_world_create_from_json',
+        'fg_world_create_from_yaml',
+        'fg_world_create_from_urdf_flex',
+        'fg_world_create_archetype',
+        'fg_world_create_from_ros_urdf',
+        'fg_world_create_from_mjcf',
+    ):
         if sym in exported:
             fn = getattr(lib, sym)
             fn.argtypes = [c_char_p, c_char_p]
             fn.restype = c_void_p
+    if 'fg_world_create_with_corrugated_pipe_mesh' in exported:
+        lib.fg_world_create_with_corrugated_pipe_mesh.argtypes = [
+            c_char_p,
+            c_char_p,
+            c_double,
+            c_double,
+            c_double,
+            c_double,
+            c_double,
+            c_double,
+            c_double,
+        ]
+        lib.fg_world_create_with_corrugated_pipe_mesh.restype = c_void_p
     if 'fg_world_reset' in exported:
         lib.fg_world_reset.argtypes = [c_void_p]
         lib.fg_world_reset.restype = c_int
@@ -288,11 +354,36 @@ def _configure_cdll_signatures(lib: ctypes.CDLL, exported: set[str]) -> None:
     if 'fg_world_export_graph_json' in exported:
         lib.fg_world_export_graph_json.argtypes = [c_void_p]
         lib.fg_world_export_graph_json.restype = c_void_p
+    if 'fg_world_adjoint_grad' in exported:
+        lib.fg_world_adjoint_grad.argtypes = [
+            c_void_p,
+            c_double_p,
+            c_size_t,
+            c_size_t,
+            c_double,
+            c_double_p,
+            c_size_t,
+            c_double,
+            c_double,
+            c_double,
+            c_char_p,
+            c_double_p,
+            c_double_p,
+            c_double_p,
+            c_size_t,
+        ]
+        lib.fg_world_adjoint_grad.restype = c_int
+    if 'fg_world_get_diff_param' in exported:
+        lib.fg_world_get_diff_param.argtypes = [c_void_p, c_char_p, c_double_p]
+        lib.fg_world_get_diff_param.restype = c_int
+    if 'fg_world_set_diff_param' in exported:
+        lib.fg_world_set_diff_param.argtypes = [c_void_p, c_char_p, c_double, c_uint8]
+        lib.fg_world_set_diff_param.restype = c_int
     if 'fg_world_free' in exported:
         lib.fg_world_free.argtypes = [c_void_p]
         lib.fg_world_free.restype = None
 
-    # --- Rayon vectorized batch handle (FgBatchHandle, lib.rs:1075-1408) ---
+    # --- Rayon vectorized batch handle (FgBatchHandle, lib.rs) ---
     if 'fg_batch_create_from_json' in exported:
         lib.fg_batch_create_from_json.argtypes = [c_char_p, c_size_t, c_double, c_size_t]
         lib.fg_batch_create_from_json.restype = c_void_p
@@ -345,7 +436,8 @@ def load_flexgraph_ffi(
       1. Optional PyO3 extension module (``flexgraph_rs`` or ``fg_ffi``) when ``lib_path is None``
          and ``prefer_pyo3=True``.
       2. Compiled C-ABI shared library (``fg_ffi.dll`` / ``libfg_ffi.so`` / ``libfg_ffi.dylib``)
-         from ``lib_path``, ``FLEXGRAPH_FFI_LIB``, or ``rust/flexgraph-rs/target/{release,debug}[/deps]``.
+         from ``lib_path``, ``FLEXGRAPH_FFI_LIB``, ``FLEXGRAPH_RS_LIB``, or
+         ``rust/flexgraph-rs/target/{release,debug}[/deps]``.
     """
     if lib_path is None and prefer_pyo3:
         for mod_name in ('flexgraph_rs', 'fg_ffi'):
@@ -369,6 +461,7 @@ def load_flexgraph_ffi(
                     missing_symbols=(),
                     supports_batch_handle=hasattr(mod, 'FlexGraphBatchWorld'),
                     supports_world_handle=True,
+                    supports_v2=bool(abi_v and int(abi_v) >= 2),
                     reason='',
                     pyo3_module=mod,
                 )
@@ -385,7 +478,7 @@ def load_flexgraph_ffi(
             reason=f'No compiled fg_ffi shared library found (searched: {searched})',
         )
 
-    all_known = set(REQUIRED_BATCH_C_ABI_SYMBOLS) | set(REQUIRED_WORLD_C_ABI_SYMBOLS) | set(OPTIONAL_C_ABI_SYMBOLS)
+    all_known = set(ALL_V2_C_ABI_SYMBOLS)
     last_reason = ''
     for cand in existing:
         try:
@@ -401,17 +494,19 @@ def load_flexgraph_ffi(
         world_missing = tuple(s for s in REQUIRED_WORLD_C_ABI_SYMBOLS if s not in exported_set)
         has_batch = len(batch_missing) == 0
         has_world = len(world_missing) == 0
+        has_v2 = all(s in exported_set for s in V2_C_ABI_SYMBOLS)
 
         if has_batch or has_world:
             return FFIBindings(
                 available=True,
                 mode='cdylib',
                 library_path=cand.resolve(),
-                abi_version=1,
+                abi_version=2 if has_v2 else 1,
                 exported_symbols=tuple(sorted(exported_set)),
                 missing_symbols=(),
                 supports_batch_handle=has_batch,
                 supports_world_handle=has_world,
+                supports_v2=has_v2,
                 reason='',
                 cdll=cdll,
             )
@@ -428,6 +523,7 @@ def load_flexgraph_ffi(
             missing_symbols=batch_missing,
             supports_batch_handle=False,
             supports_world_handle=False,
+            supports_v2=False,
             reason=last_reason,
             cdll=cdll,
         )
@@ -613,7 +709,7 @@ def graph_to_rust_ir_dict(
                 'static_friction': float(jt.tau_static_fric),
                 'deadband': 0.0,
                 'limits': None,
-                'implicit_coupling': False,
+                'implicit_coupling': bool(jt.implicit_coupling),
             }
         )
 
@@ -729,16 +825,34 @@ def world_to_ffi_config_dict(
     implicit_contact: bool = True,
     use_kelvin_normal: bool = False,
     enable_self_contact: bool = False,
+    solver_preset: str | None = None,
+    lcp_solver: str | None = None,
+    sparse_backend: str | None = None,
+    use_tight_inclusion_ccd: bool | None = None,
+    world_sdf_override: str | None = None,
+    use_strain_jacobian: bool = False,
+    world_fixed_inertia: bool = True,
 ) -> dict[str, Any]:
-    """Serialize solver & world SDF configuration into exact ``FfiConfigJson`` (``fg-ffi/src/lib.rs:170-190``)."""
+    """Serialize solver & world SDF configuration into exact v2 ``FfiConfigJson`` (``fg-ffi/src/lib.rs``)."""
+    preset = solver_preset if solver_preset is not None else ('serpworm_kelvin_parity' if use_kelvin_normal else 'default')
     cfg: dict[str, Any] = {
-        'solver_preset': 'serpworm_kelvin_parity' if use_kelvin_normal else 'default',
-        'use_strain_jacobian': False,
-        'world_fixed_inertia': True,
+        'solver_preset': preset,
+        'use_strain_jacobian': bool(use_strain_jacobian),
+        'world_fixed_inertia': bool(world_fixed_inertia),
         'enable_self_contact': bool(enable_self_contact),
     }
-    if not use_kelvin_normal:
+    if lcp_solver is not None:
+        cfg['lcp_solver'] = str(lcp_solver)
+    elif not use_kelvin_normal and preset != 'delassus_socp':
         cfg['contact'] = {'backend': 'arpc', 'implicit': bool(implicit_contact)}
+    if sparse_backend is not None:
+        cfg['sparse_backend'] = str(sparse_backend)
+    if use_tight_inclusion_ccd is not None:
+        cfg['use_tight_inclusion_ccd'] = bool(use_tight_inclusion_ccd)
+
+    if world_sdf_override is not None:
+        cfg['world_sdf'] = str(world_sdf_override)
+        return cfg
 
     if world is None:
         cfg['world_sdf'] = 'kelvin_floor' if use_kelvin_normal else 'flat_ground'
@@ -785,6 +899,13 @@ def world_to_ffi_config_json(
     implicit_contact: bool = True,
     use_kelvin_normal: bool = False,
     enable_self_contact: bool = False,
+    solver_preset: str | None = None,
+    lcp_solver: str | None = None,
+    sparse_backend: str | None = None,
+    use_tight_inclusion_ccd: bool | None = None,
+    world_sdf_override: str | None = None,
+    use_strain_jacobian: bool = False,
+    world_fixed_inertia: bool = True,
 ) -> str:
     return json.dumps(
         world_to_ffi_config_dict(
@@ -792,6 +913,13 @@ def world_to_ffi_config_json(
             implicit_contact=implicit_contact,
             use_kelvin_normal=use_kelvin_normal,
             enable_self_contact=enable_self_contact,
+            solver_preset=solver_preset,
+            lcp_solver=lcp_solver,
+            sparse_backend=sparse_backend,
+            use_tight_inclusion_ccd=use_tight_inclusion_ccd,
+            world_sdf_override=world_sdf_override,
+            use_strain_jacobian=use_strain_jacobian,
+            world_fixed_inertia=world_fixed_inertia,
         ),
         separators=(',', ':'),
     )
@@ -824,6 +952,13 @@ class RustGraphSolverBackend:
         strict_rust: bool = False,
         lib_path: str | Path | None = None,
         num_threads: int = 0,
+        solver_preset: str | None = None,
+        lcp_solver: str | None = None,
+        sparse_backend: str | None = None,
+        use_tight_inclusion_ccd: bool | None = None,
+        world_sdf_override: str | None = None,
+        use_strain_jacobian: bool = False,
+        world_fixed_inertia: bool = True,
     ):
         backend_norm = str(backend).lower().strip()
         if backend_norm not in ('auto', 'python', 'rust'):
@@ -839,6 +974,13 @@ class RustGraphSolverBackend:
         self.use_kelvin_normal = bool(use_kelvin_normal)
         self.enable_self_contact = bool(enable_self_contact)
         self.num_threads = int(num_threads)
+        self.solver_preset = solver_preset
+        self.lcp_solver = lcp_solver
+        self.sparse_backend = sparse_backend
+        self.use_tight_inclusion_ccd = use_tight_inclusion_ccd
+        self.world_sdf_override = world_sdf_override
+        self.use_strain_jacobian = bool(use_strain_jacobian)
+        self.world_fixed_inertia = bool(world_fixed_inertia)
         self.requested_backend = backend_norm
         self.strict_rust = bool(strict_rust)
         self.active_backend: str = 'python'
@@ -913,6 +1055,10 @@ class RustGraphSolverBackend:
             )
             self._mirror_python_attrs()
 
+    @property
+    def supports_v2(self) -> bool:
+        return bool(self.ffi_info.supports_v2)
+
     def _mirror_python_attrs(self) -> None:
         assert self._py_solver is not None
         py = self._py_solver
@@ -937,6 +1083,13 @@ class RustGraphSolverBackend:
             implicit_contact=self.implicit_contact,
             use_kelvin_normal=self.use_kelvin_normal,
             enable_self_contact=self.enable_self_contact,
+            solver_preset=self.solver_preset,
+            lcp_solver=self.lcp_solver,
+            sparse_backend=self.sparse_backend,
+            use_tight_inclusion_ccd=self.use_tight_inclusion_ccd,
+            world_sdf_override=self.world_sdf_override,
+            use_strain_jacobian=self.use_strain_jacobian,
+            world_fixed_inertia=self.world_fixed_inertia,
         ).encode('utf-8')
         self.D = self.P + self.sparsity.n_beam_interior_nodes
 
@@ -1396,3 +1549,95 @@ def benchmark_backend_parity(
     }
     rs_sim.close()
     return report
+
+
+# ---------------------------------------------------------------------------
+# Unified FlexGraph-RS v2 Single-World Factories (All 36/36 C-ABI Symbols)
+# ---------------------------------------------------------------------------
+def _require_rs_solver_and_lib(lib_path: str | Path | None = None, *, require_v2: bool = False) -> Path:
+    if FlexGraphRsSolver is None:
+        raise RuntimeError('flexgraph_rs sibling package is not importable')
+    ffi = load_flexgraph_ffi(lib_path=lib_path, prefer_pyo3=False)
+    if not ffi.available or ffi.library_path is None:
+        raise RuntimeError(f'Native fg_ffi library unavailable: {ffi.reason}')
+    if require_v2 and not ffi.supports_v2:
+        missing_v2 = [s for s in V2_C_ABI_SYMBOLS if s not in ffi.exported_symbols]
+        raise RuntimeError(f'Loaded fg_ffi library does not export v2 symbols: {missing_v2}')
+    return ffi.library_path
+
+
+def create_world_from_ros_urdf(
+    urdf_xml: str,
+    config: dict[str, Any] | str | None = None,
+    *,
+    lib_path: str | Path | None = None,
+) -> Any:
+    """Create a native FlexGraph-RS v2 world from standard ROS URDF XML (``fg_world_create_from_ros_urdf``)."""
+    resolved = _require_rs_solver_and_lib(lib_path=lib_path, require_v2=True)
+    return FlexGraphRsSolver.from_ros_urdf(urdf_xml, config=config, lib_path=resolved)
+
+
+def create_world_from_mjcf(
+    mjcf_xml: str,
+    config: dict[str, Any] | str | None = None,
+    *,
+    lib_path: str | Path | None = None,
+) -> Any:
+    """Create a native FlexGraph-RS v2 world from MuJoCo MJCF XML (``fg_world_create_from_mjcf``)."""
+    resolved = _require_rs_solver_and_lib(lib_path=lib_path, require_v2=True)
+    return FlexGraphRsSolver.from_mjcf(mjcf_xml, config=config, lib_path=resolved)
+
+
+def create_world_with_corrugated_pipe_mesh(
+    graph_or_json: RigidFlexGraph | str,
+    config: dict[str, Any] | str | None = None,
+    *,
+    length: float = 1.0,
+    r_mean: float = 0.08,
+    corrugation_amp: float = 0.006,
+    n_waves: float = 8.0,
+    origin: tuple[float, float, float] = (0.15, 0.0, 0.08),
+    dt: float = 0.001,
+    lib_path: str | Path | None = None,
+) -> Any:
+    """Mount a ``RigidFlexGraph`` or JSON IR inside a Parry3D corrugated pipe mesh (``fg_world_create_with_corrugated_pipe_mesh``)."""
+    resolved = _require_rs_solver_and_lib(lib_path=lib_path, require_v2=True)
+    g_json = (
+        graph_to_rust_ir_json(graph_or_json, dt=dt)
+        if isinstance(graph_or_json, RigidFlexGraph)
+        else str(graph_or_json)
+    )
+    return FlexGraphRsSolver.with_corrugated_pipe_mesh(
+        g_json,
+        config=config,
+        length=length,
+        r_mean=r_mean,
+        corrugation_amp=corrugation_amp,
+        n_waves=n_waves,
+        origin=origin,
+        lib_path=resolved,
+    )
+
+
+def create_native_world(
+    graph_or_archetype: RigidFlexGraph | str,
+    world: ComposableSDFWorld | None = None,
+    *,
+    config: dict[str, Any] | str | None = None,
+    dt: float = 0.001,
+    lib_path: str | Path | None = None,
+    **v2_cfg_kwargs: Any,
+) -> Any:
+    """Create a native Rust ``FlexGraphRsSolver`` from a Python ``RigidFlexGraph`` or Rust archetype name.
+
+    Exposes zero-copy FP64 views, energy/momentum diagnostics, and v2 IFT reverse-mode adjoints
+    (``adjoint_grad``, ``get_diff_param``, ``set_diff_param``) directly from ``flexgraph``.
+    """
+    resolved = _require_rs_solver_and_lib(lib_path=lib_path, require_v2=False)
+    cfg_payload: dict[str, Any] | str | None = config
+    if cfg_payload is None and (world is not None or v2_cfg_kwargs):
+        cfg_payload = world_to_ffi_config_dict(world, **v2_cfg_kwargs)
+    if isinstance(graph_or_archetype, RigidFlexGraph):
+        g_json = graph_to_rust_ir_json(graph_or_archetype, world=world, dt=dt)
+        return FlexGraphRsSolver.from_json(g_json, config=cfg_payload, lib_path=resolved)
+    return FlexGraphRsSolver.from_archetype(str(graph_or_archetype), config=cfg_payload, lib_path=resolved)

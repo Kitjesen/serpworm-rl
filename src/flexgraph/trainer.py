@@ -207,7 +207,7 @@ class FlexGraphTrainConfig:
     amp_bf16: bool = False
     seed: int = 7
     eval_every: int = 10
-    eval_steps: int = 20
+    eval_steps: int = 50
     save_every: int = 10
     policy: TokenizedPolicyConfig = field(default_factory=TokenizedPolicyConfig)
 
@@ -995,7 +995,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     p.add_argument('--amp-bf16', action='store_true', help='Enable CUDA BF16 autocast for policy forward/backward.')
     p.add_argument('--no-obs-norm', action='store_true', help='Disable TokenRunningNorm.')
     p.add_argument('--eval-every', type=int, default=10)
-    p.add_argument('--eval-steps', type=int, default=20)
+    p.add_argument('--eval-steps', type=int, default=50)
     p.add_argument('--save-every', type=int, default=10)
     p.add_argument('--seed', type=int, default=7)
     p.add_argument(

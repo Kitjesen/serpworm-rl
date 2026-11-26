@@ -419,14 +419,20 @@ class GraphSchurSolver:
                     f[:, ba, 3:] = f[:, ba, 3:] + cross(wp_arm[k], force_k)
                     f[:, bb, 3:] = f[:, bb, 3:] - cross(wp_arm[k + 1], force_k)
 
-    def _accumulate_joints(self, f: torch.Tensor) -> None:
+    def _accumulate_joints(
+        self,
+        f: torch.Tensor,
+        h: float,
+    ) -> list[tuple[int, int, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]]:
+        implicit_blocks: list[tuple[int, int, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]] = []
         if not self.graph.joints:
-            return
+            return implicit_blocks
         B = self.batch
         x_b = self.x[:, :self.P]
         v_b = self.v[:, :self.P]
         q_b = x_b[..., 3:]
         R_b = quat_to_mat(q_b)
+        I3 = torch.eye(3, device=self.device, dtype=self.dtype)[None].expand(B, 3, 3)
 
         for jid, jt in enumerate(self.graph.joints):
             a, b = jt.body_a, jt.body_b
@@ -444,10 +450,6 @@ class GraphSchurSolver:
                 sep = x_b[:, b, :3] - x_b[:, a, :3]
                 err = sep - arm
                 relv = v_b[:, b, :3] - v_b[:, a, :3] - cross(v_b[:, a, 3:], sep)
-                f_pos = -float(jt.k_pos) * err - float(jt.c_pos) * relv
-                f[:, b, :3] = f[:, b, :3] + f_pos
-                f[:, a, :3] = f[:, a, :3] - f_pos
-                f[:, a, 3:] = f[:, a, 3:] - cross(sep, f_pos)
 
                 # Local hinge axis in body_a & body_b frames
                 ax_loc = torch.tensor(jt.axis_local, device=self.device, dtype=self.dtype)
@@ -477,14 +479,72 @@ class GraphSchurSolver:
                 if slim > 0.0:
                     cap = torch.where(tau * rate > 0.0, tlim * (1.0 - rate.abs() / slim).clamp(0.0, 1.0), tlim)
                     tau = torch.maximum(torch.minimum(tau, cap), -cap)
+                else:
+                    cap = torch.full_like(tau, tlim)
                 self.joint_torques[:, jid] = tau
-                torque = (
-                    tau[..., None] * axis_a
-                    + float(jt.k_align) * cross(axis_b, axis_a)
-                    - float(jt.c_align) * (omega - axis_a * rate[..., None])
-                )
-                f[:, b, 3:] = f[:, b, 3:] + torque
-                f[:, a, 3:] = f[:, a, 3:] - torque
+
+                if not jt.implicit_coupling:
+                    f_pos = -float(jt.k_pos) * err - float(jt.c_pos) * relv
+                    f[:, b, :3] = f[:, b, :3] + f_pos
+                    f[:, a, :3] = f[:, a, :3] - f_pos
+                    f[:, a, 3:] = f[:, a, 3:] - cross(sep, f_pos)
+                    torque = (
+                        tau[..., None] * axis_a
+                        + float(jt.k_align) * cross(axis_b, axis_a)
+                        - float(jt.c_align) * (omega - axis_a * rate[..., None])
+                    )
+                    f[:, b, 3:] = f[:, b, 3:] + torque
+                    f[:, a, 3:] = f[:, a, 3:] - torque
+                else:
+                    # Unconditionally L-stable linearly-implicit backward Euler coupling:
+                    # elastic terms enter RHS; linear damping & h*K stiffness enter globalA as exact SPD 12x12 blocks.
+                    f_pos_el = -float(jt.k_pos) * err
+                    f[:, b, :3] = f[:, b, :3] + f_pos_el
+                    f[:, a, :3] = f[:, a, :3] - f_pos_el
+                    f[:, a, 3:] = f[:, a, 3:] - cross(sep, f_pos_el)
+
+                    raw_el = float(jt.kp) * (tgt - ang)
+                    tau_el = (torch.sign(raw_el) * (raw_el.abs() - sf).clamp_min(0.0)).clamp(-tlim, tlim)
+                    if slim > 0.0:
+                        cap_el = torch.where(
+                            tau_el * rate > 0.0, tlim * (1.0 - rate.abs() / slim).clamp(0.0, 1.0), tlim
+                        )
+                        tau_el = torch.maximum(torch.minimum(tau_el, cap_el), -cap_el)
+                    torque_el = tau_el[..., None] * axis_a + float(jt.k_align) * cross(axis_b, axis_a)
+                    f[:, b, 3:] = f[:, b, 3:] + torque_el
+                    f[:, a, 3:] = f[:, a, 3:] - torque_el
+
+                    # SPD position Jacobian J_p = [-I, S(sep), I, 0] => K_pos = h*(h*k_pos + c_pos) * J_p^T J_p
+                    kp_eff = h * (h * float(jt.k_pos) + float(jt.c_pos))
+                    S = skew(sep)  # (B, 3, 3)
+                    K_aa = torch.zeros((B, 6, 6), device=self.device, dtype=self.dtype)
+                    K_bb = torch.zeros((B, 6, 6), device=self.device, dtype=self.dtype)
+                    K_ab = torch.zeros((B, 6, 6), device=self.device, dtype=self.dtype)
+                    K_ba = torch.zeros((B, 6, 6), device=self.device, dtype=self.dtype)
+
+                    K_aa[:, :3, :3] = kp_eff * I3
+                    K_aa[:, :3, 3:] = -kp_eff * S
+                    K_aa[:, 3:, :3] = kp_eff * S
+                    K_aa[:, 3:, 3:] = -kp_eff * (S @ S)
+                    K_bb[:, :3, :3] = kp_eff * I3
+                    K_ab[:, :3, :3] = -kp_eff * I3
+                    K_ab[:, 3:, :3] = -kp_eff * S
+                    K_ba[:, :3, :3] = -kp_eff * I3
+                    K_ba[:, :3, 3:] = kp_eff * S
+
+                    # SPD rotational alignment + hinge PD tangent: K_rot = k_ax * aa^T + k_al * (I - aa^T)
+                    aa = axis_a[..., :, None] * axis_a[..., None, :]
+                    perp = I3 - aa
+                    unsat = ((raw_t.abs() <= cap) & (raw_t.abs() > sf)).to(dtype=self.dtype)
+                    k_ax = h * (float(jt.kd) + h * float(jt.kp) * unsat)
+                    k_al = h * (h * float(jt.k_align) + float(jt.c_align))
+                    K_rot = k_ax[:, None, None] * aa + k_al * perp
+                    K_aa[:, 3:, 3:] = K_aa[:, 3:, 3:] + K_rot
+                    K_bb[:, 3:, 3:] = K_bb[:, 3:, 3:] + K_rot
+                    K_ab[:, 3:, 3:] = K_ab[:, 3:, 3:] - K_rot
+                    K_ba[:, 3:, 3:] = K_ba[:, 3:, 3:] - K_rot
+                    implicit_blocks.append((a, b, K_aa, K_bb, K_ab, K_ba))
+        return implicit_blocks
 
     def _accumulate_site_contacts(self, f: torch.Tensor, h: float) -> torch.Tensor:
         """Evaluate unified AnisotropicPatchContact for all rigid-body contact sites against ComposableSDFWorld."""
@@ -721,7 +781,7 @@ class GraphSchurSolver:
         B = self.batch
         f_ext = torch.zeros_like(self.v)
         self._accumulate_tendons(f_ext, h)
-        self._accumulate_joints(f_ext)
+        joint_imp_blocks = self._accumulate_joints(f_ext, h)
         plate_K_con = self._accumulate_site_contacts(f_ext, h)
 
         rhs = h * f_ext
@@ -759,6 +819,12 @@ class GraphSchurSolver:
             globalA[:, 6 * p:6 * p + 6, 6 * p:6 * p + 6] = (
                 (1.0 + h * self.body_rayleigh_alpha) * self.body_mass[:, p] + plate_K_con[:, p]
             )
+        for a_id, b_id, K_aa, K_bb, K_ab, K_ba in joint_imp_blocks:
+            sa, sb = 6 * a_id, 6 * b_id
+            globalA[:, sa:sa + 6, sa:sa + 6] = globalA[:, sa:sa + 6, sa:sa + 6] + K_aa
+            globalA[:, sb:sb + 6, sb:sb + 6] = globalA[:, sb:sb + 6, sb:sb + 6] + K_bb
+            globalA[:, sa:sa + 6, sb:sb + 6] = globalA[:, sa:sa + 6, sb:sb + 6] + K_ab
+            globalA[:, sb:sb + 6, sa:sa + 6] = globalA[:, sb:sb + 6, sa:sa + 6] + K_ba
 
         elim_cache = []
         for bkt, A_b in zip(self.buckets, bucket_A):

@@ -102,6 +102,7 @@ class JointEdgeSpec:
     tau_static_fric: float = 0.0
     stop_gap_m: float = 0.075
     k_stop: float = 50000.0
+    implicit_coupling: bool = False
 
 
 @dataclass
@@ -192,6 +193,14 @@ class RigidFlexGraph:
                 n_cant += 1
             else:
                 u, v = int(b.body_a), int(b.body_b)
+                if u != v and (not self.bodies[u].fixed) and (not self.bodies[v].fixed):
+                    adj[u].add(v)
+                    adj[v].add(u)
+                    edge_set.add((min(u, v), max(u, v)))
+
+        for jt in self.joints:
+            if jt.implicit_coupling:
+                u, v = int(jt.body_a), int(jt.body_b)
                 if u != v and (not self.bodies[u].fixed) and (not self.bodies[v].fixed):
                     adj[u].add(v)
                     adj[v].add(u)
@@ -653,6 +662,8 @@ def build_bristle_worm_graph(
                 backlash_rad=0.0,
                 static_mu_ratio=1.15,
                 pivot_mu=0.50,
+                # Robot crawls along -X (matching SerpWorm wheel fwd = cross(+Z, +Y) = -X and HeightFieldSDF arc_s = -x)
+                fwd_local=(-1.0, 0.0, 0.0),
             )
         )
     g.contact_sites = new_sites
@@ -848,6 +859,7 @@ def build_flexspine_crawler_graph(
                     tau_max=1.8,
                     omega_max=6.0,
                     tau_static_fric=0.02,
+                    implicit_coupling=True,
                 )
             )
             contact_sites.append(
@@ -904,6 +916,20 @@ def build_flexspine_crawler_graph(
                 )
             )
 
+    n_a = len(actuators)
+    id_p = list(range(n_a))
+    id_s = [1.0] * n_a
+    ref_p = [2 * s + (1 - k) for s in range(n_segments) for k in range(2)]
+    ref_s = [1.0] * n_a
+    est_id_p = list(range(7))
+    sym = SymmetryGroupSpec(
+        name=f'Z2_bilateral_flexspine_N{n_segments}',
+        act_perms=[id_p, ref_p],
+        act_signs=[id_s, ref_s],
+        est_perms=[est_id_p, est_id_p],
+        est_signs=[[1.0] * 7, [1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0]],
+    )
+
     return RigidFlexGraph(
         name=f'flexspine_crawler_N{n_segments}',
         bodies=bodies,
@@ -912,6 +938,6 @@ def build_flexspine_crawler_graph(
         joints=joints,
         contact_sites=contact_sites,
         actuators=actuators,
-        symmetry=None,
+        symmetry=sym,
         metadata={'archetype': 'flexspine_crawler', 'n_segments': n_segments},
     )
