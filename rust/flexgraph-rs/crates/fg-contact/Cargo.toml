@@ -1,0 +1,16 @@
+[package]
+name = "fg-contact"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["clarabel-socp"]
+clarabel-socp = ["dep:clarabel"]
+
+[dependencies]
+fg-math.workspace = true
+fg-ir.workspace = true
+fg-sdf.workspace = true
+serde.workspace = true
+clarabel = { workspace = true, optional = true }

@@ -1,0 +1,17 @@
+[package]
+name = "fg-bench"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+fg-math.workspace = true
+fg-ir.workspace = true
+fg-sdf.workspace = true
+fg-contact.workspace = true
+fg-solver.workspace = true
+fg-robots.workspace = true
+rapier3d-f64.workspace = true
+rayon.workspace = true
+serde.workspace = true
+serde_json.workspace = true

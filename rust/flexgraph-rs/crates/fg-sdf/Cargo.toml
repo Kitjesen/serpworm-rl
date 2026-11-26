@@ -1,0 +1,15 @@
+[package]
+name = "fg-sdf"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["parry-mesh"]
+parry-mesh = ["dep:parry3d-f64"]
+
+[dependencies]
+fg-math.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+parry3d-f64 = { workspace = true, optional = true }

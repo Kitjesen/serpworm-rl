@@ -1,0 +1,46 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/fg-math",
+    "crates/fg-ir",
+    "crates/fg-sdf",
+    "crates/fg-contact",
+    "crates/fg-solver",
+    "crates/fg-robots",
+    "crates/fg-ffi",
+    "crates/fg-bench",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["SerpWorm / FlexGraph Research Team"]
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+thiserror = "2.0"
+rayon = "1.10"
+
+# FlexGraph-RS v2 permissive (MIT / Apache-2.0) scientific & robotics ecosystem
+faer = { version = "0.24", default-features = false, features = ["std", "rayon", "sparse", "sparse-linalg"] }
+parry3d-f64 = "0.31"
+clarabel = "0.11"
+urdf-rs = "0.10"
+# Head-to-head benchmark validation in `fg-bench` only (not core solver crates)
+rapier3d-f64 = "0.36"
+
+fg-math = { path = "crates/fg-math" }
+fg-ir = { path = "crates/fg-ir" }
+fg-sdf = { path = "crates/fg-sdf" }
+fg-contact = { path = "crates/fg-contact" }
+fg-solver = { path = "crates/fg-solver" }
+fg-robots = { path = "crates/fg-robots" }
+fg-ffi = { path = "crates/fg-ffi" }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1

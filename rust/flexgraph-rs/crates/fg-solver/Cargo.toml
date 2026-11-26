@@ -1,0 +1,20 @@
+[package]
+name = "fg-solver"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["faer-sparse", "parry-mesh", "clarabel-socp"]
+faer-sparse = ["dep:faer"]
+parry-mesh = ["fg-sdf/parry-mesh"]
+clarabel-socp = ["fg-contact/clarabel-socp"]
+
+[dependencies]
+fg-math.workspace = true
+fg-ir.workspace = true
+fg-sdf = { path = "../fg-sdf", default-features = false }
+fg-contact = { path = "../fg-contact", default-features = false }
+rayon.workspace = true
+serde.workspace = true
+faer = { workspace = true, optional = true }
