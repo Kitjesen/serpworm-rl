@@ -143,7 +143,8 @@ class GPUCore:
         self.strain_jacobian=bool(strain_jacobian)
         self.last_budget=None
         self.wheel_mu=torch.full((batch,1,1),.8,device=self.device,dtype=dtype)
-        raw=np.load(ROOT/'inputs'/f'topology_{count}.npz');self.parameters=json.loads((ROOT/'inputs'/'parameters.json').read_text())
+        inputs_dir=ROOT/'inputs' if (ROOT/'inputs').is_dir() else ROOT.parent/'assets'/'inputs'
+        raw=np.load(inputs_dir/f'topology_{count}.npz');self.parameters=json.loads((inputs_dir/'parameters.json').read_text(encoding='utf-8'))
         self.nodes=self.tensor(raw['strip_nodes'],torch.long);self.edges=self.tensor(raw['edges'],torch.long)
         self.S,self.N=self.nodes.shape;self.E=self.N-1;self.P=2*count;self.D=len(raw['rest'])
         if plate_solver=='segment_lu':

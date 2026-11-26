@@ -16,7 +16,10 @@ ROOT = Path(__file__).resolve().parent
 
 def checks(device):
     torch.set_num_threads(1)
-    spec = importlib.util.spec_from_file_location('numpy_cpg', ROOT/'reference/pilot_cpu_interface/matsuoka.py')
+    ref_path = ROOT/'reference/pilot_cpu_interface/matsuoka.py'
+    if not ref_path.exists():
+        ref_path = ROOT.parent/'archive/reference/pilot_cpu_interface/matsuoka.py'
+    spec = importlib.util.spec_from_file_location('numpy_cpg', ref_path)
     ref = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(ref)
     report = {'device': device, 'checks': {}}

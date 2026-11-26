@@ -22,17 +22,18 @@ single_segment/
 
 ## 与 v5 GPU 模型的关系
 
-这些 URDF 和 STL 用于 CAD 外观、装配检查和历史 SOFA 场景。当前 v5 PPO 动力学使用参数化输入模型：
+这些 URDF 和 STL 用于 CAD 外观、装配检查和历史 SOFA 场景。当前主线 GPU 动力学使用参数化输入模型：
 
 ```text
-snake_wave_gate_v5_20261122/
-├── inputs/topology_5.npz
-├── inputs/parameters.json
-├── gpu_core.py
-└── tensor_env.py
+assets/inputs/
+├── topology_5.npz
+└── parameters.json
+src/serpworm/
+├── physics/gpu_core.py
+└── envs/tensor_env.py
 ```
 
-两条路线的体节数量、隔板、钢片和轮子结构需要保持对应。当前 CAD 网格尚未接入 v5 GPU 碰撞求解器，不能用这个目录替代 v5 的拓扑输入。
+两条路线的体节数量、隔板、钢片和轮子结构需要保持对应。当前 CAD 网格尚未接入 GPU 碰撞求解器，不能用这个目录替代参数化拓扑输入。
 
 ## 查看方式
 
